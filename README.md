@@ -99,6 +99,32 @@ There are certain things developed as a variable, that can be modified according
 - `attachment_block_head_class`: `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
 - `attachment_block_head`: `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
 
+## Error Handling
+Most of the errors during handling the files upload are suppressed. But what we have checked during the add/edit process can be grabbed like below:
+
+```php
+// returns true, if all the attachments are uploaded duly;
+// returns array of errors, if any one of the attachments failed to upload.
+$attachmentInfo = AttachmentsModel::storeAttachments(...);
+if( is_array($attachmentInfo) ) {
+    return redirect()->back()->withErrors($attachmentInfo);
+}
+```
+
+And you can display the errors in blade using the following code:
+
+```html
+@if ($errors->any())
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+```
+
 ## Known Issues (When not to use)
 - **Variable number of Attachments not supported:** If you want to let user add attachments on their choice, and there's no fixed attachments are defined, this repository won't fit
 - **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript based file upload)
@@ -111,4 +137,4 @@ The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
 Project initiated and lead by Mr. Mayeenul Islam Mayeen ([`@mayeenulislam`](https://twitter.com/mayeenulislam)). Ms. Mowshana Farhana Mow implemented the idea. Thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
 
 ----
-<sup>2019 TechnoVista Limited</sup>
+<sup>2019 [TechnoVista Limited](http://technovista.com.bd/)</sup>
