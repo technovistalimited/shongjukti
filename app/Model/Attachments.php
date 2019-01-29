@@ -308,7 +308,7 @@ class Attachments extends Model
             ->where('attachment_type_id', $data['attachment_type_id'])
             ->update($data);
 
-        if( ! empty($existingPath) ) {
+        if( ! empty($existingPath) && ($data['attachment_path'] !== $existingPath) ) {
             self::removeAttachment($existingPath);
         }
     }
