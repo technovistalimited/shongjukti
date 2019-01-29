@@ -23,12 +23,12 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 ### Installation (One time)
 - [ ] Command to symlink the storage in public `php artisan storage:link`
-- [ ] Add `Http/Controllers/AttachmentsController`
-- [ ] Add `AttachmentsController` as an _alias_ in `config/app.php`
-- [ ] Add `Model/Settings/AttachmentTypes`
-- [ ] Add `Model/Attachments`
-- [ ] Add 'Attachment Types' CRUD directory (`attachment-types/`) including (add, edit, form, list) available at `resources/views/settings/`
-- [ ] Add 'Attachment Types' routes in `routes/web.php`
+- [ ] Add `Http/Controllers/AttachmentsController.php`
+- [ ] Add `AttachmentsController` as an _alias_ in `config/app.php`: `'Attachments' => App\Http\Controllers\AttachmentsController::class,`
+- [ ] Add `Model/Settings/AttachmentTypes.php`
+- [ ] Add `Model/Attachments.php`
+- [ ] Add 'Attachment Types' CRUD directory (`attachment-types/`) including (list, add, edit, form) available at `resources/views/settings/`
+- [ ] Add 'Attachment Types' routes in `routes/web.php`:
 
 ```php
 // --------------------
@@ -68,7 +68,7 @@ route::delete('attachment-type/delete/{id}', [
 
 ### Usage (Recurring Tasks)
 
-During usage, change all the `your-scope-key` with your scope key. And don't forget the pass the appropriate `$scope_id` where we mentioned `$scopeId` or `$yourScope->ID` or `$inputs['scope_id']`.
+During usage, change all the `your-scope-key` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$inputs['scope_id']` should be replaced with _your_ `$scope_id`.
 
 - [ ] Register the `scope_key` at the `AttachmentController@attachmentScopes` (hyphenated please)
 - [ ] Parent form: add `enctype="multipart/form-data"` to your parent `<form>` tag
@@ -100,8 +100,9 @@ There are certain things developed as a variable, that can be modified according
 - `attachment_block_head`: `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
 
 ## Known Issues (When not to use)
-- If you want to let user add attachments on their choice, and there's no fixed attachments are defined, this repository won't fit
-- If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
+- **Variable number of Attachments not supported:** If you want to let user add attachments on their choice, and there's no fixed attachments are defined, this repository won't fit
+- **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript based file upload)
+- **JavaScript based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
 
 ## License
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
