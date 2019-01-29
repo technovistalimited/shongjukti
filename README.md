@@ -86,22 +86,22 @@ During usage, change all the `your-scope-key` with your scope key. All the code 
 - [ ] Register the `scope_key` at the `AttachmentController@attachmentScopes` (hyphenated please)
 - [ ] Parent form: add `enctype="multipart/form-data"` to your parent `<form>` tag
 - [ ] `Add()` Method
-    - [ ] Controller: `$attachmentTypes = AttachmentTypesModel::getAttachmentTypesByScopeKey('your-scope-key');`
+    - [ ] Controller: `$attachmentTypes = AttachmentTypes::getAttachmentTypesByScopeKey('your-scope-key');`
     - [ ] Controller: `compact('attachmentTypes')`
     - [ ] Add Mode (Blade): `@include('layouts.attachments')`
     - [ ] Add Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
 - [ ] `Store()` Method
-    - [ ] Controller: `$attachmentInfo = AttachmentsModel::storeAttachments($inputs, 'your-scope-key', $yourScope->ID);`
+    - [ ] Controller: `$attachmentInfo = Attachments::storeAttachments($inputs, 'your-scope-key', $yourScope->ID);`
 - [ ] `Edit()` Method
-    - [ ] Controller: `$attachmentTypes = AttachmentTypesModel::getAttachmentTypesByScopeKey('your-scope-key');`
-    - [ ] Controller: `$attachments = AttachmentsModel::getAttachmentsForEdit('your-scope-key', $scopeId);`
+    - [ ] Controller: `$attachmentTypes = AttachmentTypes::getAttachmentTypesByScopeKey('your-scope-key');`
+    - [ ] Controller: `$attachments = Attachments::getAttachmentsForEdit('your-scope-key', $scopeId);`
     - [ ] Controller: `compact( 'attachmentTypes', 'attachments')`
     - [ ] Edit Mode (Blade): `@include('layouts.attachments')`
     - [ ] Edit Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
 - [ ] `Update()` Method
-    - [ ] Controller: `$attachmentInfo = AttachmentsModel::storeAttachments($inputs, 'your-scope-key', $inputs['scope_id']);`
+    - [ ] Controller: `$attachmentInfo = Attachments::storeAttachments($inputs, 'your-scope-key', $inputs['scope_id']);`
 - [ ] `View()` Method
-    - [ ] Controller: `$attachments = AttachmentsModel::getAttachments('your-scope-key', $scopeId);`
+    - [ ] Controller: `$attachments = Attachments::getAttachments('your-scope-key', $scopeId);`
     - [ ] Controller: `compact('attachments')`
     - [ ] View Mode (Blade): `@include('layouts.attachments')` (If you want a custom view layout, you can include your chosen layout instead of ours)
 
@@ -118,7 +118,7 @@ Most of the errors during handling the files upload are suppressed. But what we 
 ```php
 // returns true, if all the attachments are uploaded duly;
 // returns array of errors, if any one of the attachments failed to upload.
-$attachmentInfo = AttachmentsModel::storeAttachments(...);
+$attachmentInfo = Attachments::storeAttachments(...);
 if( is_array($attachmentInfo) ) {
     return redirect()->back()->withErrors($attachmentInfo);
 }
