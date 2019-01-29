@@ -1,0 +1,12 @@
+{
+  "______COMMENT" : "ATTACHMENTS",
+
+  "Attachments" : "সংযুক্তি",
+  "Add New" : "নতুন যোগ",
+  "Browse..." : "ব্রাউজ করুন",
+  "Provide a label" : "ল্যাবেল লিখুন",
+  "Remove" : "মুছুন",
+  "File size exceeds %smb" : "ফাইলের আকার %s মেগাবাইট-এর কম হতে হবে",
+  "File type not supported" : "ফাইল টাইপ সমর্থিত নয়",
+  "There is no attachment to display." : "দেখানোর মতো কোনো সংযুক্তি নেই।"
+}
