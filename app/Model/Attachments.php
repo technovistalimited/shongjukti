@@ -94,23 +94,23 @@ class Attachments extends Model
                 // NEW ATTACHMENT ----------------------------------------
                 // -------------------------------------------------------
                 if ( isset($_file['attachment_file']) && ! empty($_file['attachment_file']) ) {
+
+                    // Proceed with the default accepted files.
+                    $_extensions = AttachmentsController::$defaultExtensions;
+
                     if ( ! empty($_type_id) ) {
 
                         // Accepted extensions per attachment type.
-                        $_extensions = AttachmentTypes::getAcceptedExtensionsByType($_type_id);
+                        $_type_extensions = AttachmentTypes::getAcceptedExtensionsByType($_type_id);
 
-                        // Get mime types from extensions.
-                        $_accepted_mime_types = AttachmentsController::mimeTypesFromExtensions($_extensions->accepted_extensions);
-
-                    } else {
-
-                        // Proceed with the default accepted files.
-                        $_extensions = AttachmentsController::$defaultExtensions;
-
-                        // Get mime types from extensions.
-                        $_accepted_mime_types = AttachmentsController::mimeTypesFromExtensions($_extensions);
+                        if( ! empty($_type_extensions->accepted_extensions) ) {
+                            $_extensions = $_type_extensions->accepted_extensions;
+                        }
 
                     }
+
+                    // Get mime types from extensions.
+                    $_accepted_mime_types = AttachmentsController::mimeTypesFromExtensions($_extensions);
 
                     // Get the mime type of the uploaded file.
                     $_mime_type = $_file['attachment_file']->getMimeType();
@@ -125,6 +125,7 @@ class Attachments extends Model
 
                     // Upload the file and return the file path.
                     $_path = self::uploadAttachment($_file['attachment_file'], $scopeKey, $scopeId);
+
                 }
 
                 // -------------------------------------------------------
