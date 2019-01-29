@@ -19,6 +19,19 @@ The repository was developed as a sub-project of an existing project, with a mis
 - Accepted file types can be defined for each of the type of attachment
 - Translation-ready (English and Bengali are defined by default)
 
+## Screenshots
+### Attachment Types (Add) Screen
+![attachment-types-add](https://user-images.githubusercontent.com/4551598/51890676-daa11f80-23c6-11e9-8ab7-a58f04d56b12.png)
+
+### Attachments (Add) Screen
+![attachments-add](https://user-images.githubusercontent.com/4551598/51890527-826a1d80-23c6-11e9-8a64-8b2f411a2a4e.png)
+
+### More Screenshots
+- [Attachment Types (List)](https://user-images.githubusercontent.com/4551598/51890746-15a35300-23c7-11e9-9ea2-cf3174ce45c4.png)
+- [Attachment Types (Edit)](https://user-images.githubusercontent.com/4551598/51890807-47b4b500-23c7-11e9-8d75-11d2892423c2.png)
+- [Attachments (Edit)](https://user-images.githubusercontent.com/4551598/51890831-5ac78500-23c7-11e9-9e53-4d2955cb9f3b.png)
+- [Attachments (View)](https://user-images.githubusercontent.com/4551598/51890843-6915a100-23c7-11e9-890a-f1fb1bef6390.png)
+
 ## Implementation Checklist
 
 ### Installation (One time)
