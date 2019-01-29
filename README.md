@@ -6,7 +6,7 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 ## Requirements
 - Laravel 5.5+ (Tested up to 5.7.x)
-- Bootstrap 3.3.7 CSS
+- Bootstrap 3.3.7 styles (grids, panels, forms, alerts, buttons)
 - jQuery
 
 ## Features
