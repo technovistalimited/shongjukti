@@ -99,7 +99,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             <div class="{{ $attachmentType->is_label_accepted ? 'small' : 'form-control-static' }}">
                                 {{ $attachmentType->name }}
                                 @if( ! $attachmentType->is_required )
-                                    <div class="label label-default">optional</div>
+                                    <div class="label label-default">{{ strtolower(__('Optional')) }}</div>
                                 @endif
                             </div>
 
@@ -148,7 +148,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             @if( $_existing )
                                 <?php $_stripped_file_name = '...' . substr(basename($_existing), -15); ?>
 
-                                <a href="{{ $_existing }}" class="btn btn-xs btn-default btn-view {{$_mt_class}}" target="_blank" rel="noopener">
+                                <a href="{{ $_existing }}" class="btn btn-sm btn-default btn-view {{$_mt_class}}" target="_blank" rel="noopener">
                                     <i class="icon-file-empty text-muted mr-5" aria-hidden="true"></i>
                                     {!! sprintf( __('<strong>View</strong> <span class="text-muted hidden-xs">%s</span>'), $_stripped_file_name) !!}
 
@@ -163,7 +163,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                                     <input type="hidden" name="attachments[{{$_counter}}][is_deleted]" class="attachment-is-deleted" value="0">
                                 </a>
 
-                                <button type="button" class="btn btn-xs btn-danger btn-file-remove {{$_mt_class}}">
+                                <button type="button" class="btn btn-sm btn-danger btn-file-remove {{$_mt_class}}">
                                     {{ __('Remove') }}
                                 </button>
                             @endif
@@ -179,7 +179,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             $_hidden_class = isset($attachments) && !empty($attachments[$attachmentType->id]['path']) ? 'hide' : '';
                             ?>
 
-                            <div class="btn btn-default btn-file {{ $_hidden_class }} {{$_mt_class}}" tabindex="-1">
+                            <div class="btn btn-sm btn-default btn-file {{ $_hidden_class }} {{$_mt_class}}" tabindex="-1">
                                 <span class="attachment-browse-label">{{ $_default_browse_text }}</span>
                                 <?php
                                 /**
@@ -258,7 +258,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             <div class="{{ empty($attachment->attachment_label) ? 'form-control-static' : 'small' }}">
                                 {{ $attachment->name }}
                                 @if( ! $attachment->is_required )
-                                    <div class="label label-default">optional</div>
+                                    <div class="label label-default">{{ strtolower(__('Optional')) }}</div>
                                 @endif
                             </div>
                             @if( !empty($attachment->attachment_label) )

@@ -33,7 +33,7 @@ class AttachmentsController extends Controller
      *
      * Scopes where the attachment will be applicable.
      *
-     * Before defining new scope ID, make sure the it's unique.
+     * BEFORE DEFINING NEW SCOPE ID, MAKE SURE THE IT'S UNIQUE.
      *
      * @return array Scopes of attachments.
      * --------------------------------------------------------------------------
@@ -41,8 +41,8 @@ class AttachmentsController extends Controller
     public function attachmentScopes()
     {
         return [
-            'training-course-app' => __('Training / Course Application'),
-            'demo-application'    => __('Demo Application')
+            // 'training-course-app' => __('Training / Course Application'),
+            // 'demo-application'    => __('Demo Application')
         ];
     }
 
