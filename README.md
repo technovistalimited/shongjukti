@@ -16,7 +16,7 @@ The repository was developed as a sub-project of an existing project, with a mis
 - Mandatory and optional attachments can be defined
 - Maximum upload size can be defined globally
 - Default accepted file types can be defined globally
-- Accepted file types can be defined for each of the type of attachment
+- Accepted file types can be defined for each of the types of attachment
 - Translation-ready (English and Bengali are defined by default)
 
 ## Screenshots
@@ -36,10 +36,9 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 ### Installation (One time)
 - [ ] Command to symlink the storage in public `php artisan storage:link`
-- [ ] Add `Http/Controllers/AttachmentsController.php`
-- [ ] Add `AttachmentsController` as an _alias_ in `config/app.php`: `'Attachments' => App\Http\Controllers\AttachmentsController::class,`
-- [ ] Add `Model/Settings/AttachmentTypes.php`
-- [ ] Add `Model/Attachments.php`
+- [ ] Add `Http/Controllers/AttachmentController.php`
+- [ ] Add `Model/Settings/AttachmentType.php`
+- [ ] Add `Model/Attachment.php`
 - [ ] Add 'Attachment Types' CRUD directory (`attachment-types/`) including (list, add, edit, form) available at `resources/views/settings/`
 - [ ] Add 'Attachment Types' routes in `routes/web.php`:
 
@@ -47,25 +46,25 @@ The repository was developed as a sub-project of an existing project, with a mis
 // --------------------
 // Attachment Types
 // --------------------
-route::get('attachment-types/{scope_key?}', 'AttachmentsController@attachmentTypesIndex')->middleware('auth');
+route::get('attachment-types/{scope_key?}', 'AttachmentController@attachmentTypesIndex')->middleware('auth');
 
-route::get('attachment-type/add', 'AttachmentsController@attachmentTypesAdd')->middleware('auth');
+route::get('attachment-type/add', 'AttachmentController@attachmentTypesAdd')->middleware('auth');
 
 route::post('attachment-type/store', [
     'as'   => 'attachmenttype.store',
-    'uses' => 'AttachmentsController@attachmentTypesStore'
+    'uses' => 'AttachmentController@attachmentTypesStore'
 ])->middleware('auth');
 
-route::get('attachment-type/edit/{id?}', 'AttachmentsController@attachmentTypesEdit')->middleware('auth');
+route::get('attachment-type/edit/{id?}', 'AttachmentController@attachmentTypesEdit')->middleware('auth');
 
 route::put('attachment-type/update', [
     'as'   => 'attachmenttype.update',
-    'uses' => 'AttachmentsController@attachmentTypesUpdate'
+    'uses' => 'AttachmentController@attachmentTypesUpdate'
 ])->middleware('auth');
 
 route::delete('attachment-type/delete/{id}', [
     'as'   => 'attachmenttype.delete',
-    'uses' => 'AttachmentsController@attachmentTypesDelete'
+    'uses' => 'AttachmentController@attachmentTypesDelete'
 ])->middleware('auth');
 ```
 
@@ -77,7 +76,6 @@ route::delete('attachment-type/delete/{id}', [
 - [ ] place `_attachments.scss` in your repository
 - [ ] include `_attachments.scss` to your master SCSS and compile
 - [ ] place `_attachments.js` in your repository
-- [ ] add simple JS in back end for conditional fields in attachment types (UX)
 
 ### Usage (Recurring Tasks)
 
@@ -86,22 +84,22 @@ During usage, change all the `your-scope-key` with your scope key. All the code 
 - [ ] Register the `scope_key` at the `AttachmentController@attachmentScopes` (hyphenated please)
 - [ ] Parent form: add `enctype="multipart/form-data"` to your parent `<form>` tag
 - [ ] `Add()` Method
-    - [ ] Controller: `$attachmentTypes = AttachmentTypes::getAttachmentTypesByScopeKey('your-scope-key');`
+    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('your-scope-key');`
     - [ ] Controller: `compact('attachmentTypes')`
     - [ ] Add Mode (Blade): `@include('layouts.attachments')`
     - [ ] Add Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
 - [ ] `Store()` Method
-    - [ ] Controller: `$attachmentInfo = Attachments::storeAttachments($inputs, 'your-scope-key', $yourScope->ID);`
+    - [ ] Controller: `$attachmentInfo = Attachment::storeAttachments($inputs, 'your-scope-key', $yourScope->ID);`
 - [ ] `Edit()` Method
-    - [ ] Controller: `$attachmentTypes = AttachmentTypes::getAttachmentTypesByScopeKey('your-scope-key');`
-    - [ ] Controller: `$attachments = Attachments::getAttachmentsForEdit('your-scope-key', $scopeId);`
+    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('your-scope-key');`
+    - [ ] Controller: `$attachments = Attachment::getAttachmentsForEdit('your-scope-key', $scopeId);`
     - [ ] Controller: `compact( 'attachmentTypes', 'attachments')`
     - [ ] Edit Mode (Blade): `@include('layouts.attachments')`
     - [ ] Edit Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
 - [ ] `Update()` Method
-    - [ ] Controller: `$attachmentInfo = Attachments::storeAttachments($inputs, 'your-scope-key', $inputs['scope_id']);`
+    - [ ] Controller: `$attachmentInfo = Attachment::storeAttachments($inputs, 'your-scope-key', $inputs['scope_id']);`
 - [ ] `View()` Method
-    - [ ] Controller: `$attachments = Attachments::getAttachments('your-scope-key', $scopeId);`
+    - [ ] Controller: `$attachments = Attachment::getAttachments('your-scope-key', $scopeId);`
     - [ ] Controller: `compact('attachments')`
     - [ ] View Mode (Blade): `@include('layouts.attachments')` (If you want a custom view layout, you can include your chosen layout instead of ours)
 
@@ -118,7 +116,7 @@ Most of the errors during handling the files upload are suppressed. But what we 
 ```php
 // returns true, if all the attachments are uploaded duly;
 // returns array of errors, if any one of the attachments failed to upload.
-$attachmentInfo = Attachments::storeAttachments(...);
+$attachmentInfo = Attachment::storeAttachments(...);
 if( is_array($attachmentInfo) ) {
     return redirect()->back()->withErrors($attachmentInfo);
 }
@@ -138,10 +136,10 @@ And you can display the errors in blade using the following code:
 @endif
 ```
 
-## Known Issues (When not to use)
-- **Variable number of Attachments not supported:** If you want to let user add attachments on their choice, and there's no fixed attachments are defined, this repository won't fit
-- **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript based file upload)
-- **JavaScript based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
+## Known Issues/When not to use
+- **Variable number of Attachments not supported:** If you want to let the user add attachments on their choice, and there are no fixed attachments are defined, this repository won't fit
+- **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
+- **JavaScript-based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
 
 ## License
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).

@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use DB;
 use Session;
 use Validator;
+use App\Model\Attachment;
 use Illuminate\Http\Request;
-use App\Model\Attachments;
 use Illuminate\Support\Facades\Auth;
-use App\Model\Settings\AttachmentTypes;
+use App\Model\Settings\AttachmentType;
 
-class AttachmentsController extends Controller
+class AttachmentController extends Controller
 {
     /**
      * Maximum Upload Size.
@@ -1132,7 +1132,7 @@ class AttachmentsController extends Controller
         $itemsPerPage = 20;
 
         // Fetch all, not just active; but paginate to $itemsPerPage max.
-        $attachmentTypes = AttachmentTypes::getAttachmentTypesByScopeKey($scopeKey, $itemsPerPage, true, false);
+        $attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey($scopeKey, $itemsPerPage, true, false);
 
         return view('settings.attachment-types.list', compact('attachmentScopes', 'attachmentTypes', 'scopeKey', 'itemsPerPage'));
     }
@@ -1196,7 +1196,7 @@ class AttachmentsController extends Controller
                 // Starting database transaction
                 DB::beginTransaction();
 
-                    $attachmentType = AttachmentTypes::create($inputs);
+                    $attachmentType = AttachmentType::create($inputs);
 
                 // Commit all transaction
                 DB::commit();
@@ -1233,7 +1233,7 @@ class AttachmentsController extends Controller
      */
     public function attachmentTypesEdit($attachmentTypeId) {
         $attachmentScopes = self::attachmentScopes();
-        $attachmentType   = AttachmentTypes::findOrFail($attachmentTypeId);
+        $attachmentType   = AttachmentType::findOrFail($attachmentTypeId);
 
         return view('settings.attachment-types.edit', compact('attachmentScopes', 'attachmentType'));
     }
@@ -1272,7 +1272,7 @@ class AttachmentsController extends Controller
                 // Starting database transaction
                 DB::beginTransaction();
 
-                    $attachmentType = AttachmentTypes::findorfail($inputs['id']);
+                    $attachmentType = AttachmentType::findorfail($inputs['id']);
 
                     $inputs['updated_by'] = Auth::id();
 
@@ -1317,12 +1317,12 @@ class AttachmentsController extends Controller
      * --------------------------------------------------------------------------
      */
     public function attachmentTypesDelete($attachmentTypeId) {
-        $used = Attachments::where('attachment_type_id', $attachmentTypeId)->first();
+        $used = Attachment::where('attachment_type_id', $attachmentTypeId)->first();
         if( ! empty($used) ) {
             return redirect()->back()->withErrors('dangerMsg', 'Cannot delete. The type is in use.');
         }
 
-        $attachmentType = AttachmentTypes::find($attachmentTypeId);
+        $attachmentType = AttachmentType::find($attachmentTypeId);
         $attachmentType->delete();
 
         return redirect()->back()->with('success', 'Deleted Successfully');

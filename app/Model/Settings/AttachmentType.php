@@ -6,7 +6,7 @@ use DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 
-class AttachmentTypes extends Model
+class AttachmentType extends Model
 {
     protected $fillable = [
         'scope_key',

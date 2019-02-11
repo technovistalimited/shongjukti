@@ -16,16 +16,17 @@
     $breadcrumbs =
     [
         '#' => __('Settings'),
-        action('AttachmentsController@attachmentTypesIndex') => __('Attachment Types')
+        action('AttachmentController@attachmentTypesIndex') => __('Attachment Types')
     ];
+
     if( ! empty($scopeKey) ) :
-        $breadcrumbs[action('AttachmentsController@attachmentTypesIndex', array('scope_key' => $scopeKey))] = $attachmentScopes[$scopeKey];
+        $breadcrumbs[action('AttachmentController@attachmentTypesIndex', array('scope_key' => $scopeKey))] = $attachmentScopes[$scopeKey];
     endif;
 @endphp
 
 @section('breadcrumb_right')
     <li>
-        <a href="{{ action('AttachmentsController@attachmentTypesAdd') }}">
+        <a href="{{ action('AttachmentController@attachmentTypesAdd') }}">
             <i class="icon-add-to-list mr-5" aria-hidden="true"></i> {{ __('Add New') }}
         </a>
     </li>
@@ -109,7 +110,7 @@
                         @foreach( $attachmentTypes as $attachmentType )
                             <tr class="{{ $attachmentType->is_active ? '' : 'text-muted' }}">
                                 <td>
-                                    <a class="{{ $attachmentType->is_active ? '' : 'text-muted' }}" href="{{ action('AttachmentsController@attachmentTypesEdit', ['type_id' => $attachmentType->id]) }}">
+                                    <a class="{{ $attachmentType->is_active ? '' : 'text-muted' }}" href="{{ action('AttachmentController@attachmentTypesEdit', ['type_id' => $attachmentType->id]) }}">
                                         <strong>{{ $attachmentType->name }}</strong>
                                     </a>
                                     @if( ! $attachmentType->is_required )
@@ -118,7 +119,7 @@
                                 </td>
 
                                 <td>
-                                    {{ empty($attachmentType->weight) ? '-' : $attachmentType->weight }}
+                                    {{ empty($attachmentType->weight) ? '-' : translateString($attachmentType->weight) }}
                                 </td>
 
                                 <td>
@@ -137,7 +138,7 @@
                                 <td>
                                     <form action="{{ route('attachmenttype.delete', $attachmentType->id) }}" method="POST">
                                         <div class="btn-group">
-                                            <a href="{{ action('AttachmentsController@attachmentTypesEdit', ['type_id' => $attachmentType->id]) }}" class="btn btn-primary btn-xs">{{ __('Edit') }}</a>
+                                            <a href="{{ action('AttachmentController@attachmentTypesEdit', ['type_id' => $attachmentType->id]) }}" class="btn btn-primary btn-xs">{{ __('Edit') }}</a>
 
                                             <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-xs">{{ __('Delete') }}</button>
                                         </div>

@@ -5,10 +5,10 @@ namespace App\Model;
 use DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Settings\AttachmentTypes;
-use App\Http\Controllers\AttachmentsController;
+use App\Model\Settings\AttachmentType;
+use App\Http\Controllers\AttachmentController;
 
-class Attachments extends Model
+class Attachment extends Model
 {
     protected $fillable = [
         'scope_key',
@@ -96,12 +96,12 @@ class Attachments extends Model
                 if ( isset($_file['attachment_file']) && ! empty($_file['attachment_file']) ) {
 
                     // Proceed with the default accepted files.
-                    $_extensions = AttachmentsController::$defaultExtensions;
+                    $_extensions = AttachmentController::$defaultExtensions;
 
                     if ( ! empty($_type_id) ) {
 
                         // Accepted extensions per attachment type.
-                        $_type_extensions = AttachmentTypes::getAcceptedExtensionsByType($_type_id);
+                        $_type_extensions = AttachmentType::getAcceptedExtensionsByType($_type_id);
 
                         if( ! empty($_type_extensions->accepted_extensions) ) {
                             $_extensions = $_type_extensions->accepted_extensions;
@@ -110,7 +110,7 @@ class Attachments extends Model
                     }
 
                     // Get mime types from extensions.
-                    $_accepted_mime_types = AttachmentsController::mimeTypesFromExtensions($_extensions);
+                    $_accepted_mime_types = AttachmentController::mimeTypesFromExtensions($_extensions);
 
                     // Get the mime type of the uploaded file.
                     $_mime_type = $_file['attachment_file']->getMimeType();

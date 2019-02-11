@@ -20,20 +20,20 @@
     $breadcrumbs =
     [
         '#' => __('Settings'),
-        action('AttachmentsController@attachmentTypesIndex') => __('Attachment Types'),
-        action('AttachmentsController@attachmentTypesEdit')   => __('Edit')
+        action('AttachmentController@attachmentTypesIndex') => __('Attachment Types'),
+        action('AttachmentController@attachmentTypesEdit')   => __('Edit')
     ];
 @endphp
 
 @section('breadcrumb_right')
     <li>
-        <a href="{{ action('AttachmentsController@attachmentTypesIndex') }}">
+        <a href="{{ action('AttachmentController@attachmentTypesIndex') }}">
             <i class="icon-list-unordered mr-5" aria-hidden="true"></i> {{ __('List') }}
         </a>
     </li>
 
     <li>
-        <a href="{{ action('AttachmentsController@attachmentTypesAdd') }}">
+        <a href="{{ action('AttachmentController@attachmentTypesAdd') }}">
             <i class="icon-add-to-list mr-5" aria-hidden="true"></i> {{ __('Add New') }}
         </a>
     </li>

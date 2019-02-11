@@ -19,8 +19,8 @@
 // VARIABLES.
 // Necessary variables for attachments.
 // ------------------------------------
-$_maximum_upload_size = Attachments::$uploadMaxSize;
-$_max_size_in_mb      = round(Attachments::bytesToMb($_maximum_upload_size), 2, PHP_ROUND_HALF_UP);
+$_maximum_upload_size = \App\Http\Controllers\AttachmentController::$uploadMaxSize;
+$_max_size_in_mb      = round(\App\Http\Controllers\AttachmentController::bytesToMb($_maximum_upload_size), 2, PHP_ROUND_HALF_UP);
 $_default_browse_text = __('Browse...');
 
 if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
@@ -139,8 +139,8 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                         <div class="attachment-file-group {{ $attachmentType->is_required ? 'file-required' : '' }}">
                             <?php
                             // if not mentioned, apply the default file types.
-                            $_accepted_extns  = !empty($attachmentType->accepted_extensions) ? $attachmentType->accepted_extensions : Attachments::$defaultExtensions;
-                            $_mime_type_array = Attachments::mimeTypesFromExtensions($_accepted_extns);
+                            $_accepted_extns  = !empty($attachmentType->accepted_extensions) ? $attachmentType->accepted_extensions : \App\Http\Controllers\AttachmentController::$defaultExtensions;
+                            $_mime_type_array = \App\Http\Controllers\AttachmentController::mimeTypesFromExtensions($_accepted_extns);
                             $_existing        = isset($attachments) && !empty($attachments[$attachmentType->id]['path']) ? $attachments[$attachmentType->id]['path'] : false;
                             $_mt_class        = $attachmentType->is_label_accepted ? 'mt-20' : '';
                             ?>
