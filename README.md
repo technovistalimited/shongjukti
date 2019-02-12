@@ -35,7 +35,6 @@ The repository was developed as a sub-project of an existing project, with a mis
 ## Implementation Checklist
 
 ### Installation (One time)
-- [ ] Command to symlink the storage in public `php artisan storage:link`
 - [ ] Add `Http/Controllers/AttachmentController.php`
 - [ ] Add `Model/Settings/AttachmentType.php`
 - [ ] Add `Model/Attachment.php`
@@ -140,6 +139,11 @@ And you can display the errors in blade using the following code:
 - **Variable number of Attachments not supported:** If you want to let the user add attachments on their choice, and there are no fixed attachments are defined, this repository won't fit
 - **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
 - **JavaScript-based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
+
+## Roadmap
+- Facilitate to employ multiple segments in the same scope to accept segmented attachments
+- Make it more robust to use like a Laravel package
+- If a Laravel package been developed, publish it to packagist.org
 
 ## License
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
