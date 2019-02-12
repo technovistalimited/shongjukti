@@ -35,52 +35,52 @@ The repository was developed as a sub-project of an existing project, with a mis
 ## Implementation Checklist
 
 ### Installation (One time)
-- [ ] Add `Http/Controllers/AttachmentController.php`
-- [ ] Add `Model/Settings/AttachmentType.php`
-- [ ] Add `Model/Attachment.php`
-- [ ] Add 'Attachment Types' CRUD directory (`attachment-types/`) including (list, add, edit, form) available at `resources/views/settings/`
-- [ ] Add 'Attachment Types' routes in `routes/web.php` (available at the same path in this repository)
-- [ ] Copy the migration files in `database/migrations/`
+- [ ] **01:** Add `Http/Controllers/AttachmentController.php`
+- [ ] **02:** Add `Model/Settings/AttachmentType.php`
+- [ ] **03:** Add `Model/Attachment.php`
+- [ ] **04:** Add 'Attachment Types' CRUD directory (`attachment-types/`) including (list, add, edit, form) available at `resources/views/settings/`
+- [ ] **05:** Add 'Attachment Types' routes in `routes/web.php` (available at the same path in this repository)
+- [ ] **06:** Copy the migration files in `database/migrations/`
 	- `2018_12_31_162545_create_attachment_types_table.php`
 	- `2018_12_31_162935_create_attachments_table.php`
-- [ ] Run command: `php artisan migrate`
-- [ ] place `attachments.blade.php` in `views/layouts/`
-- [ ] place `_attachments.scss` in your repository
-- [ ] include `_attachments.scss` to your master SCSS and compile
-- [ ] place `_attachments.js` in your repository
+- [ ] **07:** Run command: `php artisan migrate`
+- [ ] **08:** place `attachments.blade.php` in `views/layouts/`
+- [ ] **09:** place `_attachments.scss` in your repository
+    - include `_attachments.scss` to your master SCSS and compile (if you are using .css, simply copy the code from the .scss in your .css file)
+- [ ] **10:** place `_attachments.js` in your repository
 
 ### Usage (Recurring Tasks)
 
 During usage, change all the `your-scope-key` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$inputs['scope_id']` should be replaced with _your_ `$scope_id`.
 
-- [ ] Register the `scope_key` at the `AttachmentController@attachmentScopes` (hyphenated please)
-- [ ] Parent form: add `enctype="multipart/form-data"` to your parent `<form>` tag
-- [ ] `Add()` Method
+- [ ] **Register:** Register the `scope_key` at the `AttachmentController@attachmentScopes` (hyphenated please)
+- [ ] **Parent form:** add `enctype="multipart/form-data"` to your parent `<form>` tag
+- [ ] **`Create()` Method** - _responsible for displaying the add page_
     - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('your-scope-key');`
     - [ ] Controller: `compact('attachmentTypes')`
     - [ ] Add Mode (Blade): `@include('layouts.attachments')`
     - [ ] Add Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
-- [ ] `Store()` Method
+- [ ] **`Store()` Method** - _responsible for storing new data_
     - [ ] Controller: `$attachmentInfo = Attachment::storeAttachments($inputs, 'your-scope-key', $yourScope->ID);`
-- [ ] `Edit()` Method
+- [ ] **`Edit()` Method** - _responsible for displaying the edit page_
     - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('your-scope-key');`
     - [ ] Controller: `$attachments = Attachment::getAttachmentsForEdit('your-scope-key', $scopeId);`
     - [ ] Controller: `compact( 'attachmentTypes', 'attachments')`
     - [ ] Edit Mode (Blade): `@include('layouts.attachments')`
     - [ ] Edit Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
-- [ ] `Update()` Method
+- [ ] **`Update()` Method** - _responsible for storing edited data_
     - [ ] Controller: `$attachmentInfo = Attachment::storeAttachments($inputs, 'your-scope-key', $inputs['scope_id']);`
-- [ ] `View()` Method
+- [ ] **`Show()` Method** - _responsible for displaying the view page_
     - [ ] Controller: `$attachments = Attachment::getAttachments('your-scope-key', $scopeId);`
     - [ ] Controller: `compact('attachments')`
     - [ ] View Mode (Blade): `@include('layouts.attachments')` (If you want a custom view layout, you can include your chosen layout instead of ours)
 
 ## Pluggable portions (Things can be modified)
 There are certain things developed as a variable, that can be modified according to the necessity:
-- `$uploadMaxSize`: Maximum Upload Size. Default: 5mb.
-- `$defaultExtensions`: Default accepted file extensions. Default: jpg, gif, png, pdf.
-- `attachment_block_head_class`: `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
-- `attachment_block_head`: `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
+- **`$uploadMaxSize`:** Maximum Upload Size. Default: 5mb.
+- **`$defaultExtensions`:** Default accepted file extensions. Default: jpg, gif, png, pdf.
+- **`attachment_block_head_class`:** `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
+- **`attachment_block_head`:** `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
 
 ## Error Handling
 Most of the errors during handling the files upload are suppressed. But what we have checked during the add/edit process can be grabbed like below:
@@ -116,7 +116,7 @@ And you can display the errors in blade using the following code:
 ## Roadmap
 - Facilitate to employ multiple segments in the same scope to accept segmented attachments
 - Make it more robust to use like a Laravel package
-- If a Laravel package been developed, publish it to packagist.org
+- If a Laravel package is been developed, publish it to packagist.org
 
 ## License
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
