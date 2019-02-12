@@ -37,25 +37,21 @@ class Attachment extends Model
         $_parent = null === $scopeKey ? date('Y') : $scopeKey; // if not scope key, year
         $_child  = null === $scopeId ? date('m') : $scopeId; // if not scope id, month
 
-        $_public_path = "public/attachments/{$_parent}/{$_child}";
+        $_attachment_path = "attachments/{$_parent}/{$_child}";
+        $_public_path = public_path($_attachment_path);
 
         // Generate filename to avoid conflict. Original filename is for the file extension.
         $_filename = time() . '-' . $file->getclientoriginalname();
         // If still, same file exists, prepend '1' to the file name.
-        if( file_exists(public_path( str_replace('public/', 'storage/', $_public_path) .'/'. $_filename )) ) {
+        if( file_exists( "{$_public_path}/{$_filename}" ) ) {
             $_filename = '1'. $_filename;
         }
 
-        // save to /storage/app/public/attachments/scope/id/ as the new $_filename
-        $_file_path = $file->storeAs($_public_path, $_filename);
+        // save to /public/attachments/scope/id/ as the new $_filename
+        $file->move($_public_path, $_filename);
 
-        // Replace 'public' path with 'storage' path;
-        // prepend slash to facilitate the base URL.
-        //
-        // Bug fixed:
-        // Unwanted slashes are incorporated to avoid renaming
-        // file name instead of directory.
-        $_new_path = str_replace('public/', '/storage/', $_file_path);
+        // Prepend slash to facilitate the base URL.
+        $_new_path = "/{$_attachment_path}/{$_filename}";
 
         return $_new_path;
     }
@@ -354,7 +350,7 @@ class Attachment extends Model
     public static function removeAttachment($existingPath)
     {
         // Stripping out the leading slash to use with public_path().
-        $_modified_path = str_replace('/storage', 'storage', $existingPath);
+        $_modified_path = str_replace('/attachments', 'attachments', $existingPath);
         if( file_exists($_modified_path) ) {
             return unlink( public_path($_modified_path) );
         }
