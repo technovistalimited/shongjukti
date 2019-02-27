@@ -164,7 +164,7 @@
                         <div class="row text-muted">
                             <div class="col-sm-6">
                                 <div class="form-control-static small">
-                                    {{ sprintf( __('Showing %s out of %s'), $attachmentTypes->count(), $attachmentTypes->total() ) }}
+                                     {{ sprintf( __('Showing %1$s out of %2$s'), translateString($attachmentTypes->count()), translateString($attachmentTypes->total()) ) }}
                                 </div>
                             </div>
                             <div class="col-sm-6 text-right">
