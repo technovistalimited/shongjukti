@@ -44,7 +44,7 @@
   "Yes" : "হ্যাঁ",
   "No" : "না",
   "Delete" : "মুছুন",
-  "Showing %s out of %s" : "%s-এর মধ্যে %sটি দেখাচ্ছে",
+  "Showing %1$s out of %2$s" : "%2$s-এর মধ্যে %1$sটি দেখাচ্ছে",
   "Page 1" : "পাতা ১",
   "No data available in this scope" : "এই প্রয়োগক্ষেত্রে কোনো তথ্য নেই",
   "Please select a Scope to manage its attachments" : "একটি প্রয়োগক্ষেত্র বাছাই করে তার সংযুক্তিসমূহ ম্যানেজ করুন"
