@@ -1,0 +1,21 @@
+{
+  "name"       : "technovistalimited/shongjukti",
+  "description": "Reusable component for attachments in Laravel-based web application.",
+  "keywords"   : ["laravel", "attachments", "shongjukti"],
+  "license"    : "GPL-2.0+",
+  "authors"    : [
+    {
+      "name"    : "Mayeenul Islam",
+      "email"   : "wz.islam@gmail.com",
+      "homepage": "https://nanodesignsbd.com",
+      "role"    : "Lead Developer"
+    },
+    {
+      "name"    : "Mowshana Farhana Mow",
+      "email"   : "mow.cse93@gmail.com",
+      "role"    : "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require"          : {}
+}

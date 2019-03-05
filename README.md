@@ -1,23 +1,25 @@
-# Laravel Attachments for TechnoVista Limited
+# Shongjukti (সংযুক্তি)
 
-A reusable component for attachments in Laravel-based web application. It's kind of static, and **not developed** in 100% modular concept.
+A reusable component for managing attachments in Laravel-based web application.
 
-The repository was developed as a sub-project of an existing project, with a mission to re-use this code with less effort wherever necessary. It will work like a plug&play module when implemented.
+The repository was developed as a sub-project of an existing project, with a mission to re-use this code with less effort wherever necessary.
 
 ## Requirements
-- Laravel 5.5+ (Tested up to 5.7.x)
+- Laravel 5.5+ (Tested up to 5.8.x)
 - Bootstrap 3.3.7 styles (grids, panels, forms, alerts, buttons)
 - jQuery
 
 ## Features
-- Defined attachments can be managed
+- _Defined_ attachments can be managed
 - Attachments can be defined for any types of scopes
 - Custom label can be accepted where necessary
-- Mandatory and optional attachments can be defined
-- Maximum upload size can be defined globally
-- Default accepted file types can be defined globally
+- Mandatory and optional attachments can be defined and managed accordingly
+- Maximum upload size [per file] can be defined globally
+- Accepted file types can be managed globally
 - Accepted file types can be defined for each of the types of attachment
 - Translation-ready (English and Bengali are defined by default)
+
+Features that _not_ present can be found below, under "Known Issues" section.
 
 ## Screenshots
 ### Attachment Types (Add) Screen
@@ -32,53 +34,126 @@ The repository was developed as a sub-project of an existing project, with a mis
 - [Attachments (Edit)](https://user-images.githubusercontent.com/4551598/51890831-5ac78500-23c7-11e9-9e53-4d2955cb9f3b.png)
 - [Attachments (View)](https://user-images.githubusercontent.com/4551598/51890843-6915a100-23c7-11e9-890a-f1fb1bef6390.png)
 
-## Implementation Checklist
+## Installation
 
-### Installation (One time)
-- [ ] **01:** Add `Http/Controllers/AttachmentController.php`
-- [ ] **02:** Add `Model/Settings/AttachmentType.php`
-- [ ] **03:** Add `Model/Attachment.php`
-- [ ] **04:** Add 'Attachment Types' CRUD directory (`attachment-types/`) including (list, add, edit, form) available at `resources/views/settings/`
-- [ ] **05:** Add 'Attachment Types' routes in `routes/web.php` (available at the same path in this repository)
-- [ ] **06:** Copy the migration files in `database/migrations/`
-	- `2018_12_31_162545_create_attachment_types_table.php`
-	- `2018_12_31_162935_create_attachments_table.php`
-- [ ] **07:** Run command: `php artisan migrate`
-- [ ] **08:** place `attachments.blade.php` in `views/layouts/`
-- [ ] **09:** place `_attachments.scss` in your repository
-    - include `_attachments.scss` to your master SCSS and compile (if you are using .css, simply copy the code from the .scss in your .css file)
-- [ ] **10:** place `_attachments.js` in your repository
+The package is **NOT AVAILABLE in Packagist** yet, hence you have to download it from this repository.<br>
+[<kbd>**DOWNLOAD v0.1.0**</kbd>](https://github.com/technovistalimited/shongjukti/releases/tag/v0.1.0)
 
-### Usage (Recurring Tasks)
+#### Step 1: Put the package in place
+- [ ] Create a directory in your app root with the name `packages`.
+- [ ] Create another directory under `packages` named `technovistalimited`. (vendor name)
+- [ ] Download the latest release, extract the archive and put it under the `packages\technovistalimited` directory.
 
-During usage, change all the `your-scope-key` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$inputs['scope_id']` should be replaced with _your_ `$scope_id`.
+Your directory structure would be: `packages\technovistalimited\shongjukti\...`
 
-- [ ] **Register:** Register the `scope_key` at the `AttachmentController@attachmentScopes` (hyphenated please)
-- [ ] **Parent form:** add `enctype="multipart/form-data"` to your parent `<form>` tag
+#### Step 2: Add the repository to your app
+**composer.json**
+
+Open up the `composer.json` of your app root and add the following line under `psr-4` `autoload` array:
+```
+"Technovistalimited\\Shongjukti\\": "packages/technovistalimited/shongjukti/src/"
+```
+
+So it would look similar to _this_:
+```
+"autoload": {
+    "psr-4": {
+        "Technovistalimited\\Shongjukti\\": "packages/technovistalimited/shongjukti"
+    }
+}
+```
+
+**Providers array**
+
+Add the following string to `config/app.php` under `providers` array:
+```php
+Technovistalimited\Shongjukti\ShongjuktiServiceProvider::class,
+```
+
+#### Step 3: Let composer do the rest
+
+Open up command console on the root of your app and run:
+```
+composer dump-autoload
+```
+
+#### Step 4: Publish the Necessary files
+Make the configuration, migration, view files ready first:
+```
+php artisan vendor:publish --tag=shongjukti
+```
+
+Create the necessary tables:
+```
+php artisan migrate
+```
+
+And the final step is to add the following line to the `aliases` section in file `config/app.php`:
+
+<!-- ```php
+'Shongjukti' => 'Technovistalimited\Shongjukti\App\Controllers\AttachmentController',
+``` -->
+
+## Configuration
+Change configuration in `config/shongjukti.php`.
+
+### Maximum Upload Size:
+Set the maximum upload size (per file), under `'upload_max_size'`.<br>
+Accepts: _integer_ in bytes<br>
+_default_: `5000000` - 5mb in bytes
+
+### Default Extensions:
+Set the default accepted extensions, if per-attachment accepted extensions are not set, under `'default_extensions'`.<br>
+Accepts: _string_ of comma-separated extensions (with or without dots)<br>
+_default_: `'jpg, gif, png, pdf'`
+
+### Attachment Scopes:
+Set the maximum upload size (per file), under `'attachment_scopes'`.<br>
+Known issue: Config file cannot take translatable strings. :(<br>
+Accepts: _array_ of Scopes in key-value pair<br>
+_default_: `['demo-application' => 'Demo Application']`
+
+
+### API: How to use
+
+During usage, change all the `demo-application` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$id` should be replaced with _your_ scope id.
+
+- [ ] **Register:** Register the `scope_key` at the `config/shongjukti.php` at the `'attachment_scopes'` (hyphenated please)
+
+- [ ] Controller: `use Technovistalimited\Shongjukti\App\Models\AttachmentType;`
+- [ ] Controller: `use Technovistalimited\Shongjukti\App\Models\Attachment;`
+
 - [ ] **`Create()` Method** - _responsible for displaying the add page_
-    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('your-scope-key');`
+    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');`
     - [ ] Controller: `compact('attachmentTypes')`
-    - [ ] Add Mode (Blade): `@include('layouts.attachments')`
-    - [ ] Add Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
+    - [ ] Add Mode (Blade): add `enctype="multipart/form-data"` to your parent `<form>` tag
+    - [ ] Add Mode (Blade): `@include('shongjukti::layouts.attachments')` inside the `<form></form>` tag
+    - [ ] Add Mode (Blade): `<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">`
+    - [ ] Add Mode (Blade): `<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>` (depends on jQuery)
+
 - [ ] **`Store()` Method** - _responsible for storing new data_
-    - [ ] Controller: `$attachmentInfo = Attachment::storeAttachments($inputs, 'your-scope-key', $yourScope->ID);`
+    - [ ] Controller: `Attachment::storeAttachments($request->all(), 'demo-application', $yourScope->id);` - after saving your scope, pass the scope id here
+
 - [ ] **`Edit()` Method** - _responsible for displaying the edit page_
-    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('your-scope-key');`
-    - [ ] Controller: `$attachments = Attachment::getAttachmentsForEdit('your-scope-key', $scopeId);`
+    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');`
+    - [ ] Controller: `$attachments = Attachment::getAttachmentsForEdit('demo-application', $id);`
     - [ ] Controller: `compact( 'attachmentTypes', 'attachments')`
-    - [ ] Edit Mode (Blade): `@include('layouts.attachments')`
-    - [ ] Edit Mode (Blade): `<script src="{{ asset('js/_attachments.js') }}"></script>`
+    - [ ] Edit Mode (Blade): add `enctype="multipart/form-data"` to your parent `<form>` tag
+    - [ ] Edit Mode (Blade): `@include('shongjukti::layouts.attachments')` inside the `<form></form>` tag
+    - [ ] Edit Mode (Blade): `<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">`
+    - [ ] Edit Mode (Blade): `<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>` (depends on jQuery)
+
 - [ ] **`Update()` Method** - _responsible for storing edited data_
-    - [ ] Controller: `$attachmentInfo = Attachment::storeAttachments($inputs, 'your-scope-key', $inputs['scope_id']);`
+    - [ ] Controller: `Attachment::storeAttachments($request->all(), 'demo-application', $id);`
+
 - [ ] **`Show()` Method** - _responsible for displaying the view page_
-    - [ ] Controller: `$attachments = Attachment::getAttachments('your-scope-key', $scopeId);`
+    - [ ] Controller: `$attachments = Attachment::getAttachments('demo-application', $id);`
     - [ ] Controller: `compact('attachments')`
-    - [ ] View Mode (Blade): `@include('layouts.attachments')` (If you want a custom view layout, you can include your chosen layout instead of ours)
+    - [ ] View Mode (Blade): `@include('shongjukti::layouts.attachments')` (If you want a custom view layout, you can include your chosen layout instead of ours)
+
 
 ## Pluggable portions (Things can be modified)
 There are certain things developed as a variable, that can be modified according to the necessity:
-- **`$uploadMaxSize`:** Maximum Upload Size. Default: 5mb.
-- **`$defaultExtensions`:** Default accepted file extensions. Default: jpg, gif, png, pdf.
 - **`attachment_block_head_class`:** `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
 - **`attachment_block_head`:** `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
 
@@ -90,7 +165,7 @@ Most of the errors during handling the files upload are suppressed. But what we 
 // returns array of errors, if any one of the attachments failed to upload.
 $attachmentInfo = Attachment::storeAttachments(...);
 if( is_array($attachmentInfo) ) {
-    return redirect()->back()->withErrors($attachmentInfo);
+    return back()->withErrors($attachmentInfo);
 }
 ```
 
@@ -108,21 +183,27 @@ And you can display the errors in blade using the following code:
 @endif
 ```
 
+## Overriding Things
+
+### Overriding Routes
+If you want to override the routes defined by the package, you will need to follow the [this StackOverflow thread on how to override package routes in the application](https://stackoverflow.com/a/44724330/1743124).
+
+
 ## Known Issues/When not to use
 - **Variable number of Attachments not supported:** If you want to let the user add attachments on their choice, and there are no fixed attachments are defined, this repository won't fit
 - **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
 - **JavaScript-based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
 
 ## Roadmap
-- Facilitate to employ multiple segments in the same scope to accept segmented attachments
-- Make it more robust to use like a Laravel package
-- If a Laravel package is been developed, publish it to packagist.org
+- [ ] Facilitate to employ multiple segments in the same scope to accept segmented attachments
+- [x] Make it more robust to use like a Laravel package
+- [ ] If a Laravel package is been developed, publish it to packagist.org
 
 ## License
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
 
 ## Credits
-Project initiated and lead by Mr. Mayeenul Islam Mayeen ([`@mayeenulislam`](https://twitter.com/mayeenulislam)). Ms. Mowshana Farhana Mow implemented the idea. Thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
+Project initiated and lead by Mr. Mayeenul Islam Mayeen ([`@mayeenulislam`](https://twitter.com/mayeenulislam)). Ms. Mowshana Farhana Mow implemented the idea. Heartiest thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
 
 ----
 <sup>2019 [TechnoVista Limited](http://technovista.com.bd/)</sup>
