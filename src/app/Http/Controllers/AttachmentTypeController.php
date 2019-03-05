@@ -101,7 +101,8 @@ class AttachmentTypeController extends Controller
 	            Session::flash('success', 'Saved successfully!');
 
 	            // Redirect to edit mode.
-	            $editPageUrl = action('AttachmentTypeController@edit', ['attachmentTypeId' => $attachmentType->id]);
+	            $editPageUrl = Shongjukti::attachmentTypeEditLink($attachmentType->id);
+	            // $editPageUrl = action('AttachmentTypeController@edit', ['attachmentTypeId' => $attachmentType->id]);
 	            return redirect( $editPageUrl );
 
 	        }

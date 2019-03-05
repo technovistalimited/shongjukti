@@ -90,9 +90,9 @@ php artisan migrate
 
 And the final step is to add the following line to the `aliases` section in file `config/app.php`:
 
-<!-- ```php
-'Shongjukti' => 'Technovistalimited\Shongjukti\App\Controllers\AttachmentController',
-``` -->
+```php
+'Shongjukti' => 'Technovistalimited\Shongjukti\ShongjuktiFacade::class',
+```
 
 ## Configuration
 Change configuration in `config/shongjukti.php`.
@@ -114,7 +114,7 @@ Accepts: _array_ of Scopes in key-value pair<br>
 _default_: `['demo-application' => 'Demo Application']`
 
 
-### API: How to use
+## API: How to use
 
 During usage, change all the `demo-application` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$id` should be replaced with _your_ scope id.
 

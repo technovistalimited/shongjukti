@@ -55,7 +55,7 @@
 							@foreach( $attachmentTypes as $attachmentType )
 								<tr class="{{ $attachmentType->is_active ? '' : 'text-muted' }}">
 									<td>
-										<a class="{{ $attachmentType->is_active ? '' : 'text-muted' }}" href="{{ action('\Technovistalimited\Shongjukti\App\Controllers\AttachmentTypeController@edit', ['type_id' => $attachmentType->id]) }}">
+										<a class="{{ $attachmentType->is_active ? '' : 'text-muted' }}" href="{{ Shongjukti::attachmentTypeEditLink($attachmentType->id) }}">
 											<strong>{{ $attachmentType->name }}</strong>
 										</a>
 										@if( ! $attachmentType->is_required )
@@ -83,7 +83,7 @@
 									<td>
 										<form action="{{ route('attachment_type.delete', $attachmentType->id) }}" method="POST">
 											<div class="btn-group">
-												<a href="{{ action('\Technovistalimited\Shongjukti\App\Controllers\AttachmentTypeController@edit', ['type_id' => $attachmentType->id]) }}" class="btn btn-primary btn-xs">{{ __('Edit') }}</a>
+												<a href="{{ Shongjukti::attachmentTypeEditLink($attachmentType->id) }}" class="btn btn-primary btn-xs">{{ __('Edit') }}</a>
 
 												<button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-xs">{{ __('Delete') }}</button>
 											</div>
