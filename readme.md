@@ -73,7 +73,7 @@ Features that _not_ present can be found below, under "Known Issues" section.
 **Option 1: Git clone (Faster)**
 Open the command console in your application root, and type:
 ```
-git clone -b develop git@github.com:technovistalimited/laravel-attachments.git packages/technovistalimited/shongjukti
+git clone git@github.com:technovistalimited/laravel-attachments.git packages/technovistalimited/shongjukti
 ```
 
 This will download the package in: `packages\technovistalimited\shongjukti\...`
@@ -162,13 +162,13 @@ _default_: `['demo-application' => 'Demo Application']`
 ## How to Use (Implementation)
 
 > A brief checklist for implementation is available<br>
-> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/implementation-checklist.md)
+> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/master/docs/implementation-checklist.md)
 
-<kbd>[**Implementation Guide**](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/implementation.md)</kbd>
+<kbd>[**Implementation Guide**](https://github.com/technovistalimited/laravel-attachments/blob/master/docs/implementation.md)</kbd>
 
 
 ## Pluggable portions (Things can be modified)
-There are certain things developed as a variable, that can be modified according to the necessity:
+There are certain things developed like a variable, that can be modified according to the necessity:
 
 - **`attachment_block_head_class`:** `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
 - **`attachment_block_head`:** `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
