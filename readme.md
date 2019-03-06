@@ -36,15 +36,24 @@ Features that _not_ present can be found below, under "Known Issues" section.
 
 ## Installation
 
-The package is **NOT AVAILABLE in Packagist** yet, hence you have to download it from this repository.<br>
-[<kbd>**DOWNLOAD v0.1.0**</kbd>](https://github.com/technovistalimited/shongjukti/releases/tag/v0.1.0)
+#### Step 1: Download and Set in place
+The package is **NOT AVAILABLE in Packagist** yet, hence you have to download it from this repository.
 
-#### Step 1: Put the package in place
-- [ ] Create a directory in your app root with the name `packages`.
-- [ ] Create another directory under `packages` named `technovistalimited`. (vendor name)
-- [ ] Download the latest release, extract the archive and put it under the `packages\technovistalimited` directory.
+**Option 1: Git clone (Faster)**
+Open the command console in your application root, and type:
+```
+git clone -b develop git@github.com:technovistalimited/laravel-attachments.git packages/technovistalimited/shongjukti
+```
 
-Your directory structure would be: `packages\technovistalimited\shongjukti\...`
+This will download the package in: `packages\technovistalimited\shongjukti\...`
+
+**Option 2: Download zip (Manual)**
+
+For a cleaner version of the package proceed this way:
+
+1. Create a directory in your app root with the name `packages`.
+2. Create another directory named `technovistalimited` (vendor name) under `packages`.
+3. [Download the latest release](https://github.com/technovistalimited/laravel-attachments/releases), extract the archive and put it under the `packages\technovistalimited` directory.
 
 #### Step 2: Add the repository to your app
 **composer.json**
@@ -57,9 +66,9 @@ Open up the `composer.json` of your app root and add the following line under `p
 So it would look similar to _this_:
 ```
 "autoload": {
-    "psr-4": {
-        "Technovistalimited\\Shongjukti\\": "packages/technovistalimited/shongjukti"
-    }
+	"psr-4": {
+		"Technovistalimited\\Shongjukti\\": "packages/technovistalimited/shongjukti"
+	}
 }
 ```
 
@@ -88,6 +97,7 @@ Create the necessary tables:
 php artisan migrate
 ```
 
+#### Step 5: Add Alias
 And the final step is to add the following line to the `aliases` section in file `config/app.php`:
 
 ```php
@@ -116,41 +126,97 @@ _default_: `['demo-application' => 'Demo Application']`
 
 ## API: How to use
 
+> A brief checklist for implementation is available<br>
+> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/checklist.md)
+
 During usage, change all the `demo-application` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$id` should be replaced with _your_ scope id.
 
-- [ ] **Register:** Register the `scope_key` at the `config/shongjukti.php` at the `'attachment_scopes'` (hyphenated please)
+#### Step 1: Register the Scope
+Register the `scope_key` at the `config/shongjukti.php` at the `'attachment_scopes'` (hyphenated please)
+```php
+'attachment_scopes' => [
+	'demo-application' => 'Demo Application',
+	'other-application' => 'Other Application'
+]
+```
 
-- [ ] Controller: `use Technovistalimited\Shongjukti\App\Models\AttachmentType;`
-- [ ] Controller: `use Technovistalimited\Shongjukti\App\Models\Attachment;`
+#### Step 2: Scope Controller
+In your Controller in which you want to implement the Attachment feature, use the package accordingly. Only the applicable lines are present here, the dependent lines are commented out for hints.
+```php
+use Technovistalimited\Shongjukti\App\Models\AttachmentType;
+use Technovistalimited\Shongjukti\App\Models\Attachment;
 
-- [ ] **`Create()` Method** - _responsible for displaying the add page_
-    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');`
-    - [ ] Controller: `compact('attachmentTypes')`
-    - [ ] Add Mode (Blade): add `enctype="multipart/form-data"` to your parent `<form>` tag
-    - [ ] Add Mode (Blade): `@include('shongjukti::layouts.attachments')` inside the `<form></form>` tag
-    - [ ] Add Mode (Blade): `<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">`
-    - [ ] Add Mode (Blade): `<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>` (depends on jQuery)
+class MyController extends Controller
+{
+	public function index() {
 
-- [ ] **`Store()` Method** - _responsible for storing new data_
-    - [ ] Controller: `Attachment::storeAttachments($request->all(), 'demo-application', $yourScope->id);` - after saving your scope, pass the scope id here
+	}
 
-- [ ] **`Edit()` Method** - _responsible for displaying the edit page_
-    - [ ] Controller: `$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');`
-    - [ ] Controller: `$attachments = Attachment::getAttachmentsForEdit('demo-application', $id);`
-    - [ ] Controller: `compact( 'attachmentTypes', 'attachments')`
-    - [ ] Edit Mode (Blade): add `enctype="multipart/form-data"` to your parent `<form>` tag
-    - [ ] Edit Mode (Blade): `@include('shongjukti::layouts.attachments')` inside the `<form></form>` tag
-    - [ ] Edit Mode (Blade): `<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">`
-    - [ ] Edit Mode (Blade): `<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>` (depends on jQuery)
+	public function create() {
+		$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');
+		return view('my-view.create', compact('attachmentTypes'));
+	}
 
-- [ ] **`Update()` Method** - _responsible for storing edited data_
-    - [ ] Controller: `Attachment::storeAttachments($request->all(), 'demo-application', $id);`
+	public function store(Request $request) {
+		//$scope = MyModel::create($request->all());
 
-- [ ] **`Show()` Method** - _responsible for displaying the view page_
-    - [ ] Controller: `$attachments = Attachment::getAttachments('demo-application', $id);`
-    - [ ] Controller: `compact('attachments')`
-    - [ ] View Mode (Blade): `@include('shongjukti::layouts.attachments')` (If you want a custom view layout, you can include your chosen layout instead of ours)
+		Attachment::storeAttachments($request->all(), 'demo-application', $scope->id);
+	}
 
+	public function show($id) {
+		$attachments = Attachment::getAttachments('demo-application', $id);
+
+		return view('my-view.show', compact('attachments'));
+	}
+
+	public function edit($id) {
+		$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');
+		$attachments = Attachment::getAttachmentsForEdit('demo-application', $id);
+
+		return view('my-view.edit', compact('attachmentTypes', 'attachments'));
+	}
+
+	public function update(Request $request, $id) {
+		Attachment::storeAttachments($request->all(), 'demo-application', $id);
+	}
+
+	public function destroy($id) {
+
+	}
+}
+```
+
+#### Step 3: Scope Blades
+**`create.blade.php`**
+```html
+<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
+<form enctype="multipart/form-data">
+	...
+	@include('shongjukti::layouts.attachments')
+</form>
+{{-- <script src="path/to/jquery.js"></script> --}}
+<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>
+```
+
+
+
+**`edit.blade.php`**
+```html
+<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
+<form enctype="multipart/form-data">
+	...
+	@include('shongjukti::layouts.attachments')
+</form>
+{{-- <script src="path/to/jquery.js"></script> --}}
+<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>
+```
+
+
+**`show.blade.php`**
+```html
+<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
+@include('shongjukti::layouts.attachments')
+```
 
 ## Pluggable portions (Things can be modified)
 There are certain things developed as a variable, that can be modified according to the necessity:
@@ -165,7 +231,7 @@ Most of the errors during handling the files upload are suppressed. But what we 
 // returns array of errors, if any one of the attachments failed to upload.
 $attachmentInfo = Attachment::storeAttachments(...);
 if( is_array($attachmentInfo) ) {
-    return back()->withErrors($attachmentInfo);
+	return back()->withErrors($attachmentInfo);
 }
 ```
 
@@ -173,13 +239,13 @@ And you can display the errors in blade using the following code:
 
 ```html
 @if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+	<div class="alert alert-danger" role="alert">
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
 @endif
 ```
 
