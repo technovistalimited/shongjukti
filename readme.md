@@ -73,7 +73,7 @@ Features that _not_ present can be found below, under "Known Issues" section.
 **Option 1: Git clone (Faster)**
 Open the command console in your application root, and type:
 ```
-git clone git@github.com:technovistalimited/laravel-attachments.git packages/technovistalimited/shongjukti
+git clone git@github.com:technovistalimited/shongjukti.git packages/technovistalimited/shongjukti
 ```
 
 This will download the package in: `packages\technovistalimited\shongjukti\...`
@@ -84,7 +84,7 @@ For a cleaner version of the package proceed this way:
 
 1. Create a directory in your app root with the name `packages`.
 2. Create another directory named `technovistalimited` (vendor name) under `packages`.
-3. [Download the latest release](https://github.com/technovistalimited/laravel-attachments/releases), extract the archive and put it under the `packages\technovistalimited` directory.
+3. [Download the latest release](https://github.com/technovistalimited/shongjukti/releases), extract the archive and put it under the `packages\technovistalimited` directory.
 
 ### Step 2: Add the repository to your app
 **composer.json**
@@ -162,9 +162,9 @@ _default_: `['demo-application' => 'Demo Application']`
 ## How to Use (Implementation)
 
 > A brief checklist for implementation is available<br>
-> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/master/docs/implementation-checklist.md)
+> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation-checklist.md)
 
-<kbd>[**Implementation Guide**](https://github.com/technovistalimited/laravel-attachments/blob/master/docs/implementation.md)</kbd>
+<kbd>[**Implementation Guide**](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation.md)</kbd>
 
 
 ## Pluggable portions (Things can be modified)

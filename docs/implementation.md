@@ -1,7 +1,7 @@
 ## Implementation - Shongjukti
 
 > A brief checklist for implementation is available<br>
-> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/implementation-checklist.md)
+> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/shongjukti/blob/develop/docs/implementation-checklist.md)
 
 During usage, change all the `demo-application` with your scope key. The variables are needed to mentioned exact. But only `$scope->ID` or `$id` should be replaced with _your_ scope id.
 
