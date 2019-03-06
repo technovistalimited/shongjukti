@@ -36,15 +36,24 @@ Features that _not_ present can be found below, under "Known Issues" section.
 
 ## Installation
 
-The package is **NOT AVAILABLE in Packagist** yet, hence you have to download it from this repository.<br>
-[<kbd>**DOWNLOAD v0.1.0**</kbd>](https://github.com/technovistalimited/shongjukti/releases/tag/v0.1.0)
+#### Step 1: Download and Set in place
+The package is **NOT AVAILABLE in Packagist** yet, hence you have to download it from this repository.
 
-#### Step 1: Put the package in place
-- [ ] Create a directory in your app root with the name `packages`.
-- [ ] Create another directory under `packages` named `technovistalimited`. (vendor name)
-- [ ] Download the latest release, extract the archive and put it under the `packages\technovistalimited` directory.
+**Option 1: Git clone (Faster)**
+Open the command console in your application root, and type:
+```
+git clone -b develop git@github.com:technovistalimited/laravel-attachments.git packages/technovistalimited/shongjukti
+```
 
-Your directory structure would be: `packages\technovistalimited\shongjukti\...`
+This will download the package in: `packages\technovistalimited\shongjukti\...`
+
+**Option 2: Download zip (Manual)**
+
+For a cleaner version of the package proceed this way:
+
+1. Create a directory in your app root with the name `packages`.
+2. Create another directory named `technovistalimited` (vendor name) under `packages`.
+3. [Download the latest release](https://github.com/technovistalimited/laravel-attachments/releases), extract the archive and put it under the `packages\technovistalimited` directory.
 
 #### Step 2: Add the repository to your app
 **composer.json**
