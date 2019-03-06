@@ -14,18 +14,33 @@ use Technovistalimited\Shongjukti\App\Models\Attachment;
 
 class Shongjukti
 {
+	public static function getAttachments($scopeKey, $scopeId)
+	{
+		return Attachment::getAttachments($scopeKey, $scopeId);
+	}
+
 	public static function attachmentTypeIndexLink($scopeKey = null)
 	{
-		return action( 'AttachmentController@index', ['scope_key' => $scopeKey] );
+		return route( 'attachment_type.index', ['scope_key' => $scopeKey] );
 	}
 
 	public static function attachmentTypeCreateLink()
 	{
-		return action( 'AttachmentController@create' );
+		return route( 'attachment_type.create' );
 	}
 
 	public static function attachmentTypeEditLink($id)
 	{
-		return action( 'AttachmentController@edit', ['id' => $id] );
+		return route( 'attachment_type.edit', ['id' => $id] );
+	}
+
+	public static function bytesToMb($bytes)
+	{
+		return AttachmentController::bytesToMb($bytes);
+	}
+
+	public static function mimeTypesFromExtensions($fileExtensions)
+	{
+		return AttachmentController::mimeTypesFromExtensions($fileExtensions);
 	}
 }

@@ -8,11 +8,11 @@
  * @subpackage shongjukti
  */
 
-namespace Technovistalimited\Shongjukti;
+namespace Technovistalimited\Shongjukti\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class ShongjuktiFacade extends Facade
+class Shongjukti extends Facade
 {
 	protected static function getFacadeAccessor()
 	{

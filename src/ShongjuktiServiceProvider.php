@@ -61,7 +61,7 @@ class ShongjuktiServiceProvider extends ServiceProvider
     		$this->app['config']->set('shongjukti', require __DIR__ .'/config/shongjukti.php');
     	}
 
-    	$this->app->bind('shongjukti', function () {
+    	$this->app->singleton('shongjukti', function ($app) {
             return new Shongjukti();
         });
     }

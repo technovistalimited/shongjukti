@@ -20,7 +20,7 @@
 // Necessary variables for attachments.
 // ------------------------------------
 $_maximum_upload_size = (int) config('shongjukti.upload_max_size');
-$_max_size_in_mb      = round(\Technovistalimited\Shongjukti\App\Controllers\AttachmentController::bytesToMb($_maximum_upload_size), 2, PHP_ROUND_HALF_UP);
+$_max_size_in_mb      = round(Shongjukti::bytesToMb($_maximum_upload_size), 2, PHP_ROUND_HALF_UP);
 $_default_browse_text = __('Browse...');
 
 if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
@@ -140,7 +140,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             <?php
                             // if not mentioned, apply the default file types.
                             $_accepted_extns  = !empty($attachmentType->accepted_extensions) ? $attachmentType->accepted_extensions : (string) config('shongjukti.default_extensions');
-                            $_mime_type_array = \Technovistalimited\Shongjukti\App\Controllers\AttachmentController::mimeTypesFromExtensions($_accepted_extns);
+                            $_mime_type_array = Shongjukti::mimeTypesFromExtensions($_accepted_extns);
                             $_existing        = isset($attachments) && !empty($attachments[$attachmentType->id]['path']) ? $attachments[$attachmentType->id]['path'] : false;
                             $_mt_class        = $attachmentType->is_label_accepted ? 'mt-20' : '';
                             ?>
