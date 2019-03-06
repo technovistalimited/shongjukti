@@ -4,10 +4,35 @@ A reusable component for managing attachments in Laravel-based web application.
 
 The repository was developed as a sub-project of an existing project, with a mission to re-use this code with less effort wherever necessary.
 
+## Table of Contents
+<!-- MarkdownTOC -->
+
+- [Requirements](#user-content-requirements)
+- [Features](#user-content-features)
+- [Screenshots](#user-content-screenshots)
+- [Installation](#user-content-installation)
+	- [Step 1: Download and Set in place](#user-content-step-1-download-and-set-in-place)
+	- [Step 2: Add the repository to your app](#user-content-step-2-add-the-repository-to-your-app)
+	- [Step 3: Let composer do the rest](#user-content-step-3-let-composer-do-the-rest)
+	- [Step 4: Publish the Necessary files](#user-content-step-4-publish-the-necessary-files)
+- [Configuration](#user-content-configuration)
+- [How to Use \(Implementation\)](#user-content-how-to-use-implementation)
+- [Pluggable portions \(Things can be modified\)](#user-content-pluggable-portions-things-can-be-modified)
+- [Error Handling](#user-content-error-handling)
+- [Overriding Things](#user-content-overriding-things)
+	- [Overriding Routes](#user-content-overriding-routes)
+- [Known Issues/When not to use](#user-content-known-issueswhen-not-to-use)
+- [Roadmap](#user-content-roadmap)
+- [License](#user-content-license)
+- [Credits](#user-content-credits)
+
+<!-- /MarkdownTOC -->
+
+
 ## Requirements
-- Laravel 5.5+ (Tested up to 5.8.x)
-- Bootstrap 3.3.7 styles (grids, panels, forms, alerts, buttons)
-- jQuery
+- Laravel 5.6+ (Tested up to 5.8.x)
+- Bootstrap 3.4.1 styles (grids, panels, forms, alerts, buttons) - non-breaking for Bootstrap 4
+- jQuery 2.x+
 
 ## Features
 - _Defined_ attachments can be managed
@@ -22,13 +47,17 @@ The repository was developed as a sub-project of an existing project, with a mis
 Features that _not_ present can be found below, under "Known Issues" section.
 
 ## Screenshots
-### Attachment Types (Add) Screen
+
+**Attachment Types (Add) Screen**
+
 ![attachment-types-add](https://user-images.githubusercontent.com/4551598/51890676-daa11f80-23c6-11e9-8ab7-a58f04d56b12.png)
 
-### Attachments (Add) Screen
+**Attachments (Add) Screen**
+
 ![attachments-add](https://user-images.githubusercontent.com/4551598/51890527-826a1d80-23c6-11e9-8a64-8b2f411a2a4e.png)
 
-### More Screenshots
+**More Screenshots**
+
 - [Attachment Types (List)](https://user-images.githubusercontent.com/4551598/51890746-15a35300-23c7-11e9-9ea2-cf3174ce45c4.png)
 - [Attachment Types (Edit)](https://user-images.githubusercontent.com/4551598/51890807-47b4b500-23c7-11e9-8d75-11d2892423c2.png)
 - [Attachments (Edit)](https://user-images.githubusercontent.com/4551598/51890831-5ac78500-23c7-11e9-9e53-4d2955cb9f3b.png)
@@ -36,8 +65,10 @@ Features that _not_ present can be found below, under "Known Issues" section.
 
 ## Installation
 
-#### Step 1: Download and Set in place
-The package is **NOT AVAILABLE in Packagist** yet, hence you have to download it from this repository.
+### Step 1: Download and Set in place
+
+> **NOTICE**<br>
+> The package is NOT AVAILABLE in Packagist yet, hence you have to download it from this repository.
 
 **Option 1: Git clone (Faster)**
 Open the command console in your application root, and type:
@@ -55,7 +86,7 @@ For a cleaner version of the package proceed this way:
 2. Create another directory named `technovistalimited` (vendor name) under `packages`.
 3. [Download the latest release](https://github.com/technovistalimited/laravel-attachments/releases), extract the archive and put it under the `packages\technovistalimited` directory.
 
-#### Step 2: Add the repository to your app
+### Step 2: Add the repository to your app
 **composer.json**
 
 Open up the `composer.json` of your app root and add the following line under `psr-4` `autoload` array:
@@ -74,19 +105,27 @@ So it would look similar to _this_:
 
 **Providers array**
 
-Add the following string to `config/app.php` under `providers` array:
+Add the following string to the `config/app.php` under `providers` array:
 ```php
 Technovistalimited\Shongjukti\ShongjuktiServiceProvider::class,
 ```
 
-#### Step 3: Let composer do the rest
+**Aliases array**
+
+Add the following line to the `config/app.php` under `aliases` array:
+
+```php
+'Shongjukti' => Technovistalimited\Shongjukti\Facades\Shongjukti::class,
+```
+
+### Step 3: Let composer do the rest
 
 Open up command console on the root of your app and run:
 ```
 composer dump-autoload
 ```
 
-#### Step 4: Publish the Necessary files
+### Step 4: Publish the Necessary files
 Make the configuration, migration, view files ready first:
 ```
 php artisan vendor:publish --tag=shongjukti
@@ -97,129 +136,40 @@ Create the necessary tables:
 php artisan migrate
 ```
 
-#### Step 5: Add Alias
-Add the following line to the `aliases` section in file `config/app.php`:
-
-```php
-'Shongjukti' => Technovistalimited\Shongjukti\Facades\Shongjukti::class,
-```
-
 ## Configuration
 Change configuration in `config/shongjukti.php`.
 
-### Maximum Upload Size:
+**Maximum Upload Size:**
+
 Set the maximum upload size (per file), under `'upload_max_size'`.<br>
 Accepts: _integer_ in bytes<br>
 _default_: `5000000` - 5mb in bytes
 
-### Default Extensions:
+**Default Extensions:**
+
 Set the default accepted extensions, if per-attachment accepted extensions are not set, under `'default_extensions'`.<br>
 Accepts: _string_ of comma-separated extensions (with or without dots)<br>
 _default_: `'jpg, gif, png, pdf'`
 
-### Attachment Scopes:
+**Attachment Scopes:**
+
 Set the maximum upload size (per file), under `'attachment_scopes'`.<br>
 Known issue: Config file cannot take translatable strings. :(<br>
 Accepts: _array_ of Scopes in key-value pair<br>
 _default_: `['demo-application' => 'Demo Application']`
 
 
-## API: How to use
+## How to Use (Implementation)
 
 > A brief checklist for implementation is available<br>
-> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/checklist.md)
+> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/implementation-checklist.md)
 
-During usage, change all the `demo-application` with your scope key. All the code mentioned are not supposed to be modified, even the variables are needed to mentioned exact. But only `$scopeId` or `$yourScope->ID` or `$id` should be replaced with _your_ scope id.
+<kbd>[**Implementation Guide**](https://github.com/technovistalimited/laravel-attachments/blob/develop/docs/implementation.md)</kbd>
 
-#### Step 1: Register the Scope
-Register the `scope_key` at the `config/shongjukti.php` at the `'attachment_scopes'` (hyphenated please)
-```php
-'attachment_scopes' => [
-	'demo-application' => 'Demo Application',
-	'other-application' => 'Other Application'
-]
-```
-
-#### Step 2: Scope Controller
-In your Controller in which you want to implement the Attachment feature, use the package accordingly. Only the applicable lines are present here, the dependent lines are commented out for hints.
-```php
-use Technovistalimited\Shongjukti\App\Models\AttachmentType;
-use Technovistalimited\Shongjukti\App\Models\Attachment;
-
-class MyController extends Controller
-{
-	public function index() {
-
-	}
-
-	public function create() {
-		$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');
-		return view('my-view.create', compact('attachmentTypes'));
-	}
-
-	public function store(Request $request) {
-		//$scope = MyModel::create($request->all());
-
-		Attachment::storeAttachments($request->all(), 'demo-application', $scope->id);
-	}
-
-	public function show($id) {
-		$attachments = Attachment::getAttachments('demo-application', $id);
-
-		return view('my-view.show', compact('attachments'));
-	}
-
-	public function edit($id) {
-		$attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey('demo-application');
-		$attachments = Attachment::getAttachmentsForEdit('demo-application', $id);
-
-		return view('my-view.edit', compact('attachmentTypes', 'attachments'));
-	}
-
-	public function update(Request $request, $id) {
-		Attachment::storeAttachments($request->all(), 'demo-application', $id);
-	}
-
-	public function destroy($id) {
-
-	}
-}
-```
-
-#### Step 3: Scope Blades
-**`create.blade.php`**
-```html
-<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
-<form enctype="multipart/form-data">
-	...
-	@include('shongjukti::layouts.attachments')
-</form>
-{{-- <script src="path/to/jquery.js"></script> --}}
-<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>
-```
-
-
-
-**`edit.blade.php`**
-```html
-<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
-<form enctype="multipart/form-data">
-	...
-	@include('shongjukti::layouts.attachments')
-</form>
-{{-- <script src="path/to/jquery.js"></script> --}}
-<script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>
-```
-
-
-**`show.blade.php`**
-```html
-<link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
-@include('shongjukti::layouts.attachments')
-```
 
 ## Pluggable portions (Things can be modified)
 There are certain things developed as a variable, that can be modified according to the necessity:
+
 - **`attachment_block_head_class`:** `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
 - **`attachment_block_head`:** `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
 
@@ -229,7 +179,7 @@ Most of the errors during handling the files upload are suppressed. But what we 
 ```php
 // returns true, if all the attachments are uploaded duly;
 // returns array of errors, if any one of the attachments failed to upload.
-$attachmentInfo = Attachment::storeAttachments(...);
+$attachmentInfo = Shongjukti::storeAttachments(...);
 if( is_array($attachmentInfo) ) {
 	return back()->withErrors($attachmentInfo);
 }
@@ -272,4 +222,4 @@ The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
 Project initiated and lead by Mr. Mayeenul Islam Mayeen ([`@mayeenulislam`](https://twitter.com/mayeenulislam)). Ms. Mowshana Farhana Mow implemented the idea. Heartiest thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
 
 ----
-<sup>2019 [TechnoVista Limited](http://technovista.com.bd/)</sup>
+<sup>[TechnoVista Limited](https://technovista.com.bd/)</sup>
