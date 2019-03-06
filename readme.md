@@ -98,10 +98,10 @@ php artisan migrate
 ```
 
 #### Step 5: Add Alias
-And the final step is to add the following line to the `aliases` section in file `config/app.php`:
+Add the following line to the `aliases` section in file `config/app.php`:
 
 ```php
-'Shongjukti' => 'Technovistalimited\Shongjukti\ShongjuktiFacade::class',
+'Shongjukti' => Technovistalimited\Shongjukti\Facades\Shongjukti::class,
 ```
 
 ## Configuration
@@ -256,9 +256,9 @@ If you want to override the routes defined by the package, you will need to foll
 
 
 ## Known Issues/When not to use
-- **Variable number of Attachments not supported:** If you want to let the user add attachments on their choice, and there are no fixed attachments are defined, this repository won't fit
-- **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
-- **JavaScript-based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path
+- **Variable number of Attachments not supported:** If you want to let the user add attachments on their choice, and there are no fixed attachments defined, this repository won't fit
+- **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised, or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
+- **JavaScript-based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path, unless the `scope_id` is managed by any way
 
 ## Roadmap
 - [ ] Facilitate to employ multiple segments in the same scope to accept segmented attachments
