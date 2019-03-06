@@ -176,7 +176,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             } else {
                                 $_required_field = '';
                             }
-                            $_hidden_class = isset($attachments) && !empty($attachments[$attachmentType->id]['path']) ? 'hide' : '';
+                            $_hidden_class = isset($attachments) && !empty($attachments[$attachmentType->id]['path']) ? 'hide d-none' : '';
                             ?>
 
                             <div class="btn btn-sm btn-default btn-file {{ $_hidden_class }} {{$_mt_class}}" tabindex="-1">

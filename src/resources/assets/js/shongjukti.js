@@ -25,7 +25,7 @@
 		this_delete_btn.hide();
 
 		var attachment_file_field = this_attachment_row.find('.attachment-file');
-		this_attachment_row.find('.btn-file').removeClass('hide');
+		this_attachment_row.find('.btn-file').removeClass('hide d-none');
 		if( attachment_file_field.parents('.attachment-file-group').hasClass('file-required') ) {
 			attachment_file_field.prop('required', true);
 		}
