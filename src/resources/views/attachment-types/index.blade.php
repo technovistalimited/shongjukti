@@ -69,8 +69,8 @@
 
 									<td>
 										@if( ! empty($attachmentType->is_label_accepted) )
-											<?php $_icon_class = $attachmentType->is_active ? 'text-success' : 'text-muted'; ?>
-											<i class="icon-checkmark-circle {{ $_icon_class }}" aria-hidden="true"></i> {{ __('Yes') }}
+											<?php $_fill_color = $attachmentType->is_active ? '#4CAF50' : '#999999'; ?>
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" fill="{{ $_fill_color }}" aria-hidden="true"><path d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-.833 11.528l-3-2.91 1.238-1.238 1.762 1.671 3.762-3.856 1.238 1.238-5 5.095z"/></svg> {{ __('Yes') }}
 										@else
 											-
 										@endif

@@ -148,9 +148,9 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             @if( $_existing )
                                 <?php $_stripped_file_name = '...' . substr(basename($_existing), -15); ?>
 
-                                <a href="{{ $_existing }}" class="btn btn-sm btn-default btn-view {{$_mt_class}}" target="_blank" rel="noopener">
-                                    <i class="icon-file-empty text-muted mr-5" aria-hidden="true"></i>
-                                    {!! sprintf( __('<strong>View</strong> <span class="text-muted hidden-xs">%s</span>'), $_stripped_file_name) !!}
+                                <a href="{{ $_existing }}" class="btn btn-sm btn-default btn-outline-dark btn-view {{$_mt_class}}" target="_blank" rel="noopener">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" class="mr-1" fill="#999999"><path d="M14 5.333v3.333h3.334v10H6.667V5.333H14zM14.667 4H5.333v16h13.334V8l-4-4z"/></svg>
+                                    {!! sprintf( __('<strong>View</strong> <span class="text-muted hidden-xs  d-none d-sm-inline-block">%s</span>'), $_stripped_file_name) !!}
 
                                     <?php
                                     /**
@@ -271,10 +271,9 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                         <div class="col-sm-7 col-xs-4">
                             <?php $_stripped_file_name = '...' . substr(basename($attachment->attachment_path), -15); ?>
 
-                            <a href="{{ $attachment->attachment_path }}" target="_blank" rel="noopener"
-                               class="btn btn-default btn-sm {{ $_mt_class }}">
-                                <i class="icon-file-empty text-muted mr-5" aria-hidden="true"></i>
-                                {!! sprintf( __('<strong>View</strong> <span class="text-muted hidden-xs">%s</span>'), $_stripped_file_name) !!}
+                            <a href="{{ $attachment->attachment_path }}" target="_blank" rel="noopener" class="btn btn-default btn-outline-dark btn-sm {{ $_mt_class }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" class="mr-1" fill="#999999"><path d="M14 5.333v3.333h3.334v10H6.667V5.333H14zM14.667 4H5.333v16h13.334V8l-4-4z"/></svg>
+                                {!! sprintf( __('<strong>View</strong> <span class="text-muted hidden-xs  d-none d-sm-inline-block">%s</span>'), $_stripped_file_name) !!}
                             </a>
                         </div>
                     @endif
