@@ -99,7 +99,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             <div class="{{ $attachmentType->is_label_accepted ? 'small' : 'form-control-static' }}">
                                 {{ $attachmentType->name }}
                                 @if( ! $attachmentType->is_required )
-                                    <div class="label label-default">{{ strtolower(__('Optional')) }}</div>
+                                    <div class="badge badge-default badge-secondary">{{ strtolower(__('Optional')) }}</div>
                                 @endif
                             </div>
 
@@ -179,7 +179,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             $_hidden_class = isset($attachments) && !empty($attachments[$attachmentType->id]['path']) ? 'hide d-none' : '';
                             ?>
 
-                            <div class="btn btn-sm btn-default btn-file {{ $_hidden_class }} {{$_mt_class}}" tabindex="-1">
+                            <div class="btn btn-sm btn-default btn-outline-dark btn-file {{ $_hidden_class }} {{$_mt_class}}" tabindex="-1">
                                 <span class="attachment-browse-label">{{ $_default_browse_text }}</span>
                                 <?php
                                 /**
@@ -258,7 +258,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             <div class="{{ empty($attachment->attachment_label) ? 'form-control-static' : 'small' }}">
                                 {{ $attachment->name }}
                                 @if( ! $attachment->is_required )
-                                    <div class="label label-default">{{ strtolower(__('Optional')) }}</div>
+                                    <div class="badge badge-default badge-secondary">{{ strtolower(__('Optional')) }}</div>
                                 @endif
                             </div>
                             @if( !empty($attachment->attachment_label) )

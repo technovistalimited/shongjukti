@@ -184,7 +184,6 @@
 
 <div class="text-right">
 	<button type="submit" class="btn btn-primary">
-		<i class="icon-floppy-disk mr-5" aria-hidden="true"></i>
 		@yield('attachment_type_form_submit_btn', __('Save'))
 	</button>
 </div>

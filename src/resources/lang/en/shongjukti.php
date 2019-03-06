@@ -17,7 +17,7 @@ return [
 	'file_not_uploaded_file_type' => 'File not uploaded because the file type is not accepted.',
 	'required_label_not_provided' => 'A required label was not provided',
 	'required_file_not_uploaded'  => 'A required file was not uploaded',
-	'view_file'                   => '<strong>View</strong> <span class="text-muted hidden-xs">%s</span>',
+	'view_file'                   => '<strong>View</strong> <span class="text-muted hidden-xs d-none d-sm-inline-block">%s</span>',
 
 	'attachment_types'            => 'Attachment Types',
 	'new_attachment_type'         => 'New Attachment Type',

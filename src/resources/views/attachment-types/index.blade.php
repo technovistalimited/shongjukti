@@ -59,7 +59,7 @@
 											<strong>{{ $attachmentType->name }}</strong>
 										</a>
 										@if( ! $attachmentType->is_required )
-											<div class="label label-default">{{ __('Optional') }}</div>
+											<div class="badge badge-default badge-secondary">{{ strtolower( __('Optional') ) }}</div>
 										@endif
 									</td>
 

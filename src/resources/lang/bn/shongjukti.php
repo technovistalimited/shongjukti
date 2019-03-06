@@ -17,7 +17,7 @@ return [
 	'file_not_uploaded_file_type' => 'ফাইল টাইপ গ্রহণযোগ্য না হওয়ায় ফাইলটি আপলোড হয়নি।',
 	'required_label_not_provided' => 'প্রয়োজনীয় ল্যাবেল দেয়া হয়নি',
 	'required_file_not_uploaded'  => 'বাধ্যতামূলক ফাইল আপলোড হয়নি',
-	'view_file'                   => '<strong>দেখুন</strong> <span class="text-muted hidden-xs">%s</span>',
+	'view_file'                   => '<strong>দেখুন</strong> <span class="text-muted hidden-xs d-none d-sm-inline-block">%s</span>',
 
 	'attachment_types'            => 'সংযুক্তির ধরণ',
 	'new_attachment_type'         => 'সংযুক্তির নতুন ধরণ',
