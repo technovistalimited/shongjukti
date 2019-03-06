@@ -19,8 +19,8 @@ Route::group(['namespace' => 'Technovistalimited\Shongjukti\App\Controllers'], f
 
 
 		/**
-		 * Note the singular 'attachment-type' without 's' from now.
-		 * It is to remove conflict with {id} and {scope_key}.
+		 * Note the singular 'attachment-type' without 's' from now,
+		 * to remove conflict with a parameter and a {scope_key}.
 		 */
 		route::get('attachment-type/create', 'AttachmentTypeController@create');
 		route::post('attachment-type', [
