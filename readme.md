@@ -1,4 +1,10 @@
+![shongjukti-by-technovista-limited](https://user-images.githubusercontent.com/4551598/53943836-2d69a780-40e8-11e9-9aa8-8d7a66ae85d8.png)
+
 # Shongjukti (সংযুক্তি)
+
+[![GitHub release](https://img.shields.io/github/release-pre/technovistalimited/shongjukti.svg?style=flat&color=green)](https://github.com/technovistalimited/shongjukti/releases)
+[![GitHub license](https://img.shields.io/github/license/technovistalimited/shongjukti.svg?style=flat&color=blue)](https://raw.githubusercontent.com/technovistalimited/shongjukti/master/LICENSE.txt)
+[![Laravel Package](https://img.shields.io/badge/laravel-yes-orange.svg?style=flat&logo=laravel&color=red)]((https://laravel.com/))
 
 A reusable component for managing attachments in Laravel-based web application.
 
@@ -9,14 +15,15 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 - [Requirements](#user-content-requirements)
 - [Features](#user-content-features)
-- [Screenshots](#user-content-screenshots)
 - [Installation](#user-content-installation)
 	- [Step 1: Download and Set in place](#user-content-step-1-download-and-set-in-place)
 	- [Step 2: Add the repository to your app](#user-content-step-2-add-the-repository-to-your-app)
 	- [Step 3: Let composer do the rest](#user-content-step-3-let-composer-do-the-rest)
 	- [Step 4: Publish the Necessary files](#user-content-step-4-publish-the-necessary-files)
+	- [Ready](#user-content-ready)
 - [Configuration](#user-content-configuration)
 - [How to Use \(Implementation\)](#user-content-how-to-use-implementation)
+- [UI \(User Interface\)](#user-content-ui-user-interface)
 - [Pluggable portions \(Things can be modified\)](#user-content-pluggable-portions-things-can-be-modified)
 - [Error Handling](#user-content-error-handling)
 - [Overriding Things](#user-content-overriding-things)
@@ -44,24 +51,7 @@ The repository was developed as a sub-project of an existing project, with a mis
 - Accepted file types can be defined for each of the types of attachment
 - Translation-ready (English and Bengali are defined by default)
 
-Features that _not_ present can be found below, under "Known Issues" section.
-
-## Screenshots
-
-**Attachment Types (Add) Screen**
-
-![attachment-types-add](https://user-images.githubusercontent.com/4551598/51890676-daa11f80-23c6-11e9-8ab7-a58f04d56b12.png)
-
-**Attachments (Add) Screen**
-
-![attachments-add](https://user-images.githubusercontent.com/4551598/51890527-826a1d80-23c6-11e9-8a64-8b2f411a2a4e.png)
-
-**More Screenshots**
-
-- [Attachment Types (List)](https://user-images.githubusercontent.com/4551598/51890746-15a35300-23c7-11e9-9ea2-cf3174ce45c4.png)
-- [Attachment Types (Edit)](https://user-images.githubusercontent.com/4551598/51890807-47b4b500-23c7-11e9-8d75-11d2892423c2.png)
-- [Attachments (Edit)](https://user-images.githubusercontent.com/4551598/51890831-5ac78500-23c7-11e9-9e53-4d2955cb9f3b.png)
-- [Attachments (View)](https://user-images.githubusercontent.com/4551598/51890843-6915a100-23c7-11e9-890a-f1fb1bef6390.png)
+Features that _not_ present, can be found under "Known Issues" section.
 
 ## Installation
 
@@ -136,42 +126,65 @@ Create the necessary tables:
 php artisan migrate
 ```
 
+### Ready
+Open your browser to your app URL and get to `/attachment-types`. For example: `http://localhost:8000/attachment-types`
+
 ## Configuration
 Change configuration in `config/shongjukti.php`.
 
-**Maximum Upload Size:**
-
-Set the maximum upload size (per file), under `'upload_max_size'`.<br>
-Accepts: _integer_ in bytes<br>
-_default_: `5000000` - 5mb in bytes
-
-**Default Extensions:**
-
-Set the default accepted extensions, if per-attachment accepted extensions are not set, under `'default_extensions'`.<br>
-Accepts: _string_ of comma-separated extensions (with or without dots)<br>
-_default_: `'jpg, gif, png, pdf'`
-
-**Attachment Scopes:**
-
-Set the maximum upload size (per file), under `'attachment_scopes'`.<br>
-Known issue: Config file cannot take translatable strings. :(<br>
-Accepts: _array_ of Scopes in key-value pair<br>
-_default_: `['demo-application' => 'Demo Application']`
-
+> **Maximum Upload Size:**
+>
+> Set the maximum upload size (per file), under `'upload_max_size'`.<br>
+> Accepts: _integer_ in bytes<br>
+> _default_: `5000000` - 5mb in bytes
+>
+> **Default Extensions:**
+>
+> Set the default accepted extensions, if per-attachment accepted extensions are not set, under `'default_extensions'`.<br>
+> Accepts: _string_ of comma-separated extensions (with or without dots)<br>
+> _default_: `'jpg, gif, png, pdf'`
+>
+> **Attachment Scopes:**
+>
+> Set the maximum upload size (per file), under `'attachment_scopes'`.<br>
+> Known issue: Config file cannot take translatable strings. :(<br>
+> Accepts: _array_ of Scopes in key-value pair<br>
+> _default_: `['demo-application' => 'Demo Application']`
 
 ## How to Use (Implementation)
 
-> A brief checklist for implementation is available<br>
-> [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation-checklist.md)
+- [**Implementation Guide**](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation.md)
+- [Implementation Checklist](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation-checklist.md) (guideline from other perspective)
 
-<kbd>[**Implementation Guide**](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation.md)</kbd>
+## UI (User Interface)
 
+Design is not the primary concern of the package, and is not implemented as visible in the screenshots.
+
+✔️ **_The basic functional UI with no blocking UX is implemented._**
+
+But the screenshots are taken from the actual use case where we modified things to match with our custom layouts in Limitless admin framework with Bootstrap 3.3.7.
+
+[📌 See Screenshots](https://github.com/technovistalimited/shongjukti/blob/master/docs/screenshots.md)
 
 ## Pluggable portions (Things can be modified)
 There are certain things developed like a variable, that can be modified according to the necessity:
 
-- **`attachment_block_head_class`:** `@section('attachment_block_head_class', 'your-custom-class')` can be passed to the attachments blade for your custom need. Default: 'section-head'.
-- **`attachment_block_head`:** `@section('attachment_block_head', 'My Attachments')` can be passed to the attachments blade for your custom need. Default: 'Attachments'.
+> **`attachment_block_head_class`:**
+>
+> From your parent `create`, `edit` and `show` blade you can pass
+> `@section('attachment_block_head_class', 'your-custom-class')` to the attachments blade.<br>
+> Default: 'section-head'.
+>
+> **`attachment_block_head`:**
+>
+> From your parent `create`, `edit` and `show` blade you can pass
+> `@section('attachment_block_head', 'My Attachments')` to the attachments blade.<br>
+> Default: 'Attachments'.
+>
+> **`attachment_type_form_submit_btn`:**
+>
+> From the attachment type `create` and `edit` blade `@section('attachment_type_form_submit_btn', 'Update')` can be passed.<br>
+> Default: 'Save'.
 
 ## Error Handling
 Most of the errors during handling the files upload are suppressed. But what we have checked during the add/edit process can be grabbed like below:
