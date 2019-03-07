@@ -99,7 +99,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 							<div class="{{ $attachmentType->is_label_accepted ? 'small' : 'form-control-static' }}">
 								{{ $attachmentType->name }}
 								@if( ! $attachmentType->is_required )
-									<div class="badge badge-default badge-secondary">{{ strtolower(__('shongjukti::messages.optional')) }}</div>
+									<span class="badge badge-default badge-secondary">{{ strtolower(__('shongjukti::messages.optional')) }}</span>
 								@endif
 							</div>
 
@@ -148,7 +148,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 								<?php $_stripped_file_name = '...' . substr(basename($_existing), -15); ?>
 
 								<a href="{{ $_existing }}" class="btn btn-sm btn-default btn-outline-dark btn-view {{$_mt_class}}" target="_blank" rel="noopener">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" class="mr-1" fill="#999999"><path d="M14 5.333v3.333h3.334v10H6.667V5.333H14zM14.667 4H5.333v16h13.334V8l-4-4z"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" class="mr-1" fill="#999999" style="display: inline-block;"><path d="M14 5.333v3.333h3.334v10H6.667V5.333H14zM14.667 4H5.333v16h13.334V8l-4-4z"/></svg>
 									{!! sprintf( __('shongjukti::messages.view_file'), $_stripped_file_name) !!}
 
 									<?php
@@ -257,7 +257,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 							<div class="{{ empty($attachment->attachment_label) ? 'form-control-static' : 'small' }}">
 								{{ $attachment->name }}
 								@if( ! $attachment->is_required )
-									<div class="badge badge-default badge-secondary">{{ strtolower(__('shongjukti::messages.optional')) }}</div>
+									<span class="badge badge-default badge-secondary">{{ strtolower(__('shongjukti::messages.optional')) }}</span>
 								@endif
 							</div>
 							@if( !empty($attachment->attachment_label) )
@@ -271,7 +271,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 							<?php $_stripped_file_name = '...' . substr(basename($attachment->attachment_path), -15); ?>
 
 							<a href="{{ $attachment->attachment_path }}" target="_blank" rel="noopener" class="btn btn-default btn-outline-dark btn-sm {{ $_mt_class }}">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" class="mr-1" fill="#999999"><path d="M14 5.333v3.333h3.334v10H6.667V5.333H14zM14.667 4H5.333v16h13.334V8l-4-4z"/></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" class="mr-1" fill="#999999" style="display: inline-block;"><path d="M14 5.333v3.333h3.334v10H6.667V5.333H14zM14.667 4H5.333v16h13.334V8l-4-4z"/></svg>
 								{!! sprintf( __('shongjukti::messages.view_file'), $_stripped_file_name) !!}
 							</a>
 						</div>

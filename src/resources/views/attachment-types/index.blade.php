@@ -67,7 +67,7 @@
 											<strong>{{ $attachmentType->name }}</strong>
 										</a>
 										@if( ! $attachmentType->is_required )
-											<div class="badge badge-default badge-secondary">{{ strtolower( __('shongjukti::messages.optional') ) }}</div>
+											<span class="badge badge-default badge-secondary">{{ strtolower( __('shongjukti::messages.optional') ) }}</span>
 										@endif
 									</td>
 
@@ -78,7 +78,7 @@
 									<td>
 										@if( ! empty($attachmentType->is_label_accepted) )
 										<?php $_fill_color = $attachmentType->is_active ? '#4CAF50' : '#999999'; ?>
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" fill="{{ $_fill_color }}" aria-hidden="true"><path d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-.833 11.528l-3-2.91 1.238-1.238 1.762 1.671 3.762-3.856 1.238 1.238-5 5.095z"/></svg> {{ __('shongjukti::messages.yes') }}
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="4 4 16 16" fill="{{ $_fill_color }}" aria-hidden="true" style="display: inline-block;"><path d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-.833 11.528l-3-2.91 1.238-1.238 1.762 1.671 3.762-3.856 1.238 1.238-5 5.095z"/></svg> {{ __('shongjukti::messages.yes') }}
 										@else
 										-
 										@endif
@@ -93,7 +93,7 @@
 											<div class="btn-group">
 												<a href="{{ Shongjukti::attachmentTypeEditLink($attachmentType->id) }}" class="btn btn-primary btn-xs">{{ __('shongjukti::messages.edit') }}</a>
 
-												<button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-xs">{{ __('shongjukti::messages.edit') }}</button>
+												<button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-xs">{{ __('shongjukti::messages.delete') }}</button>
 											</div>
 											@csrf
 											@method('DELETE')

@@ -4,7 +4,7 @@
 
 @section('page_header_right')
 	<a href="{{ Shongjukti::attachmentTypeIndexLink() }}" class="btn btn-primary">
-		{{ __('List') }}
+		{{ __('shongjukti::messages.list') }}
 	</a>
 	<a href="{{ Shongjukti::attachmentTypeCreateLink() }}" class="btn btn-primary">
 		{{ __('shongjukti::messages.add_new') }}
