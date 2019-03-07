@@ -44,14 +44,14 @@ The repository was developed as a sub-project of an existing project, with a mis
 ## Features
 - _Defined_ attachments can be managed
 - Attachments can be defined for any types of scopes
-- Custom label can be accepted where necessary
+- A custom label can be accepted where necessary
 - Mandatory and optional attachments can be defined and managed accordingly
 - Maximum upload size [per file] can be defined globally
 - Accepted file types can be managed globally
 - Accepted file types can be defined for each of the types of attachment
 - Translation-ready (English and Bengali are defined by default)
 
-Features that _not_ present, can be found under "Known Issues" section.
+Features that _not_ present can be found under "Known Issues" section.
 
 ## Installation
 
@@ -116,7 +116,7 @@ composer dump-autoload
 ```
 
 ### Step 4: Publish the Necessary files
-Make the configuration, migration, view files ready first:
+Make the configuration, migration, and view files ready first:
 ```
 php artisan vendor:publish --tag=shongjukti
 ```
@@ -158,7 +158,7 @@ Change configuration in `config/shongjukti.php`.
 
 ## UI (User Interface)
 
-Design is not the primary concern of the package, and is not implemented as visible in the screenshots.
+The design is not the primary concern of the package and is not implemented as visible in the screenshots.
 
 ✔️ **_The basic functional UI with no blocking UX is implemented._**
 
@@ -191,7 +191,7 @@ Most of the errors during handling the files upload are suppressed. But what we 
 
 ```php
 // returns true, if all the attachments are uploaded duly;
-// returns array of errors, if any one of the attachments failed to upload.
+// returns an array of errors if any one of the attachments failed to upload.
 $attachmentInfo = Shongjukti::storeAttachments(...);
 if( is_array($attachmentInfo) ) {
 	return back()->withErrors($attachmentInfo);
@@ -219,9 +219,12 @@ If you want to override the routes defined by the package, you will need to foll
 
 
 ## Known Issues/When not to use
-- **Variable number of Attachments not supported:** If you want to let the user add attachments on their choice, and there are no fixed attachments defined, this repository won't fit
-- **No separate uploading (Larger files matter):** The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to revised, or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
-- **JavaScript-based upload will change file path:** If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path, unless the `scope_id` is managed by any way
+- **Variable number of Attachments not supported:**<br>
+If you want to let the user add attachments on their choice, and there are no fixed attachments defined, this repository won't fit
+- **No separate uploading (Larger files matter):**<br>
+The module will store files (attachments) when the parent form will store data. If you are dealing with larger files and there are many types defined then the `max_input_vars` in `php.ini` needs to be revised, or altered using `.htaccess` with the resource [available here](https://stackoverflow.com/a/2364875/1743124). (**Solution:** A possible solution could be to use JavaScript-based file upload)
+- **JavaScript-based upload will change file path:**<br>
+If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path, unless the `scope_id` is managed by any way
 
 ## Roadmap
 - [ ] Facilitate to employ multiple segments in the same scope to accept segmented attachments

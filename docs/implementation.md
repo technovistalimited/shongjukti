@@ -3,13 +3,24 @@
 > A brief checklist for implementation is available<br>
 > [<kbd>SEE CHECKLIST</kbd>](https://github.com/technovistalimited/shongjukti/blob/develop/docs/implementation-checklist.md)
 
+### Onetime
+
+#### Step 0: Gitignore attachments - optional
+If you don't want to track the added attachment files to the system in Git, add the following line in your project `.gitignore`
+
+```
+public/attachments/
+```
+
+### Recurring (per use case)
+
 During usage, change all the `demo-application` with your scope key. The variables are needed to mentioned exact. But only `$scope->ID` or `$id` should be replaced with _your_ scope id.
 
 #### Step 1: Register the Scope
 Register the `scope_key` at the `config/shongjukti.php` at the `'attachment_scopes'` (hyphenated please)
 ```php
 'attachment_scopes' => [
-	'demo-application' => 'Demo Application',
+	'demo-application'  => 'Demo Application',
 	'other-application' => 'Other Application'
 ]
 ```
@@ -71,8 +82,6 @@ class MyController extends Controller
 <script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>
 ```
 
-
-
 **`edit.blade.php`**
 ```html
 <link rel="stylesheet" href="{{ asset('vendor/shongjukti/css/shongjukti.css') }}">
@@ -83,7 +92,6 @@ class MyController extends Controller
 {{-- <script src="path/to/jquery.js"></script> --}}
 <script src="{{ asset('vendor/shongjukti/js/shongjukti.js') }}"></script>
 ```
-
 
 **`show.blade.php`**
 ```html

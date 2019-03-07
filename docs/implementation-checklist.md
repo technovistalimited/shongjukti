@@ -2,6 +2,10 @@
 
 During usage, change all the `demo-application` with your scope key. The variables are needed to mentioned exact. But only `$scope->ID` or `$id` should be replaced with _your_ scope id.
 
+### Onetime
+- [ ] **gitignore:** add `public/attachments/` in project `.gitignore` if you don't want to track uploaded attachment files in Git
+
+### Recurring (per use case)
 - [ ] **Register:** Register the `scope_key` at the `config/shongjukti.php` at the `'attachment_scopes'` (hyphenated please)
 
 - [ ] **Controller:** `use Shongjukti;`
