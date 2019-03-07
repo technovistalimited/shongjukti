@@ -3,8 +3,8 @@
 # Shongjukti (সংযুক্তি)
 
 [![GitHub release](https://img.shields.io/github/release-pre/technovistalimited/shongjukti.svg?style=flat&color=green)](https://github.com/technovistalimited/shongjukti/releases)
-[![GitHub license](https://img.shields.io/github/license/technovistalimited/shongjukti.svg?style=flat&color=blue)](https://raw.githubusercontent.com/technovistalimited/shongjukti/master/LICENSE.txt)
-[![Laravel Package](https://img.shields.io/badge/laravel-yes-orange.svg?style=flat&logo=laravel&color=red)]((https://laravel.com/))
+[![GitHub license](https://img.shields.io/github/license/technovistalimited/shongjukti.svg?style=flat&color=blue)](https://github.com/technovistalimited/shongjukti/blob/master/LICENSE)
+[![Laravel Package](https://img.shields.io/badge/laravel-yes-orange.svg?style=flat&logo=laravel&color=red)](https://laravel.com/)
 
 A reusable component for managing attachments in Laravel-based web application.
 
@@ -63,7 +63,7 @@ Features that _not_ present, can be found under "Known Issues" section.
 **Option 1: Git clone (Faster)**
 Open the command console in your application root, and type:
 ```
-git clone git@github.com:technovistalimited/shongjukti.git packages/technovistalimited/shongjukti
+git clone https://github.com/technovistalimited/shongjukti.git packages/technovistalimited/shongjukti
 ```
 
 This will download the package in: `packages\technovistalimited\shongjukti\...`
