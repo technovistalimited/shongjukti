@@ -17,14 +17,14 @@
 
 <div class="clearfix">
 	<div class="form-group {{ $errors->has('scope_key') ? ' has-error' : '' }}">
-		<label for="scope-key" class="display-block">
-			<span class="text-bold">{{ __('Scope') }}</span>
-			<span class="pull-right small text-danger">({{ __('Required') }})</span>
+		<label for="scope-key" class="show d-block">
+			<span class="text-bold">{{ __('shongjukti::messages.scope') }}</span>
+			<span class="pull-right small text-danger">({{ __('shongjukti::messages.required') }})</span>
 		</label>
 
 		<?php $_scope_key = isset($attachmentType) ? $attachmentType->scope_key : old('scope_key'); ?>
 		<select name="scope_key" id="scope-key" class="form-control" required>
-			<option value="">{{ __('Select a Scope') }}</option>
+			<option value="">{{ __('shongjukti::messages.select_a_scope') }}</option>
 			@foreach($attachmentScopes as $key => $value)
 				<option value="{{$key}}" {{ $key == $_scope_key ? 'selected="selected"' : '' }}>
 					{{ $value }}
@@ -43,9 +43,9 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-			<label for="name" class="display-block">
-				<span class="text-bold">{{ __('Name (in English)') }}</span>
-				<span class="pull-right small text-danger">({{ __('Required') }})</span>
+			<label for="name" class="show d-block">
+				<span class="text-bold">{{ __('shongjukti::messages.name_in_english') }}</span>
+				<span class="pull-right small text-danger">({{ __('shongjukti::messages.required') }})</span>
 			</label>
 
 			<?php $_name = isset($attachmentType) ? $attachmentType->name : old('name'); ?>
@@ -61,8 +61,8 @@
 
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="name-bn" class="display-block">
-				<span class="text-bold">{{ __('Name (in Bengali)') }}</span>
+			<label for="name-bn" class="show d-block">
+				<span class="text-bold">{{ __('shongjukti::messages.name_in_bengali') }}</span>
 			</label>
 
 			<?php $_name_bn = isset($attachmentType) ? $attachmentType->name_bn : old('name_bn'); ?>
@@ -73,8 +73,8 @@
 
 <div class="clearfix">
 	<div class="form-group">
-		<label for="accepted-extensions" class="display-block text-bold">
-			{{ __('Accepted File Extensions') }}
+		<label for="accepted-extensions" class="show d-block text-bold">
+			{{ __('shongjukti::messages.accepted_file_extensions') }}
 		</label>
 
 		<?php $_accepted_extensions = isset($attachmentType) ? $attachmentType->accepted_extensions : old('accepted_extensions'); ?>
@@ -85,8 +85,8 @@
 <div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
-			<label for="weight" class="display-block text-bold">
-				{{ __('Order') }}
+			<label for="weight" class="show d-block text-bold">
+				{{ __('shongjukti::messages.order') }}
 			</label>
 
 			<?php
@@ -113,17 +113,17 @@
 		}
 		?>
 		<div class="form-group {{ $errors->has('is_required') ? ' has-error' : '' }}">
-			<label for="is-required-true" class="display-block">
-				<span class="text-bold">{{ __('Required?') }}</span>
-				<span class="small text-danger">({{ __('Required') }})</span>
+			<label for="is-required-true" class="show d-block">
+				<span class="text-bold">{{ __('shongjukti::messages.is_required') }}</span>
+				<span class="small text-danger">({{ __('shongjukti::messages.required') }})</span>
 			</label>
 
 			<label class="radio-inline">
-				<input type="radio" name="is_required" class="is-required" value="1" id="is-required-true" {{ $_is_required == '1' ? 'checked="checked"' : '' }}> {{ __('Yes') }}
+				<input type="radio" name="is_required" class="is-required" value="1" id="is-required-true" {{ $_is_required == '1' ? 'checked="checked"' : '' }}> {{ __('shongjukti::messages.yes') }}
 			</label>
 
 			<label class="radio-inline">
-				<input type="radio" name="is_required" class="is-required" value="0" id="is-required-false" {{ $_is_required == '0' ? 'checked="checked"' : '' }}> {{ __('No') }}
+				<input type="radio" name="is_required" class="is-required" value="0" id="is-required-false" {{ $_is_required == '0' ? 'checked="checked"' : '' }}> {{ __('shongjukti::messages.no') }}
 			</label>
 
 			@if ($errors->has('is_required'))
@@ -136,13 +136,13 @@
 
 	<div class="col-sm-3">
 		<div class="form-group">
-			<label for="is_label_accepted" class="display-block text-bold">
-				<span class="">{{ __('Accept Custom Label?') }}</span>
+			<label for="is_label_accepted" class="show d-block text-bold">
+				<span class="">{{ __('shongjukti::messages.is_custom_label') }}</span>
 			</label>
 
 			<label class="checkbox-inline">
 				<?php $_is_label_accepted = isset($attachmentType) ? $attachmentType->is_label_accepted : old('is_label_accepted'); ?>
-				<input type="checkbox" name="is_label_accepted" value="1" {{ $_is_label_accepted == 1 ? 'checked="checked"' : '' }}> {{ __('Yes') }}
+				<input type="checkbox" name="is_label_accepted" value="1" {{ $_is_label_accepted == 1 ? 'checked="checked"' : '' }}> {{ __('shongjukti::messages.yes') }}
 			</label>
 		</div>
 	</div>
@@ -158,17 +158,17 @@
 		}
 		?>
 		<div class="form-group {{ $errors->has('is_active') ? ' has-error' : '' }}">
-			<label for="is_active" class="display-block">
-				<span class="text-bold">{{ __('Status') }}</span>
-				<span class="small text-danger">({{ __('Required') }})</span>
+			<label for="is_active" class="show d-block">
+				<span class="text-bold">{{ __('shongjukti::messages.status') }}</span>
+				<span class="small text-danger">({{ __('shongjukti::messages.required') }})</span>
 			</label>
 
 			<label class="radio-inline">
-				<input type="radio" name="is_active" id="active" value="1" {{ $_is_active == '1' ? 'checked="checked"' : '' }}> {{ __('Active') }}
+				<input type="radio" name="is_active" id="active" value="1" {{ $_is_active == '1' ? 'checked="checked"' : '' }}> {{ __('shongjukti::messages.active') }}
 			</label>
 
 			<label class="radio-inline">
-				<input type="radio" name="is_active" id="active" value="0" {{ $_is_active == '0' ? 'checked="checked"' : '' }}> {{ __('Inactive') }}
+				<input type="radio" name="is_active" id="active" value="0" {{ $_is_active == '0' ? 'checked="checked"' : '' }}> {{ __('shongjukti::messages.inactive') }}
 			</label>
 
 			@if ($errors->has('is_active'))
@@ -184,6 +184,6 @@
 
 <div class="text-right">
 	<button type="submit" class="btn btn-primary">
-		@yield('attachment_type_form_submit_btn', __('Save'))
+		@yield('attachment_type_form_submit_btn', __('shongjukti::messages.save'))
 	</button>
 </div>

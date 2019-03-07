@@ -26,6 +26,7 @@ return [
 	'add'                         => 'Add',
 	'edit'                        => 'Edit',
 	'update'                      => 'Update',
+	'save'                        => 'Save',
 	'add_new'                     => 'Add New',
 	'scope'                       => 'Scope',
 	'required'                    => 'Required',

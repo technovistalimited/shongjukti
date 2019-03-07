@@ -20,6 +20,17 @@
 	<body>
 
 		<div class="container">
+			<header class="page-header">
+			    <div class="row">
+			        <div class="col-sm-8">
+			            <h2>@yield('page_header')</h2>
+			        </div>
+			        <div class="col-sm-4 text-right">
+			            @yield('page_header_right')
+			        </div>
+			    </div>
+			</header>
+
 			@yield('content')
 		</div>
 
