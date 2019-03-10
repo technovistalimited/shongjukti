@@ -40,21 +40,21 @@ class AttachmentType extends Model
 
     	$attachmentTypes = DB::table('attachment_types')
 	    	->select(
-	    		'attachment_types.id',
-	    		"attachment_types.{$name} as name",
-	    		'attachment_types.accepted_extensions',
-	    		'attachment_types.is_active',
-	    		'attachment_types.weight',
-	    		'attachment_types.is_required',
-	    		'attachment_types.is_label_accepted'
+	    		'id',
+	    		"{$name} as name",
+	    		'accepted_extensions',
+	    		'is_active',
+	    		'weight',
+	    		'is_required',
+	    		'is_label_accepted'
 	    	)
-	    	->where('attachment_types.scope_key', $scopeKey)
-	    	->orderBy('attachment_types.weight', 'asc')
-	    	->orderBy('attachment_types.is_required', 'desc')
-	    	->orderBy('attachment_types.name', 'asc');
+	    	->where('scope_key', $scopeKey)
+	    	->orderBy('weight', 'asc')
+	    	->orderBy('is_required', 'desc')
+	    	->orderBy('name', 'asc');
 
     	if( $activeOnly ) {
-    		$attachmentTypes = $attachmentTypes->where('attachment_types.is_active', 1);
+    		$attachmentTypes = $attachmentTypes->where('is_active', 1);
     	}
 
     	if( $limit ) {
@@ -82,8 +82,8 @@ class AttachmentType extends Model
     public static function getAcceptedExtensionsByType($attachmentTypeId)
     {
     	return DB::table('attachment_types')
-	    	->select('attachment_types.accepted_extensions')
-	    	->where('attachment_types.id', intval($attachmentTypeId))
+	    	->select('accepted_extensions')
+	    	->where('id', intval($attachmentTypeId))
 	    	->first();
     }
 }
