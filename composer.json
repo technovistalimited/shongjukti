@@ -25,5 +25,15 @@
     "psr-4": {
       "Technovistalimited\\Shongjukti\\": "src/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Technovistalimited\\Shongjukti\\ShongjuktiServiceProvider"
+      ],
+      "aliases": {
+        "Shongjukti": "Technovistalimited\\Shongjukti\\Facades\\Shongjukti"
+      }
+    }
   }
 }
