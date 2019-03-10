@@ -17,6 +17,9 @@
       "role"    : "Developer"
     }
   ],
+  "require-dev": {
+    "laravel/framework": ">=5.6"
+  },
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
