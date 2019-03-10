@@ -2,9 +2,9 @@
 
 # Shongjukti (সংযুক্তি)
 
-[![GitHub release](https://img.shields.io/github/release-pre/technovistalimited/shongjukti.svg?style=flat&color=green)](https://github.com/technovistalimited/shongjukti/releases)
+[![GitHub release](https://img.shields.io/github/release/technovistalimited/shongjukti.svg?style=flat&color=green)](https://github.com/technovistalimited/shongjukti/releases)
 [![GitHub license](https://img.shields.io/github/license/technovistalimited/shongjukti.svg?style=flat&color=blue)](https://github.com/technovistalimited/shongjukti/blob/master/LICENSE)
-[![Laravel Package](https://img.shields.io/badge/laravel-yes-orange.svg?style=flat&logo=laravel&color=red)](https://laravel.com/)
+[![Laravel Package](https://img.shields.io/badge/laravel-yes-orange.svg?style=flat&logo=laravel&color=red&logoColor=white)](https://laravel.com/)
 
 A reusable component for managing attachments in Laravel-based web application.
 
@@ -23,7 +23,7 @@ The repository was developed as a sub-project of an existing project, with a mis
 - [UI \(User Interface\)](#user-content-ui-user-interface)
 - [Overriding Things](#user-content-overriding-things)
 	- [Overriding Routes](#user-content-overriding-routes)
-- [Known Issues/When not to use](#user-content-known-issueswhen-not-to-use)
+- [Known Issues \(When not to use\)](#user-content-known-issues-when-not-to-use)
 - [Roadmap](#user-content-roadmap)
 - [License](#user-content-license)
 - [Credits](#user-content-credits)
@@ -81,7 +81,7 @@ But the screenshots are taken from the actual use case where we modified things 
 If you want to override the routes defined by the package, you will need to follow the [this StackOverflow thread on how to override package routes in the application](https://stackoverflow.com/a/44724330/1743124).
 
 
-## Known Issues/When not to use
+## Known Issues (When not to use)
 - **Variable number of Attachments not supported:**<br>
 If you want to let the user add attachments on their choice, and there are no fixed attachments defined, this repository won't fit
 - **No separate uploading (Larger files matter):**<br>
@@ -92,13 +92,14 @@ If the file upload part is managed using JavaScript upload, then the `/scope_key
 ## Roadmap
 - [ ] Facilitate to employ multiple segments in the same scope to accept segmented attachments
 - [x] Make it more robust to use like a Laravel package
-- [ ] If a Laravel package is been developed, publish it to packagist.org
+- [x] If a Laravel package is been developed, publish it to packagist.org
 
 ## License
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
 
 ## Credits
-Project initiated and lead by Mr. Mayeenul Islam Mayeen ([`@mayeenulislam`](https://twitter.com/mayeenulislam)). Ms. Mowshana Farhana Mow implemented the idea. Heartiest thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
+Project initiated and lead by Mr. [Mayeenul Islam Mayeen](https://github.com/mayeenulislam). Ms. [Mowshana Farhana Mow](https://github.com/mowshana) implemented the idea.<br>
+Heartiest thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
 
 ----
 <sup>[TechnoVista Limited](https://technovista.com.bd/)</sup>
