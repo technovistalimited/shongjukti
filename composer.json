@@ -3,6 +3,7 @@
   "description": "Reusable component for attachments in Laravel-based web application.",
   "keywords"   : ["laravel", "attachments", "shongjukti"],
   "license"    : "GPL-2.0+",
+  "type"       : "package",
   "authors"    : [
     {
       "name"    : "Mayeenul Islam",
@@ -17,12 +18,22 @@
     }
   ],
   "minimum-stability": "dev",
-  "require"          : {
-    "laravel/framework": "5.6.*"
+  "require-dev": {
+    "laravel/framework": ">=5.6"
   },
   "autoload": {
     "psr-4": {
-      "technovistalimited/shongjukti": "src"
+      "Technovistalimited\\Shongjukti\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Technovistalimited\\Shongjukti\\ShongjuktiServiceProvider"
+      ],
+      "aliases": {
+        "Shongjukti": "Technovistalimited\\Shongjukti\\Facades\\Shongjukti::class"
+      }
     }
   }
 }
