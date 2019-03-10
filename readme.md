@@ -15,17 +15,12 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 - [Requirements](#user-content-requirements)
 - [Features](#user-content-features)
-- [Installation](#user-content-installation)
-	- [Step 1: Download and Set in place](#user-content-step-1-download-and-set-in-place)
-	- [Step 2: Add the repository to your app](#user-content-step-2-add-the-repository-to-your-app)
-	- [Step 3: Let composer do the rest](#user-content-step-3-let-composer-do-the-rest)
-	- [Step 4: Publish the Necessary files](#user-content-step-4-publish-the-necessary-files)
-	- [Ready](#user-content-ready)
-- [Configuration](#user-content-configuration)
-- [How to Use \(Implementation\)](#user-content-how-to-use-implementation)
+- [Documentation](#user-content-documentation)
+	- [Install & Configure](#user-content-install--configure)
+	- [How to Use](#user-content-how-to-use)
+	- [Utilities](#user-content-utilities)
+	- [Error Handling](#user-content-error-handling)
 - [UI \(User Interface\)](#user-content-ui-user-interface)
-- [Pluggable portions \(Things can be modified\)](#user-content-pluggable-portions-things-can-be-modified)
-- [Error Handling](#user-content-error-handling)
 - [Overriding Things](#user-content-overriding-things)
 	- [Overriding Routes](#user-content-overriding-routes)
 - [Known Issues/When not to use](#user-content-known-issueswhen-not-to-use)
@@ -53,108 +48,22 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 Features that _not_ present can be found under "Known Issues" section.
 
-## Installation
+## Documentation
 
-### Step 1: Download and Set in place
+### Install & Configure
+- [Installation](https://github.com/technovistalimited/shongjukti/wiki/Installation)
+- [Configuration](https://github.com/technovistalimited/shongjukti/wiki/Configuration)
 
-> **NOTICE**<br>
-> The package is NOT AVAILABLE in Packagist yet, hence you have to download it from this repository.
+### How to Use
+- [Implementation Guide](https://github.com/technovistalimited/shongjukti/wiki/Implementation)
+- [Implementation Checklist](https://github.com/technovistalimited/shongjukti/wiki/Implementation-Checklist) (guideline from other perspective)
 
-**Option 1: Git clone (Faster)**
-Open the command console in your application root, and type:
-```
-git clone https://github.com/technovistalimited/shongjukti.git packages/technovistalimited/shongjukti
-```
+### Utilities
+- [Necessary Methods (Functions)](https://github.com/technovistalimited/shongjukti/wiki/Necessary-Methods-(Functions))
+- [Pluggable Portions (Things can be modified)](https://github.com/technovistalimited/shongjukti/wiki/Pluggable-Portions-(Things-can-be-modified))
 
-This will download the package in: `packages\technovistalimited\shongjukti\...`
-
-**Option 2: Download zip (Manual)**
-
-For a cleaner version of the package proceed this way:
-
-1. Create a directory in your app root with the name `packages`.
-2. Create another directory named `technovistalimited` (vendor name) under `packages`.
-3. [Download the latest release](https://github.com/technovistalimited/shongjukti/releases), extract the archive and put it under the `packages\technovistalimited` directory.
-
-### Step 2: Add the repository to your app
-**composer.json**
-
-Open up the `composer.json` of your app root and add the following line under `psr-4` `autoload` array:
-```
-"Technovistalimited\\Shongjukti\\": "packages/technovistalimited/shongjukti/src/"
-```
-
-So it would look similar to _this_:
-```
-"autoload": {
-	"psr-4": {
-		"Technovistalimited\\Shongjukti\\": "packages/technovistalimited/shongjukti"
-	}
-}
-```
-
-**Providers array**
-
-Add the following string to the `config/app.php` under `providers` array:
-```php
-Technovistalimited\Shongjukti\ShongjuktiServiceProvider::class,
-```
-
-**Aliases array**
-
-Add the following line to the `config/app.php` under `aliases` array:
-
-```php
-'Shongjukti' => Technovistalimited\Shongjukti\Facades\Shongjukti::class,
-```
-
-### Step 3: Let composer do the rest
-
-Open up command console on the root of your app and run:
-```
-composer dump-autoload
-```
-
-### Step 4: Publish the Necessary files
-Make the configuration, migration, and view files ready first:
-```
-php artisan vendor:publish --tag=shongjukti
-```
-
-Create the necessary tables:
-```
-php artisan migrate
-```
-
-### Ready
-Open your browser to your app URL and get to `/attachment-types`. For example: `http://localhost:8000/attachment-types`
-
-## Configuration
-Change configuration in `config/shongjukti.php`.
-
-> **Maximum Upload Size:**
->
-> Set the maximum upload size (per file), under `'upload_max_size'`.<br>
-> Accepts: _integer_ in bytes<br>
-> _default_: `5000000` - 5mb in bytes
->
-> **Default Extensions:**
->
-> Set the default accepted extensions, if per-attachment accepted extensions are not set, under `'default_extensions'`.<br>
-> Accepts: _string_ of comma-separated extensions (with or without dots)<br>
-> _default_: `'jpg, gif, png, pdf'`
->
-> **Attachment Scopes:**
->
-> Set the maximum upload size (per file), under `'attachment_scopes'`.<br>
-> Known issue: Config file cannot take translatable strings. :(<br>
-> Accepts: _array_ of Scopes in key-value pair<br>
-> _default_: `['demo-application' => 'Demo Application']`
-
-## How to Use (Implementation)
-
-- [**Implementation Guide**](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation.md)
-- [Implementation Checklist](https://github.com/technovistalimited/shongjukti/blob/master/docs/implementation-checklist.md) (guideline from other perspective)
+### Error Handling
+- [Error Handling](https://github.com/technovistalimited/shongjukti/wiki/Error-Handling)
 
 ## UI (User Interface)
 
@@ -164,53 +73,7 @@ The design is not the primary concern of the package and is not implemented as v
 
 But the screenshots are taken from the actual use case where we modified things to match with our custom layouts in Limitless admin framework with Bootstrap 3.3.7.
 
-[📌 See Screenshots](https://github.com/technovistalimited/shongjukti/blob/master/docs/screenshots.md)
-
-## Pluggable portions (Things can be modified)
-There are certain things developed like a variable, that can be modified according to the necessity:
-
-> **`attachment_block_head_class`:**
->
-> From your parent `create`, `edit` and `show` blade you can pass
-> `@section('attachment_block_head_class', 'your-custom-class')` to the attachments blade.<br>
-> Default: 'section-head'.
->
-> **`attachment_block_head`:**
->
-> From your parent `create`, `edit` and `show` blade you can pass
-> `@section('attachment_block_head', 'My Attachments')` to the attachments blade.<br>
-> Default: 'Attachments'.
->
-> **`attachment_type_form_submit_btn`:**
->
-> From the attachment type `create` and `edit` blade `@section('attachment_type_form_submit_btn', 'Update')` can be passed.<br>
-> Default: 'Save'.
-
-## Error Handling
-Most of the errors during handling the files upload are suppressed. But what we have checked during the add/edit process can be grabbed like below:
-
-```php
-// returns true, if all the attachments are uploaded duly;
-// returns an array of errors if any one of the attachments failed to upload.
-$attachmentInfo = Shongjukti::storeAttachments(...);
-if( is_array($attachmentInfo) ) {
-	return back()->withErrors($attachmentInfo);
-}
-```
-
-And you can display the errors in blade using the following code:
-
-```html
-@if ($errors->any())
-	<div class="alert alert-danger" role="alert">
-		<ul>
-			@foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-@endif
-```
+[📷 See Screenshots](https://github.com/technovistalimited/shongjukti/wiki/Screenshots)
 
 ## Overriding Things
 
