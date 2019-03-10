@@ -21,8 +21,6 @@ The repository was developed as a sub-project of an existing project, with a mis
 	- [Utilities](#user-content-utilities)
 	- [Error Handling](#user-content-error-handling)
 - [UI \(User Interface\)](#user-content-ui-user-interface)
-- [Overriding Things](#user-content-overriding-things)
-	- [Overriding Routes](#user-content-overriding-routes)
 - [Known Issues \(When not to use\)](#user-content-known-issues-when-not-to-use)
 - [Roadmap](#user-content-roadmap)
 - [License](#user-content-license)
@@ -57,6 +55,7 @@ Features that _not_ present can be found under "Known Issues" section.
 ### How to Use
 - [Implementation Guide](https://github.com/technovistalimited/shongjukti/wiki/Implementation)
 - [Implementation Checklist](https://github.com/technovistalimited/shongjukti/wiki/Implementation-Checklist) (guideline from other perspective)
+- [Overriding Things](https://github.com/technovistalimited/shongjukti/wiki/Overriding-Things)
 
 ### Utilities
 - [Necessary Methods (Functions)](https://github.com/technovistalimited/shongjukti/wiki/Necessary-Methods-(Functions))
@@ -64,6 +63,7 @@ Features that _not_ present can be found under "Known Issues" section.
 
 ### Error Handling
 - [Error Handling](https://github.com/technovistalimited/shongjukti/wiki/Error-Handling)
+
 
 ## UI (User Interface)
 
@@ -74,12 +74,6 @@ The design is not the primary concern of the package and is not implemented as v
 But the screenshots are taken from the actual use case where we modified things to match with our custom layouts in Limitless admin framework with Bootstrap 3.3.7.
 
 [📷 See Screenshots](https://github.com/technovistalimited/shongjukti/wiki/Screenshots)
-
-## Overriding Things
-
-### Overriding Routes
-If you want to override the routes defined by the package, you will need to follow the [this StackOverflow thread on how to override package routes in the application](https://stackoverflow.com/a/44724330/1743124).
-
 
 ## Known Issues (When not to use)
 - **Variable number of Attachments not supported:**<br>
