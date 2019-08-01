@@ -230,7 +230,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 		</script>
 
 
-	@elseif( isset($attachments) && ! $attachments->isEmpty() && ! isset($attachmentTypes) )
+	@elseif( isset($attachments) && count($attachments) > 0 && ! isset($attachmentTypes) )
 
 		<?php
 		/**
