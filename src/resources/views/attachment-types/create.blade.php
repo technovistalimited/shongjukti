@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-	<form action="{{ route('attachment_type.store') }}" method="POST">
-		@include('shongjukti::attachment-types/form')
-	</form>
+    <form action="{{ route('attachment_type.store') }}" method="POST">
+        @include('shongjukti::attachment-types/form')
+    </form>
 @endsection

@@ -2,7 +2,7 @@
   "name"       : "technovistalimited/shongjukti",
   "description": "Reusable component for attachments in Laravel-based web application.",
   "keywords"   : ["laravel", "attachments", "shongjukti"],
-  "license"    : "GPL-2.0+",
+  "license"    : "GPL-3.0+",
   "type"       : "package",
   "authors"    : [
     {

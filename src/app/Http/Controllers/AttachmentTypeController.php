@@ -11,212 +11,214 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
+/**
+ * Attachment Model Class.
+ *
+ * @category   Controllers
+ * @package    Laravel
+ * @subpackage TechnoVistaLimited/Shongjukti
+ * @author     Mayeenul Islam <wz.islam@gmail.com>
+ * @author     Mowshana Farhana <mowshana.farhana@technovista.com.bd>
+ * @license    GPL3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ * @link       https://github.com/technovistalimited/shongjukti/
+ */
 class AttachmentTypeController extends Controller
 {
-	/**
-	 * Index/List.
-	 *
-	 * @param  string $scopeKey Scope Key.
-	 *
-	 * @return \Illuminate\Http\Response
-	 * --------------------------------------------------------------------------
-	 */
-	public function index( $scopeKey = '' ) {
-	    $attachmentScopes = (array) config('shongjukti.attachment_scopes');
+    /**
+     * Index/List.
+     *
+     * @param  string $scopeKey Scope Key.
+     *
+     * @return \Illuminate\Http\Response
+     * --------------------------------------------------------------------------
+     */
+    public function index($scopeKey = '')
+    {
+        $attachmentScopes = (array) config('shongjukti.attachment_scopes');
 
-	    if( ! empty($scopeKey) && ! array_key_exists($scopeKey, $attachmentScopes) ) {
-	        return abort(404);
-	    }
+        if (!empty($scopeKey) && !array_key_exists($scopeKey, $attachmentScopes)) {
+            return abort(404);
+        }
 
-	    $itemsPerPage = 20;
+        $itemsPerPage = 20;
 
-	    // Fetch all, not just active; but paginate to $itemsPerPage max.
-	    $attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey($scopeKey, $itemsPerPage, true, false);
+        // Fetch all, not just active; but paginate to $itemsPerPage max.
+        $attachmentTypes = AttachmentType::getAttachmentTypesByScopeKey($scopeKey, $itemsPerPage, true, false);
 
-	    return view('shongjukti::attachment-types.index', compact('attachmentScopes', 'attachmentTypes', 'scopeKey', 'itemsPerPage'));
-	}
-
-
-	/**
-	 * Create/Add.
-	 *
-	 * @return \Illuminate\Http\Response
-	 * --------------------------------------------------------------------------
-	 */
-	public function create() {
-	    $attachmentScopes = (array) config('shongjukti.attachment_scopes');
-
-	    return view('shongjukti::attachment-types.create', compact('attachmentScopes'));
-	}
+        return view('shongjukti::attachment-types.index', compact('attachmentScopes', 'attachmentTypes', 'scopeKey', 'itemsPerPage'));
+    }
 
 
-	/**
-	 * Store.
-	 *
-	 * @param  Request $request Request.
-	 *
-	 * @return \Illuminate\Http\Response
-	 * --------------------------------------------------------------------------
-	 */
-	public function store(Request $request)
-	{
-	    try
-	    {
-	        $inputs = $request->all();
+    /**
+     * Create/Add.
+     *
+     * @return \Illuminate\Http\Response
+     * --------------------------------------------------------------------------
+     */
+    public function create()
+    {
+        $attachmentScopes = (array) config('shongjukti.attachment_scopes');
 
-	        $inputs['created_by'] = Auth::id();
-
-	        if ( !isset($inputs['is_label_accepted']) ) {
-	            $inputs['is_label_accepted'] = 0;
-	        }
-
-	        if ( empty($inputs['weight']) ) {
-	            $inputs['weight'] = 0;
-	        }
-
-	        // Validate.
-	        $rules = array(
-	            'scope_key'   => 'required',
-	            'name'        => 'required|string|max:255',
-	            'is_active'   => 'required',
-	            'is_required' => 'required'
-	        );
-
-	        $validator = Validator::make($inputs, $rules);
-
-	        if ($validator->fails()) {
-
-	            return back()->withErrors($validator)->withInput($request->all);
-
-	        } else {
-
-	            // Starting database transaction
-	            DB::beginTransaction();
-
-	                $attachmentType = AttachmentType::create($inputs);
-
-	            // Commit all transaction
-	            DB::commit();
-
-	            Session::flash('success', 'Saved successfully!');
-
-	            // Redirect to edit mode.
-	            $editPageUrl = route( 'attachment_type.edit', ['id' => $attachmentType->id] );
-	            return redirect( $editPageUrl );
-
-	        }
-
-	    }
-	    catch (\Exception $e) {
-
-	        // Rollback all transaction if error occurred
-	        DB::rollBack();
-
-	        return back()->withErrors('dangerMsg', $e->getMessage())->withInput($request->all);
-
-	    }
-	}
+        return view('shongjukti::attachment-types.create', compact('attachmentScopes'));
+    }
 
 
-	/**
-	 * Edit.
-	 *
-	 * @param  integer $id Attachment Type ID.
-	 *
-	 * @return \Illuminate\Http\Response
-	 * --------------------------------------------------------------------------
-	 */
-	public function edit($id) {
-	    $attachmentScopes = (array) config('shongjukti.attachment_scopes');
-	    $attachmentType   = AttachmentType::findOrFail($id);
+    /**
+     * Store.
+     *
+     * @param  Request $request Request.
+     *
+     * @return \Illuminate\Http\Response
+     * --------------------------------------------------------------------------
+     */
+    public function store(Request $request)
+    {
+        try {
+            $inputs = $request->all();
 
-	    return view('shongjukti::attachment-types.edit', compact('attachmentScopes', 'attachmentType'));
-	}
+            $inputs['created_by'] = Auth::id();
 
+            if (!isset($inputs['is_label_accepted'])) {
+                $inputs['is_label_accepted'] = 0;
+            }
 
-	/**
-	 * Update.
-	 *
-	 * @param  Request $request Request.
-	 * @param  string  $id      Item ID.
-	 *
-	 * @return \Illuminate\Http\Response
-	 * --------------------------------------------------------------------------
-	 */
-	public function update(Request $request, $id) {
-	    try {
-	        $inputs = $request->all();
+            if (empty($inputs['weight'])) {
+                $inputs['weight'] = 0;
+            }
 
-	        // validate
-	        $rules = array(
-	            'scope_key'   => 'required',
-	            'name'        => 'required|string|max:255',
-	            'is_active'   => 'required',
-	            'is_required' => 'required'
-	        );
+            // Validate.
+            $rules = array(
+                'scope_key'   => 'required',
+                'name'        => 'required|string|max:255',
+                'is_active'   => 'required',
+                'is_required' => 'required'
+            );
 
-	        $validator = Validator::make($inputs, $rules);
+            $validator = Validator::make($inputs, $rules);
 
-	        if ($validator->fails()) {
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput($request->all);
+            } else {
+                // Starting database transaction
+                DB::beginTransaction();
 
-	            return back()->withErrors($validator)->withInput($request->all);
+                $attachmentType = AttachmentType::create($inputs);
 
-	        } else {
+                // Commit all transaction
+                DB::commit();
 
-	            // Starting database transaction
-	            DB::beginTransaction();
+                Session::flash('success', 'Saved successfully!');
 
-	                $attachmentType = AttachmentType::findorfail($id);
+                // Redirect to edit mode.
+                $editPageUrl = route('attachment_type.edit', ['id' => $attachmentType->id]);
+                return redirect($editPageUrl);
+            }
+        } catch (\Exception $e) {
+            // Rollback all transaction if error occurred
+            DB::rollBack();
 
-	                $inputs['updated_by'] = Auth::id();
-
-	                if (!isset($inputs['is_label_accepted'])) {
-	                    $inputs['is_label_accepted'] = 0;
-	                }
-
-	                if ( empty($inputs['weight']) ) {
-	                    $inputs['weight'] = 0;
-	                }
-
-	                $attachmentType->update($inputs);
-
-	            // Commit all transaction
-	            DB::commit();
-
-	            Session::flash('success', 'Updated successfully!');
-
-	            return back();
-	        }
-
-	    } catch (\Exception $e) {
-
-	        // Rollback all transaction if error occurred
-	        DB::rollBack();
-
-	        return back()->withErrors('dangerMsg', $e->getMessage())->withInput($request->all);
-	    }
-	}
+            return back()->withErrors('dangerMsg', $e->getMessage())->withInput($request->all);
+        }
+    }
 
 
-	/**
-	 * Destroy/Delete.
-	 *
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 * --------------------------------------------------------------------------
-	 */
-	public function destroy($id) {
-	    $used = Attachment::where('attachment_type_id', $id)->first();
-	    if( ! empty($used) ) {
-	        return back()->withErrors('dangerMsg', 'Cannot delete. The type is in use.');
-	    }
+    /**
+     * Edit.
+     *
+     * @param  integer $id Attachment Type ID.
+     *
+     * @return \Illuminate\Http\Response
+     * --------------------------------------------------------------------------
+     */
+    public function edit($id)
+    {
+        $attachmentScopes = (array) config('shongjukti.attachment_scopes');
+        $attachmentType   = AttachmentType::findOrFail($id);
 
-	    $attachmentType = AttachmentType::find($id);
-	    $attachmentType->delete();
+        return view('shongjukti::attachment-types.edit', compact('attachmentScopes', 'attachmentType'));
+    }
 
-	    return back()->with('success', 'Deleted Successfully');
-	}
+
+    /**
+     * Update.
+     *
+     * @param  Request $request Request.
+     * @param  string  $id      Item ID.
+     *
+     * @return \Illuminate\Http\Response
+     * --------------------------------------------------------------------------
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $inputs = $request->all();
+
+            // validate
+            $rules = array(
+                'scope_key'   => 'required',
+                'name'        => 'required|string|max:255',
+                'is_active'   => 'required',
+                'is_required' => 'required'
+            );
+
+            $validator = Validator::make($inputs, $rules);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput($request->all);
+            } else {
+                // Starting database transaction
+                DB::beginTransaction();
+
+                $attachmentType = AttachmentType::findorfail($id);
+
+                $inputs['updated_by'] = Auth::id();
+
+                if (!isset($inputs['is_label_accepted'])) {
+                    $inputs['is_label_accepted'] = 0;
+                }
+
+                if (empty($inputs['weight'])) {
+                    $inputs['weight'] = 0;
+                }
+
+                $attachmentType->update($inputs);
+
+                // Commit all transaction
+                DB::commit();
+
+                Session::flash('success', 'Updated successfully!');
+
+                return back();
+            }
+        } catch (\Exception $e) {
+            // Rollback all transaction if error occurred
+            DB::rollBack();
+
+            return back()->withErrors('dangerMsg', $e->getMessage())->withInput($request->all);
+        }
+    }
+
+
+    /**
+     * Destroy/Delete.
+     *
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     * --------------------------------------------------------------------------
+     */
+    public function destroy($id)
+    {
+        $used = Attachment::where('attachment_type_id', $id)->first();
+        if (!empty($used)) {
+            return back()->withErrors('dangerMsg', 'Cannot delete. The type is in use.');
+        }
+
+        $attachmentType = AttachmentType::find($id);
+        $attachmentType->delete();
+
+        return back()->with('success', 'Deleted Successfully');
+    }
 }

@@ -8,16 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Attachment Model Class.
+ *
+ * @category   Models
+ * @package    Laravel
+ * @subpackage TechnoVistaLimited/Shongjukti
+ * @author     Mayeenul Islam <wz.islam@gmail.com>
+ * @author     Mowshana Farhana <mowshana.farhana@technovista.com.bd>
+ * @license    GPL3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ * @link       https://github.com/technovistalimited/shongjukti/
+ */
 class Attachment extends Model
 {
-	protected $fillable = [
-		'scope_key',
-		'scope_id',
-		'attachment_type_id',
-		'attachment_label',
-		'mime_type',
-		'attachment_path'
-	];
+    protected $fillable = [
+        'scope_key',
+        'scope_id',
+        'attachment_type_id',
+        'attachment_label',
+        'mime_type',
+        'attachment_path'
+    ];
 
 
     /**
@@ -43,8 +54,8 @@ class Attachment extends Model
         // Generate filename to avoid conflict. Original filename is for the file extension.
         $_filename = time() . '-' . $file->getclientoriginalname();
         // If still, same file exists, prepend '1' to the file name.
-        if( file_exists( "{$_public_path}/{$_filename}" ) ) {
-        	$_filename = '1'. $_filename;
+        if (file_exists("{$_public_path}/{$_filename}")) {
+            $_filename = '1' . $_filename;
         }
 
         // save to /public/attachments/scope/id/ as the new $_filename
@@ -65,66 +76,66 @@ class Attachment extends Model
      * @param  array $inputs    Array of Inputs.
      * @param  string $scopeKey Scope Key.
      * @param  integer $scopeId Scope ID.
+     *
      * @return array|boolean    If uploads succeed, returns true, else array of errors.
      * -----------------------------------
      */
+    public static function storeAttachments($inputs, $scopeKey = null, $scopeId = null)
+    {
         if (!array_key_exists('attachments', $inputs)) {
             return;
         }
 
-    	$_errors = array();
-    	$_err    = false;
+        $_errors = array();
+        $_err    = false;
 
-    	if (is_array($inputs['attachments'])) {
-    		foreach ($inputs['attachments'] as $_file) {
-
+        if (is_array($inputs['attachments'])) {
+            foreach ($inputs['attachments'] as $_file) {
                 // Set default values to avoid undefined index warning.
-    			$_path      = '';
-    			$_mime_type = '';
+                $_path      = '';
+                $_mime_type = '';
 
-    			$_attachment_id     = $_file['attachment_id'];
-    			$_type_id           = intval($_file['attachment_type_id']);
-    			$_is_required       = ( $_file['is_required'] == 1 ) ? true : false;
-    			$_is_label_accepted = ( $_file['is_label_accepted'] == 1 ) ? true : false;
-    			$_is_deleted        = ( isset($_file['is_deleted']) && $_file['is_deleted'] == 1 ) ? true : false;
+                $_attachment_id     = $_file['attachment_id'];
+                $_type_id           = intval($_file['attachment_type_id']);
+                $_is_required       = ($_file['is_required'] == 1) ? true : false;
+                $_is_label_accepted = ($_file['is_label_accepted'] == 1) ? true : false;
+                $_is_deleted        = (isset($_file['is_deleted']) && $_file['is_deleted'] == 1) ? true : false;
 
                 // -------------------------------------------------------
                 // NEW ATTACHMENT ----------------------------------------
                 // -------------------------------------------------------
-    			if ( isset($_file['attachment_file']) && ! empty($_file['attachment_file']) ) {
-
+                if (isset($_file['attachment_file']) && !empty($_file['attachment_file'])) {
                     // Proceed with the default accepted files.
-    				$_extensions = (string) config('shongjukti.default_extensions');
+                    $_extensions = (string) config('shongjukti.default_extensions');
 
-    				if ( ! empty($_type_id) ) {
-
+                    if (!empty($_type_id)) {
                         // Accepted extensions per attachment type.
-    					$_type_extensions = AttachmentType::getAcceptedExtensionsByType($_type_id);
+                        $_type_extensions = AttachmentType::getAcceptedExtensionsByType($_type_id);
 
-    					if( ! empty($_type_extensions->accepted_extensions) ) {
-    						$_extensions = $_type_extensions->accepted_extensions;
-    					}
-
-    				}
+                        if (!empty($_type_extensions->accepted_extensions)) {
+                            $_extensions = $_type_extensions->accepted_extensions;
+                        }
+                    }
 
                     // Get mime types from extensions.
-    				$_accepted_mime_types = AttachmentController::mimeTypesFromExtensions($_extensions);
+                    $_accepted_mime_types = AttachmentController::mimeTypesFromExtensions($_extensions);
 
                     // Get the mime type of the uploaded file.
-    				$_mime_type = $_file['attachment_file']->getMimeType();
+                    $_mime_type = $_file['attachment_file']->getMimeType();
                     // If it's not in the accepted MIME type list, don't upload it.
-    				if ( ! in_array($_mime_type, $_accepted_mime_types) ){
-    					$_errors['invalid_mime_type'] = __('File not uploaded because the file type is not accepted.');
-    					$_err = true;
-    				}
+                    if (!in_array($_mime_type, $_accepted_mime_types)) {
+                        $_errors['invalid_mime_type'] = __('File not uploaded because the file type is not accepted.');
+                        $_err = true;
+                    }
 
                     // Skip erroneous upload.
-    				if( $_err ) continue;
+                    if ($_err) {
+                        continue;
+                    }
 
                     // Upload the file and return the file path.
-    				$_path = self::uploadAttachment($_file['attachment_file'], $scopeKey, $scopeId);
-
-    			}
+                    $_path = self::uploadAttachment($_file['attachment_file'], $scopeKey, $scopeId);
+                }
 
                 // -------------------------------------------------------
                 // COMMON FIELDS (when applicable) -----------------------
@@ -132,112 +143,105 @@ class Attachment extends Model
 
                 // Attachment Label.
                 // Available only when the custom label is accepted.
-    			if (isset($_file['attachment_label']) && !empty($_file['attachment_label'])) {
-    				$_label = $_file['attachment_label'];
-    			} else {
-    				$_label = '';
-    			}
+                if (isset($_file['attachment_label']) && !empty($_file['attachment_label'])) {
+                    $_label = $_file['attachment_label'];
+                } else {
+                    $_label = '';
+                }
 
                 // Error: Required label not provided.
-    			if( $_is_required && $_is_label_accepted && empty($_label) ) {
-    				$_errors["label_required_{$_type_id}"] = __('A required label was not provided');
-    				$_err = true;
-    			}
+                if ($_is_required && $_is_label_accepted && empty($_label)) {
+                    $_errors["label_required_{$_type_id}"] = __('A required label was not provided');
+                    $_err = true;
+                }
 
                 // Skip erroneous upload.
-    			if( $_err ) continue;
+                if ($_err) {
+                    continue;
+                }
 
-    			if( $_attachment_id )
-    			{
-
+                if ($_attachment_id) {
                     // -------------------------------------------------------------
                     // Edit Mode ----------------------------------------------------
                     // -------------------------------------------------------------
 
-    				$_is_exists = self::isAttachmentExists($scopeKey, $scopeId, $_type_id);
+                    $_is_exists = self::isAttachmentExists($scopeKey, $scopeId, $_type_id);
 
-    				if( $_is_exists ) {
-
-    					if( ! $_is_required && $_is_deleted ) {
-    						if( empty($_path) && !empty($_is_exists->attachment_path) ) {
+                    if ($_is_exists) {
+                        if (!$_is_required && $_is_deleted) {
+                            if (empty($_path) && !empty($_is_exists->attachment_path)) {
                                 // exists. but delete.
-    							self::deleteAttachment($scopeKey, $scopeId, $_is_exists->attachment_path);
-    						}
-    					}
+                                self::deleteAttachment($scopeKey, $scopeId, $_is_exists->attachment_path);
+                            }
+                        }
 
-    					$attachment_path = empty($_path) ? $_is_exists->attachment_path : $_path;
-    					$mime_type       = empty($_mime_type) ? $_is_exists->mime_type : $_mime_type;
+                        $attachment_path = empty($_path) ? $_is_exists->attachment_path : $_path;
+                        $mime_type       = empty($_mime_type) ? $_is_exists->mime_type : $_mime_type;
 
                         // exists. update.
-    					self::updateAttachment([
-    						'scope_key'          => trim($scopeKey),
-    						'scope_id'           => intval($scopeId),
-    						'attachment_type_id' => $_type_id,
-    						'attachment_label'   => trim($_label),
-    						'mime_type'          => trim($mime_type),
-    						'attachment_path'    => trim($attachment_path)
-    					],
-    					trim($_is_exists->attachment_path)
-    				);
+                        self::updateAttachment(
+                            [
+                                'scope_key'          => trim($scopeKey),
+                                'scope_id'           => intval($scopeId),
+                                'attachment_type_id' => $_type_id,
+                                'attachment_label'   => trim($_label),
+                                'mime_type'          => trim($mime_type),
+                                'attachment_path'    => trim($attachment_path)
+                            ],
+                            trim($_is_exists->attachment_path)
+                        );
+                    } else {
+                        if (empty($_path)) {
+                            if ($_is_required) {
+                                $_errors["file_required_{$_type_id}"] = __('A required file was not uploaded');
+                                $_err = true;
 
-    				} else {
-
-    					if( empty($_path) ) {
-    						if( $_is_required ) {
-    							$_errors["file_required_{$_type_id}"] = __('A required file was not uploaded');
-    							$_err = true;
-
-    							continue;
-    						} else {
+                                continue;
+                            } else {
                                 // Don't store empty value in database.
-    							continue;
-    						}
-    					}
+                                continue;
+                            }
+                        }
 
                         // not exists. add.
-    					self::addAttachment([
-    						'scope_key'          => trim($scopeKey),
-    						'scope_id'           => intval($scopeId),
-    						'attachment_type_id' => $_type_id,
-    						'attachment_label'   => trim($_label),
-    						'mime_type'          => trim($_mime_type),
-    						'attachment_path'    => trim($_path)
-    					]);
-    				}
-
-    			}
-    			else
-    			{
+                        self::addAttachment([
+                            'scope_key'          => trim($scopeKey),
+                            'scope_id'           => intval($scopeId),
+                            'attachment_type_id' => $_type_id,
+                            'attachment_label'   => trim($_label),
+                            'mime_type'          => trim($_mime_type),
+                            'attachment_path'    => trim($_path)
+                        ]);
+                    }
+                } else {
                     // -------------------------------------------------------------
                     // Add Mode ----------------------------------------------------
                     // -------------------------------------------------------------
-    				if( empty($_path) ) {
-    					if( $_is_required ) {
-    						$_errors["file_required_{$_type_id}"] = __('A required file was not uploaded');
-    						$_err = true;
+                    if (empty($_path)) {
+                        if ($_is_required) {
+                            $_errors["file_required_{$_type_id}"] = __('A required file was not uploaded');
+                            $_err = true;
 
-    						continue;
-    					} else {
+                            continue;
+                        } else {
                             // Don't store empty value in database.
-    						continue;
-    					}
-    				}
+                            continue;
+                        }
+                    }
 
-    				self::addAttachment([
-    					'scope_key'          => trim($scopeKey),
-    					'scope_id'           => intval($scopeId),
-    					'attachment_type_id' => $_type_id,
-    					'attachment_label'   => trim($_label),
-    					'mime_type'          => trim($_mime_type),
-    					'attachment_path'    => trim($_path)
-    				]);
-    			}
-
+                    self::addAttachment([
+                        'scope_key'          => trim($scopeKey),
+                        'scope_id'           => intval($scopeId),
+                        'attachment_type_id' => $_type_id,
+                        'attachment_label'   => trim($_label),
+                        'mime_type'          => trim($_mime_type),
+                        'attachment_path'    => trim($_path)
+                    ]);
+                }
             } //endforeach
         } //endif
 
         return empty($_errors) ? true : $_errors;
-
     }
 
     /**
@@ -253,20 +257,22 @@ class Attachment extends Model
      */
     public static function isAttachmentExists($scopeKey, $scopeId, $typeId, $existingPath = null)
     {
-    	$attachment = DB::table('attachments')
-	    	->where('scope_key', $scopeKey)
-	    	->where('scope_id', $scopeId)
-	    	->where('attachment_type_id', $typeId);
+        $attachment = DB::table('attachments')
+            ->where('scope_key', $scopeKey)
+            ->where('scope_id', $scopeId)
+            ->where('attachment_type_id', $typeId);
 
-    	if( null !== $existingPath ) {
-    		$attachment = $attachment->where('attachment_path', $existingPath);
-    	}
+        if (null !== $existingPath) {
+            $attachment = $attachment->where('attachment_path', $existingPath);
+        }
 
-    	$attachment = $attachment->first();
+        $attachment = $attachment->first();
 
-    	if( ! $attachment ) return false;
+        if (!$attachment) {
+            return false;
+        }
 
-    	return $attachment;
+        return $attachment;
     }
 
     /**
@@ -279,7 +285,7 @@ class Attachment extends Model
      */
     public static function addAttachment($data)
     {
-    	DB::table('attachments')->insert($data);
+        DB::table('attachments')->insert($data);
     }
 
     /**
@@ -298,17 +304,19 @@ class Attachment extends Model
      */
     public static function updateAttachment($data, $existingPath = null)
     {
-    	if( empty($data) ) return false;
+        if (empty($data)) {
+            return false;
+        }
 
-    	DB::table('attachments')
-	    	->where('scope_key', $data['scope_key'])
-	    	->where('scope_id', $data['scope_id'])
-	    	->where('attachment_type_id', $data['attachment_type_id'])
-	    	->update($data);
+        DB::table('attachments')
+            ->where('scope_key', $data['scope_key'])
+            ->where('scope_id', $data['scope_id'])
+            ->where('attachment_type_id', $data['attachment_type_id'])
+            ->update($data);
 
-    	if( ! empty($existingPath) && ($data['attachment_path'] !== $existingPath) ) {
-    		self::removeAttachment($existingPath);
-    	}
+        if (!empty($existingPath) && ($data['attachment_path'] !== $existingPath)) {
+            self::removeAttachment($existingPath);
+        }
     }
 
     /**
@@ -317,24 +325,24 @@ class Attachment extends Model
      * - from database
      * - from file path.
      *
-     * @see    self::removeAttachment() To delete file from path.
-     *
      * @param  string  $scopeKey     Scope Key.
      * @param  integer $scopeId      Scope ID.
      * @param  string  $existingPath Existing Path.
+     *
+     * @see    self::removeAttachment() To delete file from path.
      *
      * @return true                  True, while deleted.
      * -----------------------------------
      */
     public static function deleteAttachment($scopeKey, $scopeId, $existingPath)
     {
-    	DB::table('attachments')
-	    	->where('scope_key', $scopeKey)
-	    	->where('scope_id', $scopeId)
-	    	->where('attachment_path', $existingPath)
-	    	->delete();
+        DB::table('attachments')
+            ->where('scope_key', $scopeKey)
+            ->where('scope_id', $scopeId)
+            ->where('attachment_path', $existingPath)
+            ->delete();
 
-    	self::removeAttachment($existingPath);
+        self::removeAttachment($existingPath);
     }
 
     /**
@@ -352,12 +360,12 @@ class Attachment extends Model
     public static function removeAttachment($existingPath)
     {
         // Stripping out the leading slash to use with public_path().
-    	$_modified_path = str_replace('/attachments', 'attachments', $existingPath);
-    	if( file_exists($_modified_path) ) {
-    		return unlink( public_path($_modified_path) );
-    	}
+        $_modified_path = str_replace('/attachments', 'attachments', $existingPath);
+        if (file_exists($_modified_path)) {
+            return unlink(public_path($_modified_path));
+        }
 
-    	return false;
+        return false;
     }
 
 
@@ -372,38 +380,38 @@ class Attachment extends Model
      */
     public static function getAttachmentsForEdit($scopeKey, $scopeId)
     {
-    	$name = App::isLocale('en') ? 'name' : 'name_bn';
+        $name = App::isLocale('en') ? 'name' : 'name_bn';
 
-    	$_attachments = array();
+        $_attachments = array();
 
-    	$_db_attachments = DB::table('attachments')
-	    	->leftJoin('attachment_types', 'attachment_types.id', '=', 'attachments.attachment_type_id')
-	    	->select(
-	    		'attachments.id',
-	    		'attachments.attachment_type_id',
-	    		'attachments.attachment_label',
-	    		'attachments.mime_type',
-	    		'attachments.attachment_path',
-	    		"attachment_types.{$name} as name"
-	    	)
-	    	->where('attachments.scope_key', $scopeKey)
-	    	->where('attachments.scope_id', $scopeId)
-	    	->orderBy('attachment_types.weight', 'asc')
-	    	->orderBy('attachment_types.is_required', 'desc')
-	    	->orderBy('attachment_types.name', 'asc')
-	    	->get();
+        $_db_attachments = DB::table('attachments')
+            ->leftJoin('attachment_types', 'attachment_types.id', '=', 'attachments.attachment_type_id')
+            ->select(
+                'attachments.id',
+                'attachments.attachment_type_id',
+                'attachments.attachment_label',
+                'attachments.mime_type',
+                'attachments.attachment_path',
+                "attachment_types.{$name} as name"
+            )
+            ->where('attachments.scope_key', $scopeKey)
+            ->where('attachments.scope_id', $scopeId)
+            ->orderBy('attachment_types.weight', 'asc')
+            ->orderBy('attachment_types.is_required', 'desc')
+            ->orderBy('attachment_types.name', 'asc')
+            ->get();
 
-    	foreach ($_db_attachments as $_db_attachment) {
-    		$_attachments[$_db_attachment->attachment_type_id] = array(
-    			'id'        => $_db_attachment->id,
-    			'type_id'   => $_db_attachment->attachment_type_id,
-    			'label'     => $_db_attachment->attachment_label,
-    			'mime_type' => $_db_attachment->mime_type,
-    			'path'      => $_db_attachment->attachment_path
-    		);
-    	}
+        foreach ($_db_attachments as $_db_attachment) {
+            $_attachments[$_db_attachment->attachment_type_id] = array(
+                'id'        => $_db_attachment->id,
+                'type_id'   => $_db_attachment->attachment_type_id,
+                'label'     => $_db_attachment->attachment_label,
+                'mime_type' => $_db_attachment->mime_type,
+                'path'      => $_db_attachment->attachment_path
+            );
+        }
 
-    	return $_attachments;
+        return $_attachments;
     }
 
     /**
@@ -419,25 +427,25 @@ class Attachment extends Model
      */
     public static function getAttachments($scopeKey, $scopeId)
     {
-    	$name = App::isLocale('en') ? 'name' : 'name_bn';
+        $name = App::isLocale('en') ? 'name' : 'name_bn';
 
-    	$attachmentsObj = DB::table('attachments')
-	    	->leftJoin('attachment_types', 'attachment_types.id', '=', 'attachments.attachment_type_id')
-	    	->select(
-	    		'attachments.id',
-	    		'attachments.attachment_type_id',
-	    		'attachments.attachment_label',
-	    		'attachments.attachment_path',
-	    		"attachment_types.{$name} as name",
-	    		"attachment_types.is_required"
-	    	)
-	    	->where('attachments.scope_key', $scopeKey)
-	    	->where('attachments.scope_id', $scopeId)
-	    	->orderBy('attachment_types.weight', 'asc')
-	    	->orderBy('attachment_types.is_required', 'desc')
-	    	->orderBy('attachment_types.name', 'asc')
-	    	->get();
+        $attachmentsObj = DB::table('attachments')
+            ->leftJoin('attachment_types', 'attachment_types.id', '=', 'attachments.attachment_type_id')
+            ->select(
+                'attachments.id',
+                'attachments.attachment_type_id',
+                'attachments.attachment_label',
+                'attachments.attachment_path',
+                "attachment_types.{$name} as name",
+                "attachment_types.is_required"
+            )
+            ->where('attachments.scope_key', $scopeKey)
+            ->where('attachments.scope_id', $scopeId)
+            ->orderBy('attachment_types.weight', 'asc')
+            ->orderBy('attachment_types.is_required', 'desc')
+            ->orderBy('attachment_types.name', 'asc')
+            ->get();
 
-    	return $attachmentsObj;
+        return $attachmentsObj;
     }
 }
