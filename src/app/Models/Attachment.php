@@ -68,7 +68,9 @@ class Attachment extends Model
      * @return array|boolean    If uploads succeed, returns true, else array of errors.
      * -----------------------------------
      */
-    public static function storeAttachments($inputs, $scopeKey = null, $scopeId = null) {
+        if (!array_key_exists('attachments', $inputs)) {
+            return;
+        }
 
     	$_errors = array();
     	$_err    = false;
