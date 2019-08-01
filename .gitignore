@@ -3,8 +3,10 @@
 .idea/*
 *.sublime-project
 *.sublime-workspace
+*.code-workspace
 _ide_helper.php
 sublime-gulp.log
+.history
 
 ## Build files
 /dist/*
