@@ -50,6 +50,16 @@ class Shongjukti
         return route('attachment_type.edit', ['id' => $id]);
     }
 
+    public static function deleteAttachment($scopeKey, $scopeId, $existingPath)
+    {
+        return Attachment::deleteAttachment($scopeKey, $scopeId, $existingPath);
+    }
+
+    public static function removeAttachment($existingPath)
+    {
+        return Attachment::removeAttachment($existingPath);
+    }
+
     public static function bytesToMb($bytes)
     {
         return AttachmentController::bytesToMb($bytes);
