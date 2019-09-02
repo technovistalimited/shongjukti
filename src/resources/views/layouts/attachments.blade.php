@@ -254,11 +254,8 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                             {{ sprintf("%02d", $_counter) }}
                         </span>
                         <div class="attachment-type-group">
-                            <div class="{{ empty($attachment->attachment_label) ? 'form-control-static' : 'small' }}">
+                            <div class="{{ empty($attachment->attachment_label) ? 'form-control-static' : 'small text-muted' }}">
                                 {{ $attachment->name }}
-                                @if( ! $attachment->is_required )
-                                    <span class="badge badge-default badge-secondary">{{ strtolower(__('shongjukti::messages.optional')) }}</span>
-                                @endif
                             </div>
                             @if( !empty($attachment->attachment_label) )
                                 {{ $attachment->attachment_label }}
