@@ -1,48 +1,12 @@
 /**
  * Attachment Type Scripts
  *
- * @package    Laravel
- * @subpackage TechnoVistaLimited/Shongjukti
+ * @package    laravel
+ * @subpackage shongjukti
  */
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    var scopeKeyChoice = document.getElementById('scope-key-choice');
-
-    // --------------------------------------------------------------------------
-    // LIST PAGE ----------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
-    // Load UI based on Scope____________________________________________________
-    // Load Respective Attachments based on Scope Key selection.
-
-    function loadScopeData(scope_select) {
-        var parameter = scope_select.value;
-        var baseUrl = window.location.href;
-
-        // hard-coded string to indicate from where it can append the slug string.
-        var withoutLastChunk = baseUrl.slice(0, baseUrl.lastIndexOf('attachment-types'));
-        window.location.href = withoutLastChunk + 'attachment-types/' + parameter;
-    }
-
-    if (scopeKeyChoice) {
-
-        scopeKeyChoice.onchange = function (event) {
-            loadScopeData(this);
-        };
-
-    }
-
-
-
-    // --------------------------------------------------------------------------
-    // CREATE PAGE --------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
-    var scopeKey = document.getElementById('scope-key');
-
-    // Remember the Scope choice from the last entry_____________________________
-    // Using JavaScript Cookie.
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -65,6 +29,53 @@ document.addEventListener('DOMContentLoaded', function () {
         return "";
     }
 
+    var scopeKeyChoice = document.getElementById('scope-key-choice');
+
+    // --------------------------------------------------------------------------
+    // LIST PAGE ----------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
+    // Load UI based on Scope____________________________________________________
+    // Load Respective Attachments based on Scope Key selection.
+
+    function loadScopeData(scope_select) {
+        var parameter = scope_select.value;
+        var baseUrl = window.location.href;
+
+        // hard-coded string to indicate from where it can append the slug string.
+        var withoutLastChunk = baseUrl.slice(0, baseUrl.lastIndexOf('attachment-types'));
+        window.location.href = withoutLastChunk + 'attachment-types/' + parameter;
+    }
+
+    // Remember the Scope choice from the last entry_____________________________
+    // Using JavaScript Cookie.
+    if (scopeKeyChoice) {
+
+        // Remember the value on choice.
+        scopeKeyChoice.onchange = function (event) {
+            setCookie('attachment-scope', this.value, 10);
+            loadScopeData(this);
+        };
+
+        // Set the value on page load.
+        var attachmentScope = getCookie('attachment-scope');
+
+        if (attachmentScope != '') {
+            scopeKeyChoice.value = attachmentScope;
+        }
+
+    }
+
+
+
+    // --------------------------------------------------------------------------
+    // CREATE PAGE --------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
+    var scopeKey = document.getElementById('scope-key');
+
+    // Remember the Scope choice from the last entry_____________________________
+    // Using JavaScript Cookie.
     if (scopeKey) {
 
         // Remember the value on choice.
@@ -79,6 +90,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
     }
-
 
 }, false);
