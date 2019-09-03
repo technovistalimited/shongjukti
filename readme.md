@@ -1,4 +1,5 @@
-![Shongjukti - Laravel Package for Attachment Management by TechnoVista Limited](https://user-images.githubusercontent.com/4551598/54081078-af481380-4328-11e9-9c71-792d75f5867a.png)
+![Shongjukti - Laravel Package for Attachment Management by TechnoVista Limited](https://user-images.githubusercontent.com/4551598/64144194-3c31dc80-ce35-11e9-9c46-90a88c8db2a4.png)
+
 
 # Shongjukti (সংযুক্তি)
 
