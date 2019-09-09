@@ -97,7 +97,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                         </span>
                         <div class="attachment-type-group">
                             <div class="{{ $attachmentType->is_label_accepted ? 'small' : 'form-control-static' }}">
-                                {{ $attachmentType->name }}
+                                {{ !empty($attachmentType->name) ? $attachmentType->name : $attachmentType->attachment_type }}
                                 @if( ! $attachmentType->is_required )
                                     <span class="badge badge-default badge-secondary">{{ strtolower(__('shongjukti::messages.optional')) }}</span>
                                 @endif
@@ -255,7 +255,7 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
                         </span>
                         <div class="attachment-type-group">
                             <div class="{{ empty($attachment->attachment_label) ? 'form-control-static' : 'small text-muted' }}">
-                                {{ $attachment->name }}
+                                {{ !empty($attachment->name) ? $attachment->name : $attachment->attachment_type }}
                             </div>
                             @if( !empty($attachment->attachment_label) )
                                 {{ $attachment->attachment_label }}
