@@ -437,6 +437,7 @@ class Attachment extends Model
                 'attachments.attachment_label',
                 'attachments.attachment_path',
                 "attachment_types.{$name} as name",
+                'attachment_types.name as attachment_type',
                 "attachment_types.is_required"
             )
             ->where('attachments.scope_key', $scopeKey)
