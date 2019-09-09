@@ -53,6 +53,7 @@ class AttachmentType extends Model
             ->select(
                 'id',
                 "{$name} as name",
+                'name as attachment_type',
                 'accepted_extensions',
                 'is_active',
                 'weight',
