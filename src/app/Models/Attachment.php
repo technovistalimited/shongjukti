@@ -73,11 +73,11 @@ class Attachment extends Model
      *
      * Store all the attachments one by one based on array data.
      *
-     * @param  array $inputs    Array of Inputs.
-     * @param  string $scopeKey Scope Key.
-     * @param  integer $scopeId Scope ID.
+     * @param array   $inputs   Array of Inputs.
+     * @param string  $scopeKey Scope Key.
+     * @param integer $scopeId  Scope ID.
      *
-     * @return array|boolean    If uploads succeed, returns true, else array of errors.
+     * @return array|integer    If uploads succeed, the ID, else array of errors.
      * -----------------------------------
      */
     public static function storeAttachments($inputs, $scopeKey = null, $scopeId = null)
@@ -94,6 +94,8 @@ class Attachment extends Model
                 // Set default values to avoid undefined index warning.
                 $_path      = '';
                 $_mime_type = '';
+                $the_id     = '';
+
 
                 $_attachment_id     = $_file['attachment_id'];
                 $_type_id           = intval($_file['attachment_type_id']);
@@ -190,6 +192,7 @@ class Attachment extends Model
                             ],
                             trim($_is_exists->attachment_path)
                         );
+                        $the_id = $_attachment_id;
                     } else {
                         if (empty($_path)) {
                             if ($_is_required) {
@@ -204,7 +207,7 @@ class Attachment extends Model
                         }
 
                         // not exists. add.
-                        self::addAttachment([
+                        $the_id = self::addAttachment([
                             'scope_key'          => trim($scopeKey),
                             'scope_id'           => intval($scopeId),
                             'attachment_type_id' => $_type_id,
@@ -229,7 +232,7 @@ class Attachment extends Model
                         }
                     }
 
-                    self::addAttachment([
+                    $the_id = self::addAttachment([
                         'scope_key'          => trim($scopeKey),
                         'scope_id'           => intval($scopeId),
                         'attachment_type_id' => $_type_id,
@@ -241,7 +244,7 @@ class Attachment extends Model
             } //endforeach
         } //endif
 
-        return empty($_errors) ? true : $_errors;
+        return empty($_errors) ? $the_id : $_errors;
     }
 
     /**
@@ -285,7 +288,7 @@ class Attachment extends Model
      */
     public static function addAttachment($data)
     {
-        DB::table('attachments')->insert($data);
+        return DB::table('attachments')->insertGetId($data);
     }
 
     /**
