@@ -749,6 +749,8 @@ class AttachmentController extends Controller
             'sh'           => 'application/x-sh',
             'shar'         => 'application/x-shar',
             'shf'          => 'application/shf+xml',
+            'shp'          => 'application/octet-stream',
+            'shx'          => 'application/octet-stream',
             'sid'          => 'image/x-mrsid-image',
             'sig'          => 'application/pgp-signature',
             'sil'          => 'audio/silk',
