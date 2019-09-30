@@ -102,6 +102,9 @@ class Attachment extends Model
                 $_is_required       = ($_file['is_required'] == 1) ? true : false;
                 $_is_label_accepted = ($_file['is_label_accepted'] == 1) ? true : false;
                 $_is_deleted        = (isset($_file['is_deleted']) && $_file['is_deleted'] == 1) ? true : false;
+                $_max_upload_size   = (int) config('shongjukti.upload_max_size');
+                $_max_size_in_mb    = round(AttachmentController::bytesToMb($_max_upload_size), 2, PHP_ROUND_HALF_UP);
+                $file_size_msg      = sprintf(__('File size cannot exceed %sMB limit'), $_max_size_in_mb);
 
                 // -------------------------------------------------------
                 // NEW ATTACHMENT ----------------------------------------
@@ -127,6 +130,12 @@ class Attachment extends Model
                     // If it's not in the accepted MIME type list, don't upload it.
                     if (!in_array($_mime_type, $_accepted_mime_types)) {
                         $_errors['invalid_mime_type'] = __('File not uploaded because the file type is not accepted.');
+                        $_err = true;
+                    }
+
+                    // If it's exceeds Maximum File Size, don't upload it
+                    if ((filesize($_file['attachment_file']) > $_max_upload_size) || (0 === filesize($_file['attachment_file']))) {
+                        $_errors['exceeds_file_size'] = $file_size_msg;
                         $_err = true;
                     }
 
