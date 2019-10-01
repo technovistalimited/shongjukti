@@ -22,7 +22,15 @@
             <span class="pull-right small text-danger">({{ __('shongjukti::messages.required') }})</span>
         </label>
 
-        <?php $_scope_key = isset($attachmentType) ? $attachmentType->scope_key : old('scope_key'); ?>
+        <?php
+        if (old('scope_key')) {
+            $_scope_key = old('scope_key');
+        } elseif (isset($attachmentType)) {
+            $_scope_key = $attachmentType->scope_key;
+        } else {
+            $_scope_key = '';
+        }
+        ?>
         <select name="scope_key" id="scope-key" class="form-control" required>
             <option value="">{{ __('shongjukti::messages.select_a_scope') }}</option>
             @foreach($attachmentScopes as $key => $value)
@@ -48,7 +56,15 @@
                 <span class="pull-right small text-danger">({{ __('shongjukti::messages.required') }})</span>
             </label>
 
-            <?php $_name = isset($attachmentType) ? $attachmentType->name : old('name'); ?>
+            <?php
+            if (old('name')) {
+                $_name = old('name');
+            } elseif (isset($attachmentType)) {
+                $_name = $attachmentType->name;
+            } else {
+                $_name = '';
+            }
+            ?>
             <input id="name" type="text" class="form-control" name="name" value="{{$_name}}" required autocomplete="off">
 
             @if ($errors->has('name'))
@@ -65,7 +81,15 @@
                 <span class="text-bold">{{ __('shongjukti::messages.name_in_bengali') }}</span>
             </label>
 
-            <?php $_name_bn = isset($attachmentType) ? $attachmentType->name_bn : old('name_bn'); ?>
+            <?php
+            if (old('name_bn')) {
+                $_name_bn = old('name_bn');
+            } elseif (isset($attachmentType)) {
+                $_name_bn = $attachmentType->name_bn;
+            } else {
+                $_name_bn = '';
+            }
+            ?>
             <input id="name-bn" type="text" class="form-control" name="name_bn" value="{{$_name_bn}}" autocomplete="off">
         </div>
     </div>
@@ -77,7 +101,15 @@
             {{ __('shongjukti::messages.accepted_file_extensions') }}
         </label>
 
-        <?php $_accepted_extensions = isset($attachmentType) ? $attachmentType->accepted_extensions : old('accepted_extensions'); ?>
+        <?php
+        if (old('accepted_extensions')) {
+            $_accepted_extensions = old('accepted_extensions');
+        } elseif (isset($attachmentType)) {
+            $_accepted_extensions = $attachmentType->accepted_extensions;
+        } else {
+            $_accepted_extensions = '';
+        }
+        ?>
         <textarea id="accepted-extensions" class="form-control" name="accepted_extensions" rows="2" placeholder="eg. jpg, png, pdf, gif">{{$_accepted_extensions}}</textarea>
     </div>
 </div>
@@ -90,10 +122,10 @@
             </label>
 
             <?php
-            if(isset($attachmentType)) :
-                $_weight = $attachmentType->weight;
-            elseif( !empty(old('weight')) ):
+            if(old('weight')) :
                 $_weight = old('weight');
+            elseif(isset($attachmentType)):
+                $_weight = $attachmentType->weight;
             else :
                 $_weight = 0; // default: 0
             endif;
@@ -104,10 +136,10 @@
 
     <div class="col-sm-3">
         <?php
-        if( isset($attachmentType) ) {
-            $_is_required = $attachmentType->is_required;
-        } else if( !empty(old('is_required')) ) {
+        if( old('is_required') ) {
             $_is_required = old('is_required');
+        } else if( isset($attachmentType) ) {
+            $_is_required = $attachmentType->is_required;
         } else {
             $_is_required = 0; // default: optional
         }
@@ -141,7 +173,15 @@
             </label>
 
             <label class="checkbox-inline">
-                <?php $_is_label_accepted = isset($attachmentType) ? $attachmentType->is_label_accepted : old('is_label_accepted'); ?>
+                <?php
+                if (old('is_label_accepted')) {
+                    $_is_label_accepted = old('is_label_accepted');
+                } elseif (isset($attachmentType)) {
+                    $_is_label_accepted = $attachmentType->is_label_accepted;
+                } else {
+                    $_is_label_accepted = '';
+                }
+                ?>
                 <input type="checkbox" name="is_label_accepted" value="1" {{ $_is_label_accepted == 1 ? 'checked="checked"' : '' }}> {{ __('shongjukti::messages.yes') }}
             </label>
         </div>
@@ -149,10 +189,10 @@
 
     <div class="col-sm-3">
         <?php
-        if( isset($attachmentType) ) {
-            $_is_active = $attachmentType->is_active;
-        } else if( !empty(old('is_active')) ) {
+        if( old('is_active') ) {
             $_is_active = old('is_active');
+        } elseif( isset($attachmentType) ) {
+            $_is_active = $attachmentType->is_active;
         } else {
             $_is_active = 1; // default: active
         }

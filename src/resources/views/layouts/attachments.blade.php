@@ -123,7 +123,13 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 
                             @if( $attachmentType->is_label_accepted )
                                 <?php
-                                $_attachment_label = isset($attachments) && isset($attachments[$attachmentType->id]['label']) ? $attachments[$attachmentType->id]['label'] : old("attachments[{{$_counter}}][attachment_label]");
+                                if (old("attachments[{{$_counter}}][attachment_label]")) {
+                                    $_attachment_label = old("attachments[{{$_counter}}][attachment_label]");
+                                } elseif (isset($attachments) && isset($attachments[$attachmentType->id]['label'])) {
+                                    $_attachment_label = $attachments[$attachmentType->id]['label'];
+                                } else {
+                                    $_attachment_label = '';
+                                }
 
 
                                 /**
