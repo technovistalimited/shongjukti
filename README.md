@@ -1,6 +1,5 @@
 ![Shongjukti - Laravel Package for Attachment Management by TechnoVista Limited](https://user-images.githubusercontent.com/4551598/64144194-3c31dc80-ce35-11e9-9c46-90a88c8db2a4.png)
 
-
 # Shongjukti (সংযুক্তি)
 
 [![GitHub release](https://img.shields.io/github/release/technovistalimited/shongjukti.svg?style=flat&color=green)](https://github.com/technovistalimited/shongjukti/releases)
@@ -31,11 +30,18 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 
 ## Requirements
+
 - Laravel 5.6+ (Tested up to 5.8.x)
-- Bootstrap 3.4.1 styles (grids, panels, forms, alerts, buttons) - non-breaking for Bootstrap 4
+- Bootstrap 3.4.1/4.x styles
+    - Grids
+    - Panels (Cards)
+    - Forms
+    - Alerts
+    - Buttons
 - jQuery 2.x+
 
 ## Features
+
 - _Defined_ attachments can be managed
 - Attachments can be defined for any types of scopes
 - A custom label can be accepted where necessary
@@ -50,19 +56,23 @@ Features that _not_ present can be found under "Known Issues" section.
 ## Documentation
 
 ### Install & Configure
+
 - [Installation](https://github.com/technovistalimited/shongjukti/wiki/Installation)
 - [Configuration](https://github.com/technovistalimited/shongjukti/wiki/Configuration)
 
 ### How to Use
+
 - [Implementation Guide](https://github.com/technovistalimited/shongjukti/wiki/Implementation)
 - [Implementation Checklist](https://github.com/technovistalimited/shongjukti/wiki/Implementation-Checklist) (guideline from other perspective)
 - [Overriding Things](https://github.com/technovistalimited/shongjukti/wiki/Overriding-Things)
 
 ### Utilities
+
 - [Necessary Methods (Functions)](https://github.com/technovistalimited/shongjukti/wiki/Necessary-Methods-(Functions))
 - [Pluggable Portions (Things can be modified)](https://github.com/technovistalimited/shongjukti/wiki/Pluggable-Portions-(Things-can-be-modified))
 
 ### Error Handling
+
 - [Error Handling](https://github.com/technovistalimited/shongjukti/wiki/Error-Handling)
 
 
@@ -77,6 +87,7 @@ But the screenshots are taken from the actual use case where we modified things 
 [📷 See Screenshots](https://github.com/technovistalimited/shongjukti/wiki/Screenshots)
 
 ## Known Issues (When not to use)
+
 - **Variable number of Attachments not supported:**<br>
 If you want to let the user add attachments on their choice, and there are no fixed attachments defined, this repository won't fit
 - **No separate uploading (Larger files matter):**<br>
@@ -85,14 +96,17 @@ The module will store files (attachments) when the parent form will store data. 
 If the file upload part is managed using JavaScript upload, then the `/scope_key/scope_id/file.ext` concept won't work, and the files will be stored in `/year/month/file.ext` path, unless the `scope_id` is managed by any way
 
 ## Roadmap
+
 - [ ] Facilitate to employ multiple segments in the same scope to accept segmented attachments
 - [x] Make it more robust to use like a Laravel package
 - [x] If a Laravel package is been developed, publish it to packagist.org
 
 ## License
+
 The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
 
 ## Credits
+
 Project initiated and lead by Mr. [Mayeenul Islam Mayeen](https://github.com/mayeenulislam). Ms. [Mowshana Farhana Mow](https://github.com/mowshana) implemented the idea.<br>
 Heartiest thanks to Mr. Nazmul Hasan, Tanvir Rahman, Shakhawat Hossain Mollah, and Shipon Hossain for their valuable feedback and guidance.
 
