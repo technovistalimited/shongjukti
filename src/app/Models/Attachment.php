@@ -76,6 +76,9 @@ class Attachment extends Model
      * @param string  $scopeKey Scope Key.
      * @param integer $scopeId  Scope ID.
      *
+     * @since v1.1.0 - Validate file size restriction.
+     * @since v1.1.0 - Returns ID on success instead of boolean true.
+     *
      * @return array|integer    If uploads succeed, the ID, else array of errors.
      * -----------------------------------
      */
@@ -289,9 +292,11 @@ class Attachment extends Model
     /**
      * Add Attachment to the Database.
      *
-     * @param   array $data Array of data.
+     * @param array $data Array of data.
      *
-     * @return  void
+     * @since v1.1.0 - Returns ID of attachment.
+     *
+     * @return integer   ID of attachment on insertion.
      * -----------------------------------
      */
     public static function addAttachment($data)

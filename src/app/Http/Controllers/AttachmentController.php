@@ -25,6 +25,8 @@ class AttachmentController extends Controller
      *
      * @link   https://cdn.rawgit.com/jshttp/mime-db/master/db.json
      *
+     * @since v1.1.0 - Added shape files' support.
+     *
      * @param  string   $fileExtension File extension.
      * @return string                  MIME type.
      * --------------------------------------------------------------------------
