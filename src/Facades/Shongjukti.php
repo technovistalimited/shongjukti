@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @package    Laravel
  * @subpackage TechnoVistaLimited/Shongjukti
  * @author     Mayeenul Islam <wz.islam@gmail.com>
- * @license    GPL3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ * @license    MIT (https://opensource.org/licenses/MIT)
  * @link       https://github.com/technovistalimited/shongjukti/
  */
 class Shongjukti extends Facade

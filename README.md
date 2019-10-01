@@ -103,7 +103,7 @@ If the file upload part is managed using JavaScript upload, then the `/scope_key
 
 ## License
 
-The code is licensed in [GPL3](https://opensource.org/licenses/GPL-3.0).
+The code is licensed in [MIT](https://opensource.org/licenses/MIT).
 
 ## Credits
 

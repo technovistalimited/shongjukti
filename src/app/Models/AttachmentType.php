@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
  * @subpackage TechnoVistaLimited/Shongjukti
  * @author     Mayeenul Islam <wz.islam@gmail.com>
  * @author     Mowshana Farhana <mowshana.farhana@technovista.com.bd>
- * @license    GPL3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ * @license    MIT (https://opensource.org/licenses/MIT)
  * @link       https://github.com/technovistalimited/shongjukti/
  */
 class AttachmentType extends Model

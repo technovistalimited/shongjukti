@@ -19,6 +19,7 @@
 
 ## `v1.1.0` - 2019-10-01 - Feature Release
 
+* License changed from GPL-3 to MIT
 * Feature: Support added for Shape files (`.shp`, `.shx`)
 * Refactor: Return the ID of the attachment on successful upload instead of boolean
 * Fix: Maximum Upload Size check in PHP
