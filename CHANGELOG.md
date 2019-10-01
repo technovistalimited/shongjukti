@@ -23,7 +23,7 @@
 * Feature: Support added for Shape files (`.shp`, `.shx`)
 * Refactor: Return the ID of the attachment on successful upload instead of boolean
 * Fix: Maximum Upload Size check in PHP
-* Fix: Attachment Type label not showing in Bengali mode (@prpos Mowshana Farhana)
+* Fix: Attachment Type label not showing in Bengali mode (@props Mowshana Farhana)
 * Fix: Prioritize `$_POST` value over database values in form return values
 * Changelog added
 * General Fixes in Readme file
