@@ -5,7 +5,6 @@ namespace Technovistalimited\Shongjukti\App\Models;
 use Technovistalimited\Shongjukti\App\Controllers\AttachmentController;
 use Technovistalimited\Shongjukti\App\Models\AttachmentType;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -387,13 +386,13 @@ class Attachment extends Model
      * @param string  $scopeKey Scope Key
      * @param integer $scopeId  Scope ID
      *
+     * @since v1.1.0 - Get all the fields instead of localized. Localize later.
+     *
      * @return array
      * -----------------------------------------------------------------------
      */
     public static function getAttachmentsForEdit($scopeKey, $scopeId)
     {
-        $name = App::isLocale('en') ? 'name' : 'name_bn';
-
         $_attachments = array();
 
         $_db_attachments = DB::table('attachments')
@@ -404,7 +403,8 @@ class Attachment extends Model
                 'attachments.attachment_label',
                 'attachments.mime_type',
                 'attachments.attachment_path',
-                "attachment_types.{$name} as name"
+                'attachment_types.name',
+                'attachment_types.name_bn'
             )
             ->where('attachments.scope_key', $scopeKey)
             ->where('attachments.scope_id', $scopeId)
@@ -434,13 +434,13 @@ class Attachment extends Model
      * @param string  $scopeKey Scope Key
      * @param integer $scopeId  Scope ID
      *
+     * @since v1.1.0 - Get all the fields instead of localized. Localize later.
+     *
      * @return object
      * -----------------------------------------------------------------------
      */
     public static function getAttachments($scopeKey, $scopeId)
     {
-        $name = App::isLocale('en') ? 'name' : 'name_bn';
-
         $attachmentsObj = DB::table('attachments')
             ->leftJoin('attachment_types', 'attachment_types.id', '=', 'attachments.attachment_type_id')
             ->select(
@@ -448,8 +448,9 @@ class Attachment extends Model
                 'attachments.attachment_type_id',
                 'attachments.attachment_label',
                 'attachments.attachment_path',
-                "attachment_types.{$name} as name",
-                "attachment_types.is_required"
+                'attachment_types.name',
+                'attachment_types.name_bn',
+                'attachment_types.is_required'
             )
             ->where('attachments.scope_key', $scopeKey)
             ->where('attachments.scope_id', $scopeId)

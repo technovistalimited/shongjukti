@@ -3,7 +3,6 @@
 namespace Technovistalimited\Shongjukti\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -42,17 +41,18 @@ class AttachmentType extends Model
      * @param  boolean $paginate    Whether to paginate or not.
      * @param  boolean $activeOnly  Whether to fetch 'all' or active only.
      *
+     * @since v1.1.0 - Get all the fields instead of localized. Localize later.
+     *
      * @return object               Attachment Types Object.
      * -----------------------------------------------------------------------
      */
     public static function getAttachmentTypesByScopeKey($scopeKey, $limit = false, $paginate = false, $activeOnly = true)
     {
-        $name = App::isLocale('en') ? 'name' : 'name_bn';
-
         $attachmentTypes = DB::table('attachment_types')
             ->select(
                 'id',
-                "{$name} as name",
+                'name',
+                'name_bn',
                 'accepted_extensions',
                 'is_active',
                 'weight',

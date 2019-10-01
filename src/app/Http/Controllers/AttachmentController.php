@@ -2,6 +2,7 @@
 
 namespace Technovistalimited\Shongjukti\App\Controllers;
 
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 
 /**
@@ -1081,5 +1082,26 @@ class AttachmentController extends Controller
     public static function bytesToMb($bytes)
     {
         return (($bytes / 1024) / 1024);
+    }
+
+    /**
+     * Localize Names.
+     *
+     * @param object $object Object.
+     *
+     * @since v1.1.0
+     *
+     * @return object        Localize Object.
+     * -----------------------------------------------------------------------
+     */
+    public static function localizeNames($object)
+    {
+        if (App::isLocale('bn') && !empty($object->name_bn)) {
+            $object->name = $object->name_bn;
+        } else {
+            $object->name = $object->name;
+        }
+
+        return $object;
     }
 }

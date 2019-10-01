@@ -79,6 +79,8 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
         <?php $_counter = 0; ?>
         @foreach( $attachmentTypes as $attachmentType )
 
+            <?php $attachmentType = Shongjukti::localizeNames($attachmentType); ?>
+
             <div class="attachment-row {{ $attachmentType->is_required ? 'row-required' : '' }}">
                 <div class="row">
 
@@ -244,6 +246,8 @@ if( isset($attachmentTypes) && ! $attachmentTypes->isEmpty() ) {
 
         <?php $_counter = 1; ?>
         @foreach($attachments as $attachment)
+
+            <?php $attachment = Shongjukti::localizeNames($attachment); ?>
 
             <div class="attachment-row">
                 <div class="row">

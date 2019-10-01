@@ -69,4 +69,9 @@ class Shongjukti
     {
         return AttachmentController::mimeTypesFromExtensions($fileExtensions);
     }
+
+    public static function localizeNames($object)
+    {
+        return AttachmentController::localizeNames($object);
+    }
 }

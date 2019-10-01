@@ -61,6 +61,9 @@
                         </thead>
                         <tbody>
                             @foreach( $attachmentTypes as $attachmentType )
+
+                                <?php $attachmentType = Shongjukti::localizeNames($attachmentType); ?>
+
                                 <tr class="{{ $attachmentType->is_active ? '' : 'text-muted' }}">
                                     <td>
                                         <a class="{{ $attachmentType->is_active ? '' : 'text-muted' }}" href="{{ Shongjukti::attachmentTypeEditLink($attachmentType->id) }}">
