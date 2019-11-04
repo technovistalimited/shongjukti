@@ -6,6 +6,7 @@ use Technovistalimited\Shongjukti\App\Controllers\AttachmentController;
 use Technovistalimited\Shongjukti\App\Models\AttachmentType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 /**
  * Attachment Model Class.
@@ -26,7 +27,10 @@ class Attachment extends Model
         'attachment_type_id',
         'attachment_label',
         'mime_type',
-        'attachment_path'
+        'attachment_path',
+
+        'created_at',
+        'updated_at',
     ];
 
 
@@ -295,12 +299,15 @@ class Attachment extends Model
      * @param array $data Array of data.
      *
      * @since v1.1.0 - Returns ID of attachment.
+     * @since v1.1.1 - Added created_at date.
      *
      * @return integer   ID of attachment on insertion.
      * -----------------------------------
      */
     public static function addAttachment($data)
     {
+        $data = array_merge($data, ['created_at' => Carbon::now()]);
+
         return DB::table('attachments')->insertGetId($data);
     }
 
@@ -311,6 +318,8 @@ class Attachment extends Model
      * - delete from file path.
      *
      * @see    self::removeAttachment() To delete file from path.
+     *
+     * @since  v1.1.1 - Added updated_at date.
      *
      * @param  array  $data         Array of data.
      * @param  string $existingPath Existing Path, if found.
@@ -323,6 +332,8 @@ class Attachment extends Model
         if (empty($data)) {
             return false;
         }
+
+        $data = array_merge($data, ['updated_at' => Carbon::now()]);
 
         DB::table('attachments')
             ->where('scope_key', $data['scope_key'])
