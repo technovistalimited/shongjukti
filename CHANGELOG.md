@@ -2,8 +2,8 @@
 
 > **CHANGES**<br>
 > Use the following command for the commits in-between two releases:<br>
-> `git log 'v1.0.4'..'v1.1.0' --oneline` # changes between v1.0.4-v1.1.0<br>
-> `git log 'v1.0.4'..master --oneline` # changes between v1.0.4-master
+> `git log 'v1.1.0'..'v1.1.1' --oneline` # changes between v1.1.0-v1.1.1<br>
+> `git log 'v1.1.0'..master --oneline` # changes between v1.1.0-master
 
 ## Unreleased
 
@@ -16,6 +16,16 @@
 * Nothing for now :)
 
 </details>
+
+## `v1.1.2` - 2020-01-07 - Fix Release
+
+* Config: Maximum upload size limit is now described in binary bytes
+* Feature: Bootstrap-4 specific javascript validation
+
+## `v1.1.1` - 2019-11-04 - Fix Release
+
+* Add fields: `created_at` and `updated_at` data to db
+* Fix: PHPCS ignore linelength warning
 
 ## `v1.1.0` - 2019-10-01 - Feature Release
 
