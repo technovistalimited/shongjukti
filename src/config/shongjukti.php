@@ -14,10 +14,10 @@ return [
      *
      * Accepts: integer
      *
-     * Default: (integer) 5000000 - 5mb in bytes
+     * Default: (integer) 5242880 - 5mb in binary bytes
      * ---------------------------------------------------------------------
      */
-    'upload_max_size' => 5000000,  // 5mb in bytes
+    'upload_max_size' => 5242880,  // 5mb in binary bytes
 
     /**
      * Default File Extensions.
