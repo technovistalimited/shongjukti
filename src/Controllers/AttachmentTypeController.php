@@ -1,9 +1,9 @@
 <?php
 
-namespace Technovistalimited\Shongjukti\App\Controllers;
+namespace Technovistalimited\Shongjukti\Controllers;
 
-use Technovistalimited\Shongjukti\App\Models\AttachmentType;
-use Technovistalimited\Shongjukti\App\Models\Attachment;
+use Technovistalimited\Shongjukti\Models\AttachmentType;
+use Technovistalimited\Shongjukti\Models\Attachment;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;

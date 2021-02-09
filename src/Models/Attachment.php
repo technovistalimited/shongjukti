@@ -1,9 +1,9 @@
 <?php
 
-namespace Technovistalimited\Shongjukti\App\Models;
+namespace Technovistalimited\Shongjukti\Models;
 
-use Technovistalimited\Shongjukti\App\Controllers\AttachmentController;
-use Technovistalimited\Shongjukti\App\Models\AttachmentType;
+use Technovistalimited\Shongjukti\Controllers\AttachmentController;
+use Technovistalimited\Shongjukti\Models\AttachmentType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;

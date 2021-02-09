@@ -9,9 +9,9 @@
 
 namespace Technovistalimited\Shongjukti;
 
-use Technovistalimited\Shongjukti\App\Controllers\AttachmentController;
-use Technovistalimited\Shongjukti\App\Models\AttachmentType;
-use Technovistalimited\Shongjukti\App\Models\Attachment;
+use Technovistalimited\Shongjukti\Controllers\AttachmentController;
+use Technovistalimited\Shongjukti\Models\AttachmentType;
+use Technovistalimited\Shongjukti\Models\Attachment;
 
 class Shongjukti
 {

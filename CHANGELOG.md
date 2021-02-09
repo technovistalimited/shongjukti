@@ -17,6 +17,27 @@
 
 </details>
 
+## `v2.0.0` - 2021-02-09 - Composer 2.0 Compatible Release
+
+* Major Change: Controllers' and Models' Namespaces are changed
+* Directory changed for Controllers and Models
+
+### Migration Guide
+
+Find whether you used these:
+
+```php
+Shongjukti\App\Controllers
+Shongjukti\App\Models
+```
+
+If used, replace them with
+
+```php
+Shongjukti\Controllers
+Shongjukti\Models
+```
+
 ## `v1.1.2` - 2020-01-07 - Fix Release
 
 * Config: Maximum upload size limit is now described in binary bytes

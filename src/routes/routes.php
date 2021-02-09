@@ -7,7 +7,7 @@
  * @subpackage TechnoVistaLimited/Shongjukti
  */
 
-Route::group(['namespace' => 'Technovistalimited\Shongjukti\App\Controllers'], function () {
+Route::group(['namespace' => 'Technovistalimited\Shongjukti\Controllers'], function () {
 
     Route::group(['middleware' => ['web']], function () {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Technovistalimited\Shongjukti\App\Models;
+namespace Technovistalimited\Shongjukti\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

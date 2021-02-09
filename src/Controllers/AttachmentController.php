@@ -1,6 +1,6 @@
 <?php
 
-namespace Technovistalimited\Shongjukti\App\Controllers;
+namespace Technovistalimited\Shongjukti\Controllers;
 
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
