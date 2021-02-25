@@ -31,7 +31,7 @@ The repository was developed as a sub-project of an existing project, with a mis
 
 ## Requirements
 
-- Laravel 5.6+ (Tested up to 5.8.x)
+- Laravel 5.6+ (Tested up to 8.x)
 - Bootstrap 3.4.1/4.x styles
     - Grids
     - Panels (Cards)
