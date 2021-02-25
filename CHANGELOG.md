@@ -2,8 +2,8 @@
 
 > **CHANGES**<br>
 > Use the following command for the commits in-between two releases:<br>
-> `git log 'v1.1.0'..'v1.1.1' --oneline` # changes between v1.1.0-v1.1.1<br>
-> `git log 'v1.1.0'..master --oneline` # changes between v1.1.0-master
+> `git log 'v2.0.0'..'v2.0.1' --oneline` # changes between v2.0.0-v2.0.1<br>
+> `git log 'v2.0.0'..master --oneline` # changes between v2.0.0-master
 
 ## Unreleased
 
@@ -16,6 +16,10 @@
 * Nothing for now :)
 
 </details>
+
+## `v2.0.1` - 2021-02-25 - Migration fix version
+
+* Fix: Migration for the `attachments` table is fixed prior to `v1.1.1`
 
 ## `v2.0.0` - 2021-02-09 - Composer 2.0 Compatible Release
 
@@ -53,9 +57,9 @@ Shongjukti\Models
 * License changed from GPL-3 to MIT
 * Feature: Support added for Shape files (`.shp`, `.shx`)
 * Refactor: Return the ID of the attachment on successful upload instead of boolean
-* Fix: Maximum Upload Size check in PHP
+* Fix: Maximum Upload Size check, in PHP
 * Fix: Attachment Type label not showing in Bengali mode (@props Mowshana Farhana)
-* Fix: Prioritize `$_POST` value over database values in form return values
+* Fix: Prioritize `$_POST` value over database values in the form return values
 * Changelog added
 * General Fixes in Readme file
 * Documentation: Update code documentation
@@ -88,7 +92,7 @@ Shongjukti\Models
 
 ## `v1.0.1` - 2019-03-10 - Packagist version fixed
 
-* Fixed a blocker bug in `composer.json`
+* Fixed a blocker bug in the `composer.json`
 
 ## `v1.0.0` - 2019-03-10 - Official Release in Packagist
 
@@ -98,13 +102,13 @@ Shongjukti\Models
 
 ### `v0.1.2` - 2019-03-10 - Package Released in Packagist
 
-* Fixed `composer.json` file for packagist parsing
+* Fixed `composer.json` file for the Packagist parsing
 * Minor fixes in Attachment Type model
 
 ### `v0.1.1` - 2019-03-10 - Bug Fixed Release
 
 * Blocker bug fixed in Attachment Type Controller
-* Documentation completely moved to Github Wiki
+* Documentation is completely moved to Github Wiki
 * Fixed Translation Strings
 
 ### `v0.1.0` - 2019-03-07 - Laravel Package Release
