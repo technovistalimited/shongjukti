@@ -88,7 +88,7 @@
                                     </td>
 
                                     <td>
-                                        {{ empty($attachmentType->accepted_extensions) ? '-' : str_limit($attachmentType->accepted_extensions, 50, '...') }}
+                                        {{ empty($attachmentType->accepted_extensions) ? '-' : Str::limit($attachmentType->accepted_extensions, 50, '...') }}
                                     </td>
 
                                     <td>
